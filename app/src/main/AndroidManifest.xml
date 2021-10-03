@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetHere">
         <activity
+            android:name=".ShowResult_2_7"
+            android:exported="true" />
+        <activity
+            android:name=".SelectDestination_2_6"
+            android:exported="true" />
+        <activity
+            android:name=".SetLocation_2_4"
+            android:exported="true" />
+        <activity
             android:name=".SelectLocation_2_5"
             android:exported="true" />
         <activity
