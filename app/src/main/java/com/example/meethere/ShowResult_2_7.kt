@@ -3,6 +3,7 @@ package com.example.meethere
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meethere.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_show_result27.*
 
 class ShowResult_2_7 : AppCompatActivity() {

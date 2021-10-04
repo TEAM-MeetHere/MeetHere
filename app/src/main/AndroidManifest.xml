@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetHere">
         <activity
+            android:name=".ShowDetail_2_8"
+            android:exported="true" />
+        <activity
             android:name=".ShowResult_2_7"
             android:exported="true" />
         <activity
