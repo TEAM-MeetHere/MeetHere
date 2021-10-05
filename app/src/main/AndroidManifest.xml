@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.meethere">
 
     <!--
@@ -53,10 +54,31 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity"
+            android:theme="@style/ID"/>
+        <activity android:name=".RegisterActivity"
+            android:label="회원가입"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/Register"/>
+        <activity android:name=".FindID"
+            android:label="아이디 찾기"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/Register"/>
+        <activity android:name=".FindPW"
+            android:label="비밀번호 찾기"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/Register"/>
+        <activity android:name=".AuthID"
+            android:label="이메일 인증"
+            android:parentActivityName=".RegisterActivity"
+            android:theme="@style/Register"/>
+        <activity android:name=".SplashActivity"
+            android:theme="@style/Splash"
+
+            
     </application>
 
 </manifest>

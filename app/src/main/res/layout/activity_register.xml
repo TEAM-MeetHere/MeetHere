@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="아이디"
+    android:textSize="20dp"
+    android:layout_marginTop="120dp"
+    android:layout_marginLeft="50dp"/>
+
+    <EditText
+        android:id="@+id/register_email"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/border"
+        android:ems="15"
+        android:gravity="center"
+        android:hint="  ****@****.com"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="비밀번호"
+    android:textSize="20dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="50dp"/>
+
+<EditText
+    android:id="@+id/register_pw"
+    android:layout_width="wrap_content"
+    android:layout_height="37dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="50dp"
+    android:background="@drawable/border"
+    android:ems="15"
+    android:gravity="center"
+    android:hint=" 영문자, 숫자의 조합으로 6~45자"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="비밀번호 확인"
+    android:textSize="20dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="50dp"/>
+
+<EditText
+    android:id="@+id/register_rewrite_pw"
+    android:layout_width="wrap_content"
+    android:layout_height="37dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="50dp"
+    android:background="@drawable/border"
+    android:ems="15"
+    android:gravity="center"
+    android:hint=" 비밀번호 재확인"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="이름"
+    android:textSize="20dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="50dp"/>
+
+<EditText
+    android:id="@+id/register_name"
+    android:layout_width="wrap_content"
+    android:layout_height="37dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="50dp"
+    android:background="@drawable/border"
+    android:ems="15"
+    android:gravity="center"
+    android:hint=" 사용할 닉네임을 입력"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="주소"
+    android:textSize="20dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="50dp"/>
+
+<EditText
+    android:id="@+id/register_address"
+    android:layout_width="wrap_content"
+    android:layout_height="37dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="50dp"
+    android:background="@drawable/border"
+    android:ems="15"
+    android:gravity="center"
+    android:hint=" 이곳을 터치하여 검색"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="휴대전화"
+    android:textSize="20dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="50dp"/>
+
+<EditText
+    android:id="@+id/register_phone"
+    android:layout_width="wrap_content"
+    android:layout_height="37dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="50dp"
+    android:background="@drawable/border"
+    android:ems="15"
+    android:gravity="center"
+    android:hint=" - 을 제외하고 입력"/>
+
+<Button
+    android:id="@+id/auth_ID"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="60dp"
+    android:layout_gravity="center"
+    android:text="아이디 인증"
+    android:textStyle="bold"
+    android:ems="15"
+    android:background="#14B411"/>
+
+
+
+
+</LinearLayout>
