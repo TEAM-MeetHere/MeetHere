@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        temporarybtn.setOnClickListener {
+        buttonMainStart.setOnClickListener {
             val intent = Intent(applicationContext, SetLocation_2_4::class.java)
             startActivity(intent)
         }
