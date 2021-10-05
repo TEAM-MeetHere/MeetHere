@@ -2,4 +2,5 @@
     <string name="app_name">MeetHere</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_show_detail_map29">ShowDetailMap_2_9</string>
 </resources>
