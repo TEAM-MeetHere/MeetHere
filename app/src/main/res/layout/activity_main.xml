@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewMainLogo" />
 
     <Button
-        android:id="@+id/buttomMainHelp"
+        android:id="@+id/buttonMainHelp"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_marginStart="40dp"
@@ -64,7 +64,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttomMainHelp" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonMainHelp" />
 
     <Button
         android:id="@+id/buttonMainBookmark"
