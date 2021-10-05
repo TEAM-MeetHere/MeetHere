@@ -10,4 +10,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="jinBlack">#242424</color>
+    <color name="softBlack">#7E7E7E</color>
+    <color name="hite">#FFFFFF</color>
+    <color name="green">#14B411</color>
+    <color name="green2">#0CFF16</color>
+    <color name="beigi">#F4D6BC</color>
+    <color name="beigi2">#F8E4CC</color>
+    <color name="blue">#8FBCDB</color>
+    <color name="blue2">#AED1E9</color>
+
 </resources>
