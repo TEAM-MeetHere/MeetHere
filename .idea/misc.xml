@@ -7,6 +7,9 @@
         <entry key="..\:/android/MeetHere/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26979166666666665" />
         <entry key="..\:/android/MeetHere/app/src/main/res/drawable/splash_logo.xml" value="0.264" />
         <entry key="..\:/android/MeetHere/app/src/main/res/layout/actiity_login.xml" value="0.1796875" />
+        <entry key="..\:/android/MeetHere/app/src/main/res/layout/activity_auth_id.xml" value="0.21296296296296297" />
+        <entry key="..\:/android/MeetHere/app/src/main/res/layout/activity_find_id.xml" value="0.21296296296296297" />
+        <entry key="..\:/android/MeetHere/app/src/main/res/layout/activity_find_pw.xml" value="0.21296296296296297" />
         <entry key="..\:/android/MeetHere/app/src/main/res/layout/activity_login.xml" value="0.1796875" />
         <entry key="..\:/android/MeetHere/app/src/main/res/layout/activity_login_linear.xml" value="0.2" />
         <entry key="..\:/android/MeetHere/app/src/main/res/layout/activity_main.xml" value="0.21296296296296297" />
