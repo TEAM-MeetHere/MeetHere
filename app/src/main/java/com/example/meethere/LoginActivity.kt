@@ -25,5 +25,10 @@ class LoginActivity : AppCompatActivity(){
             val intent = Intent(this,FindPW::class.java)
             startActivity(intent)
         })
+
+        login_btn.setOnClickListener({
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        })
     }
 }
