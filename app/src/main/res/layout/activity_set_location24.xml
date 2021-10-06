@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SetLocation_2_4">
+    tools:context=".SetLocation_2_4"
+    android:weightSum="10">
 
     <EditText
         android:id="@+id/etKeyword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
-        android:ems="10"
+
         android:autofillHints="username"
+        android:ems="10"
         android:hint="원하는 장소를 입력해주세요."
         android:inputType="textPersonName"
+        android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
@@ -24,8 +28,8 @@
 
     <ScrollView
         android:id="@+id/scrollView24"
-        android:layout_width="0dp"
-        android:layout_height="450dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
@@ -34,7 +38,8 @@
         android:background="@drawable/borderline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etKeyword">
+        app:layout_constraintTop_toBottomOf="@+id/etKeyword"
+        android:layout_weight="8">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,11 +70,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnStart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
         android:layout_weight="1"
         android:background="@drawable/button_color_drawable"
         android:text="입력된 정보로 \n최적 목적지 검색 시작"
@@ -77,4 +83,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView24" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

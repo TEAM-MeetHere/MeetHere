@@ -10,9 +10,9 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="colorPrimary">#F8E4CC</item>
     </style>
-    <style name="Search" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="colorPrimary">#F8E4CC</item>
+    <style name="Search" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+    <style name="Main" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
 </resources>
