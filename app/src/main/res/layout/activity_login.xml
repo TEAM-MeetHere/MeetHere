@@ -66,8 +66,8 @@
         android:layout_gravity="center"
         android:ems="5"
         android:textSize="20sp"
-        android:textColor="@color/white"
-        android:background="@drawable/button_color_drawable"/>
+        android:textColor="@color/black"
+        android:background="@drawable/button_color_drawable2"/>
 
     <!-- 아이디 찾기 버튼 -->
     <LinearLayout

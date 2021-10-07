@@ -4,11 +4,8 @@
         android:radius="10dp"
         />
     <solid
-        android:color="@color/beigi2"
+        android:color="@color/subColor"
         />
-    <stroke
-        android:width="1dp"
-        android:color="@color/black"/>
     <padding
         android:left="0dp"
         android:top="0dp"
