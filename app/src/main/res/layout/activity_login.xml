@@ -2,56 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    android:background="@color/white"
+    android:orientation="vertical"
     android:weightSum="10"
-    android:background="@color/white">
+    tools:context=".LoginActivity">
 
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_weight="2" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        app:srcCompat="@drawable/screen_light_small"
-        />
+        app:srcCompat="@drawable/screen_light_small" />
 
     <!-- ID part -->
     <EditText
         android:id="@+id/login_id"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.75"
-        android:paddingTop="50dp"
-        android:background="@drawable/border"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:ems="10"
         android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_weight="0.75"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="아이디"
         android:inputType="textEmailAddress"
-        android:singleLine="true"
-        android:hint="아이디"/>
+        android:padding="10dp"
+        android:singleLine="true" />
 
     <!-- PW part -->
     <EditText
         android:id="@+id/login_pw"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_gravity="center"
         android:layout_weight="0.75"
         android:background="@drawable/border"
-        android:padding="10dp"
         android:ems="10"
-        android:layout_gravity="center"
+        android:hint="비밀번호"
         android:inputType="textPassword"
-        android:singleLine="true"
-        android:hint="비밀번호"/>
+        android:padding="10dp"
+        android:singleLine="true" />
 
 
     <!-- 로그인 버튼 -->
@@ -59,55 +57,55 @@
         android:id="@+id/login_btn"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="로그인"
-        android:layout_margin="20dp"
-        android:textStyle="bold"
-        android:layout_weight="0.75"
         android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:layout_weight="0.75"
+        android:background="@drawable/button_color_drawable2"
         android:ems="5"
-        android:textSize="20sp"
+        android:text="로그인"
         android:textColor="@color/black"
-        android:background="@drawable/button_color_drawable2"/>
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <!-- 아이디 찾기 버튼 -->
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/find_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="아이디 찾기"
-            android:textStyle="bold"
             android:layout_gravity="center"
-            android:background="#00ff0000"/>
+            android:layout_weight="1"
+            android:background="#00ff0000"
+            android:text="아이디 찾기"
+            android:textStyle="bold" />
 
         <Button
-            android:id ="@+id/find_pw"
+            android:id="@+id/find_pw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="비밀번호 찾기"
-            android:textStyle="bold"
             android:layout_gravity="center"
-            android:background="#00ff0000"/>
+            android:layout_weight="1"
+            android:background="#00ff0000"
+            android:text="비밀번호 찾기"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/join"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="회원가입"
-            android:textStyle="bold"
             android:layout_gravity="center"
-            android:background="#00ff0000"/>
+            android:layout_weight="1"
+            android:background="#00ff0000"
+            android:text="회원가입"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
-
 
 
 </LinearLayout>

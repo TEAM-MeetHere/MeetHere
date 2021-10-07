@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -7,18 +8,23 @@
         <item name="android:windowBackground">@color/mainColor</item>
     </style>
 
-    <style name="ID" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="ID" parent="Theme.AppCompat.Light.NoActionBar" />
+
     <style name="Register" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="colorPrimary">#F8E4CC</item>
+        <item name="colorPrimary">@color/mainColor</item>
+        <item name="colorPrimaryDark">@color/mainColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
+
     <style name="Search" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="colorPrimary">#F8E4CC</item>
+        <item name="colorPrimary">@color/subColor</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
-    <style name="Main" parent="Theme.AppCompat.Light.NoActionBar">
-    </style>
+
+    <style name="Main" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
 </resources>

@@ -2,39 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="16"
+    tools:context=".AuthID">
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_weight="1"
+        android:gravity="bottom|left"
         android:text="인증번호 입력"
-        android:textSize="20dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginLeft="50dp"/>
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/authID_code"
-        android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_weight="1"
         android:background="@drawable/border"
-        android:ems="15"
-        android:gravity="center"
-        android:hint="메일로 전송된 인증번호를 입력해주세요"/>
+        android:gravity="left|center_vertical"
+        android:hint="인증번호가 메일로 전송되었습니다"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/authID_register"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_color_drawable"
+        android:ems="7"
         android:text="회원가입"
-        android:textStyle="bold"
-        android:ems="15"
-        android:background="#14B411"/>
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 </LinearLayout>
