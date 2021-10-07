@@ -3,6 +3,8 @@ package com.example.meethere
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_set_location24.*
 
@@ -13,6 +15,7 @@ class SetLocation_2_4 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_location24)
         addressAdapter = AddressAdopter(mutableListOf())
+
 
         recyclerViewAddress.adapter = addressAdapter
         recyclerViewAddress.layoutManager = LinearLayoutManager(this)
@@ -32,5 +35,13 @@ class SetLocation_2_4 : AppCompatActivity() {
             val intent = Intent(applicationContext, SelectDestination_2_6::class.java)
             startActivity(intent)
         }
+
+
+    }
+    fun getStatusBarHeight(): Int {
+        var result = 0
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) result = resources.getDimensionPixelSize(resourceId)
+        return result
     }
 }

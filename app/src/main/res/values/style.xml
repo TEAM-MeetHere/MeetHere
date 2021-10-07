@@ -4,13 +4,19 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/mainColor</item>
     </style>
+
     <style name="ID" parent="Theme.AppCompat.Light.NoActionBar"/>
     <style name="Register" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="colorPrimary">#F8E4CC</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
-    <style name="Search" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Search" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">#F8E4CC</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
     <style name="Main" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
