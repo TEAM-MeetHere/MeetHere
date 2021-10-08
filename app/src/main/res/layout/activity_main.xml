@@ -2,102 +2,138 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="10"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="여기서 만나"
-        android:textSize="60dp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        app:srcCompat="@drawable/screen_light_small" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|center"
+        android:weightSum="2">
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0" />
+
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="50dp"
-            android:text="임영택 님 안녕하세요!"
-            android:textSize="20dp"/>
+            android:text="이름 님 안녕하세요!"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_weight="1.75"/>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-        <Button
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/edit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="50dp"
-            android:text="내 정보 수정"
-            android:textStyle="bold"
+            android:background="@drawable/button_color_drawable3"
+            android:text="정보 수정"
             android:textColor="@color/black"
-            android:background="#F8E4CC"/>
+            android:textStyle="bold"
+            android:layout_weight="0.25"/>
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0" />
+
     </LinearLayout>
-
-
 
     <Button
         android:id="@+id/new_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:ems="25"
-        android:text="처음 오셨다면?"
-        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/border_new_btn"/>
+        android:layout_weight="1"
+        android:background="@drawable/border"
+        android:text="처음 오셨다면?"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_weight="0" />
 
     <Button
         android:id="@+id/search_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:ems="25"
-        android:text="장소 검색 시작"
-        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/border_search_btn"/>
+        android:layout_weight="2"
+        android:background="@drawable/button_color_drawable"
+        android:text="장소 검색 시작"
+        android:textColor="@color/subColor"
+
+        android:textSize="30sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_weight="0" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|center"
+        android:weightSum="2">
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0" />
+
         <Button
             android:id="@+id/bookmark_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="50dp"
-            android:text="즐겨찾기목록"
-            android:textSize="20dp"
-            android:background="@drawable/border"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"
+
+            android:background="@drawable/button_color_drawable2"
+            android:text="즐겨찾기\n목록"
+            android:textSize="20sp"
+            android:layout_weight="1"
+
+            />
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0" />
         <Button
             android:id="@+id/code_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="50dp"
-            android:text="공유코드입력"
-            android:textSize="20dp"
-            android:background="@drawable/border"/>
+            android:layout_height="match_parent"
+            android:background="@drawable/button_color_drawable4"
+            android:text="공유코드\n입력"
+            android:textSize="20sp"
+            android:layout_weight="1" />
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0" />
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>
