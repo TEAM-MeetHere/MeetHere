@@ -23,11 +23,11 @@ class ResultAdopter (
         val btn = binding.btnDetail
 
         init {
-            binding.btnDetail.setOnClickListener {
+/*            binding.btnDetail.setOnClickListener {
                 fun OnClick(view: View) {
                     Toast.makeText(view.context, "Item is clicked", Toast.LENGTH_SHORT).show()
                 }
-            }
+            }*/
         }
 
     }
