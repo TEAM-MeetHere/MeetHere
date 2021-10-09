@@ -10,6 +10,11 @@ class ShowDetail_2_8 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_detail28)
 
+        val intent = intent
+        val Name = intent.getStringExtra("Name")
+
+        textViewNameDetail.text = Name + " 님의 상세 경로"
+
         btnShowMap.setOnClickListener {
             //val intent = Intent(applicationContext, selectDestination_2_6::class.java)
             val intent = Intent(applicationContext, ShowDetailMap_2_9::class.java)

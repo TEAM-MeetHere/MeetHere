@@ -67,6 +67,7 @@ class ResultAdopter (
                 notifyDataSetChanged()*/
                 val context=holder.itemView.context
                 val intent = Intent(context, ShowDetail_2_8::class.java)
+                intent.putExtra("Name",curAddress.Name)
                 context.startActivity(intent)
             }
         })

@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
             val mAlertDialog = mBuilder.show()
             val okButton = mCodeView.findViewById<Button>(R.id.input_code_btn)
             okButton.setOnClickListener{
+                val intent = Intent(this, ShowResult_2_7::class.java)
+                startActivity(intent)
                 mAlertDialog.dismiss()
             }
         }

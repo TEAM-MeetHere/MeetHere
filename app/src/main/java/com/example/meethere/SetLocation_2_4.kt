@@ -20,31 +20,40 @@ class SetLocation_2_4 : AppCompatActivity() {
         recyclerViewAddress.adapter = addressAdapter
         recyclerViewAddress.layoutManager = LinearLayoutManager(this)
 
-        val address1 = "인천광역시 미추홀구 인하로 100"
+/*        val address1 = "인천광역시 미추홀구 인하로 100"
         val name1 = "김철수"
         val addressObject1 = Address(address1,name1)
-        val address2 = "경기 부천시 부일로469번길 28"
+        val address2 = "인천광역시 남동구 정각로 29 인천광역시청"
         val name2 = "박민수"
         val addressObject2 = Address(address2,name2)
-        val address3 = "인천광역시 미추홀구 인하로 100"
+        val address3 = "인천광역시 서구 가좌동 217"
         val name3 = "최진수"
         val addressObject3 = Address(address3,name3)
 
         addressAdapter.addAddress(addressObject1)
         addressAdapter.addAddress(addressObject2)
-        addressAdapter.addAddress(addressObject3)
+        addressAdapter.addAddress(addressObject3)*/
 
+        var arrayAD = arrayOf<String>("인천광역시 미추홀구 인하로 100","인천광역시 남동구 정각로 29","인천광역시 서구 가좌동 217","인천광역시 미추홀구 주안동 24-24")
+        var arrayNM = arrayOf<String>("김철수","박민수","최진수","이상수")
+        var arrayOB = Array(10) { Address("임시 주소", "임시 이름") }
 
+        for (a in 0..3) {
+            arrayOB[a] = Address(arrayAD[a],arrayNM[a])
+        }
+
+        var listnumber = 0
         btnAdd.setOnClickListener {
             /* val address = textViewAddress.text.toString()
              val name = textViewName.text.toString()*/
-            val address = "인천광역시 미추홀구 인하로 100"
-            val name = "임영택"
+            val address = "주소 추가"
+            val name = "임시"
             val addressObject = Address(address,name)
 
             val intent = Intent(applicationContext, SelectLocation_2_5::class.java)
             startActivity(intent) // 후일에 고칠 부분
-            addressAdapter.addAddress(addressObject)
+            addressAdapter.addAddress(arrayOB[listnumber])
+            listnumber++
         }
         btnStart.setOnClickListener {
             //val intent = Intent(applicationContext, selectDestination_2_6::class.java)
