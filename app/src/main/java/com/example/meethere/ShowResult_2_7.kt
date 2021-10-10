@@ -31,13 +31,13 @@ class ShowResult_2_7 : AppCompatActivity() {
         recyclerViewResult.adapter = resultAdapter
         recyclerViewResult.layoutManager = LinearLayoutManager(this)
 
-        val resultObject1 = Result("김철수",33)
+        val resultObject1 = Result("김철수", 33)
         resultAdapter.addResult(resultObject1)
-        val resultObject2 = Result("박민수",31)
+        val resultObject2 = Result("박민수", 31)
         resultAdapter.addResult(resultObject2)
-        val resultObject3 = Result("최진수",29)
+        val resultObject3 = Result("최진수", 29)
         resultAdapter.addResult(resultObject3)
-        val resultObject4 = Result("이상수",38)
+        val resultObject4 = Result("이상수", 38)
         resultAdapter.addResult(resultObject4)
 
         buttonSave.setOnClickListener {

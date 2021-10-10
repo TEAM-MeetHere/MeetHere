@@ -16,10 +16,10 @@ import androidx.core.content.ContextCompat.startActivity
 import java.security.AccessController.getContext
 
 
-class ResultAdopter (
+class ResultAdopter(
     private val results: MutableList<Result>
 ) : RecyclerView.Adapter<ResultAdopter.ResultViewHolder>() {
-    class ResultViewHolder(val binding: ItemResultBinding) : RecyclerView.ViewHolder (binding.root) {
+    class ResultViewHolder(val binding: ItemResultBinding) : RecyclerView.ViewHolder(binding.root) {
         val btn = binding.btnDetail
 
         init {
@@ -33,7 +33,7 @@ class ResultAdopter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultViewHolder {
-        val binding = ItemResultBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         /*return ResultViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_result,
@@ -59,15 +59,15 @@ class ResultAdopter (
             textViewTime.text = curAddress.Time.toString()
         }
 
-        holder.btn.setOnClickListener(object: View.OnClickListener {
+        holder.btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
 /*                Log.d("sss","Test btn${results[position].Name}")
                 if(results.isNotEmpty())
                     results.remove(results[position])
                 notifyDataSetChanged()*/
-                val context=holder.itemView.context
+                val context = holder.itemView.context
                 val intent = Intent(context, ShowDetail_2_8::class.java)
-                intent.putExtra("Name",curAddress.Name)
+                intent.putExtra("Name", curAddress.Name)
                 context.startActivity(intent)
             }
         })

@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectLocation_2_5"
-    android:weightSum="20">
+    android:orientation="vertical"
+    android:weightSum="20"
+    tools:context=".SelectLocation_2_5">
 
     <Space
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:background="@drawable/border"
         android:ems="10"
         android:hint="주소 검색 구현 예정"
-        android:padding="10dp"/>
+        android:padding="10dp" />
 
     <Space
         android:layout_width="match_parent"
@@ -37,6 +37,5 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="15"
-        android:background="@drawable/borderline_gray"
-        />
+        android:background="@drawable/borderline_gray" />
 </LinearLayout>

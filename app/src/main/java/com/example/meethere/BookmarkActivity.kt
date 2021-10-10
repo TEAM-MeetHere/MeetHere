@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.databinding.ActivityBookmarkBinding
 import com.example.meethere.databinding.ActivityMainBinding
 
-class BookmarkActivity : AppCompatActivity(){
-    private var mBinding : ActivityBookmarkBinding? = null
+class BookmarkActivity : AppCompatActivity() {
+    private var mBinding: ActivityBookmarkBinding? = null
     private val binding get() = mBinding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,24 +18,9 @@ class BookmarkActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         val bookmarkList = arrayListOf(
-            BookmarkItem(R.drawable.star, "카페베네 인하점"),
-            BookmarkItem(R.drawable.star, "카페베네 부곡점"),
-            BookmarkItem(R.drawable.star, "카페베네 a점"),
-            BookmarkItem(R.drawable.star, "카페베네 b점"),
-            BookmarkItem(R.drawable.star, "카페베네 c점"),
-            BookmarkItem(R.drawable.star, "카페베네 d점"),
-            BookmarkItem(R.drawable.star, "카페베네 e점"),
-            BookmarkItem(R.drawable.star, "카페베네 f점"),
-            BookmarkItem(R.drawable.star, "카페베네 e점"),
-            BookmarkItem(R.drawable.star, "카페베네 f점"),
-            BookmarkItem(R.drawable.star, "카페베네 e점"),
-            BookmarkItem(R.drawable.star, "카페베네 f점"),
-            BookmarkItem(R.drawable.star, "카페베네 e점"),
-            BookmarkItem(R.drawable.star, "카페베네 f점"),
-            BookmarkItem(R.drawable.star, "카페베네 e점"),
-            BookmarkItem(R.drawable.star, "카페베네 f점"),
-            BookmarkItem(R.drawable.star, "카페베네 e점"),
-            BookmarkItem(R.drawable.star, "카페베네 f점")
+            BookmarkItem(R.drawable.star, "인하대학교"),
+            BookmarkItem(R.drawable.star, "카페베네 부평점"),
+            BookmarkItem(R.drawable.star, "CPU 게임랜드"),
         )
 
 

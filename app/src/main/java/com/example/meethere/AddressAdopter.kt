@@ -9,22 +9,24 @@ import com.example.meethere.databinding.ItemAddressBinding
 import kotlinx.android.synthetic.main.item_address.view.*
 
 
-class AddressAdopter (
+class AddressAdopter(
     private val addresses: MutableList<Address>
 ) : RecyclerView.Adapter<AddressAdopter.AddressViewHolder>() {
-    class AddressViewHolder(val binding: ItemAddressBinding) : RecyclerView.ViewHolder (binding.root) {
+    class AddressViewHolder(val binding: ItemAddressBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val btn2 = binding.btnDeleteAddress
 
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {
-        val binding = ItemAddressBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-      /*  return AddressViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_address,
-                parent,
-                false
-            )
-        )*/
+        val binding = ItemAddressBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        /*  return AddressViewHolder(
+              LayoutInflater.from(parent.context).inflate(
+                  R.layout.item_address,
+                  parent,
+                  false
+              )
+          )*/
         return AddressViewHolder(binding)
     }
 
@@ -43,9 +45,9 @@ class AddressAdopter (
             textViewName.text = curAddress.Name
         }
 
-        holder.btn2.setOnClickListener(object: View.OnClickListener {
+        holder.btn2.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                if(addresses.isNotEmpty())
+                if (addresses.isNotEmpty())
                     addresses.remove(addresses[holder.adapterPosition])
                 notifyDataSetChanged()
             }

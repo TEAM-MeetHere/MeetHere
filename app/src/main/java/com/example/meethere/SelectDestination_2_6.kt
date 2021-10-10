@@ -9,8 +9,8 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_select_destination26.*
 
 class SelectDestination_2_6 : AppCompatActivity() {
-    lateinit var tabTime:selectDestination_sort_time
-    lateinit var tabDistance:selectDestination_sort_distance
+    lateinit var tabTime: selectDestination_sort_time
+    lateinit var tabDistance: selectDestination_sort_distance
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class SelectDestination_2_6 : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.frameLayout, tabTime).commit()
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when(tab?.position) {
+                when (tab?.position) {
                     0 -> {
                         //Tab1
                         replaceView(tabTime)
@@ -31,12 +31,15 @@ class SelectDestination_2_6 : AppCompatActivity() {
                     }
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {
 
             }
+
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }
+
             private fun replaceView(tab: Fragment) {
                 //화면 변경
                 var selectedFragment: Fragment? = null

@@ -20,8 +20,8 @@ class SplashActivity : AppCompatActivity() {
         }, DURATION)
     }
 
-    companion object{
-        private const val DURATION : Long=2000
+    companion object {
+        private const val DURATION: Long = 2000
     }
 
     override fun onBackPressed() {
