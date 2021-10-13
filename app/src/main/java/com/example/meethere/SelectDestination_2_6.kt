@@ -3,6 +3,7 @@ package com.example.meethere
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.google.android.material.progressindicator.BaseProgressIndicator
 import com.google.android.material.tabs.TabLayout
@@ -54,5 +55,14 @@ class SelectDestination_2_6 : AppCompatActivity() {
             val intent2 = Intent(applicationContext, ShowResult_2_7::class.java)
             startActivity(intent2)
         }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

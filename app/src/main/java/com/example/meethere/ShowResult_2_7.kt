@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_show_result27.*
 import kotlinx.android.synthetic.main.item_result.*
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.view.MenuItem
 
 
 class ShowResult_2_7 : AppCompatActivity() {
@@ -59,6 +60,16 @@ class ShowResult_2_7 : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
