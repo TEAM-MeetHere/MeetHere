@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         search_btn.setOnClickListener({
-            val intent = Intent(this, SetLocation_2_4Activity::class.java)
+            val intent = Intent(this, SetLocationNew::class.java)
             startActivity(intent)
         })
 

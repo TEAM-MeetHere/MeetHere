@@ -12,29 +12,30 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-<!--android:usesCleartextTraffic="true"
-    android:hardwareAccelerated="true"-->
-
     <application
-        android:usesCleartextTraffic="true"
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MeetHere">
-
+        android:theme="@style/Theme.MeetHere"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.SetLocationNew"
+            android:exported="true"
+            android:label="장소 검색하기"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/Search"/>
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/Splash"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/ID" />
@@ -58,57 +59,54 @@
             android:label="이메일 인증"
             android:parentActivityName=".activity.RegisterActivity"
             android:theme="@style/Register" />
-
-        <activity android:name=".activity.EditActivity"
+        <activity
+            android:name=".activity.EditActivity"
             android:label="정보 수정"
             android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/Register"/>
-        <activity android:name=".activity.BookmarkActivity"
+            android:theme="@style/Register" />
+        <activity
+            android:name=".activity.BookmarkActivity"
             android:label="즐겨찾기"
             android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/Register"/>
-
+            android:theme="@style/Register" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
-            android:theme="@style/Main">
-        </activity>
-
+            android:theme="@style/Main"></activity>
         <activity
             android:name=".activity.SetLocation_2_4Activity"
             android:label="주소 입력"
             android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/Search"/>
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.SelectLocation_2_5Activity"
             android:label="상세 주소 입력"
             android:parentActivityName=".activity.SetLocation_2_4Activity"
-            android:theme="@style/Search"/>
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.SelectDestination_2_6Activity"
             android:label="목적지 선택"
             android:parentActivityName=".activity.SetLocation_2_4Activity"
-            android:theme="@style/Search"/>
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.ShowResult_2_7Activity"
             android:label="검색결과"
             android:parentActivityName=".activity.SelectDestination_2_6Activity"
-            android:theme="@style/Search"/>
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.ShowDetail_2_8Activity"
             android:label="상세보기"
             android:parentActivityName=".activity.ShowResult_2_7Activity"
-            android:theme="@style/Search"/>
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.ShowDetailMap_2_9Activity"
             android:label="지도보기"
             android:parentActivityName=".activity.ShowDetail_2_8Activity"
-            android:theme="@style/Search"/>
+            android:theme="@style/Search" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
     </application>
 
 </manifest>
