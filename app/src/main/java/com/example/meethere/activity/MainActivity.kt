@@ -1,4 +1,4 @@
-package com.example.meethere
+package com.example.meethere.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import com.example.meethere.*
 import com.example.meethere.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             val mAlertDialog = mBuilder.show()
             val okButton = mCodeView.findViewById<Button>(R.id.input_code_btn)
             okButton.setOnClickListener {
-                val intent = Intent(this, ShowResult_2_7::class.java)
+                val intent = Intent(this, ShowResult_2_7Activity::class.java)
                 startActivity(intent)
                 mAlertDialog.dismiss()
             }
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         search_btn.setOnClickListener({
-            val intent = Intent(this, SetLocation_2_4::class.java)
+            val intent = Intent(this, SetLocation_2_4Activity::class.java)
             startActivity(intent)
         })
 

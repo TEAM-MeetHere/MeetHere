@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="16"
-    tools:context=".FindID">
+    tools:context=".activity.FindIDActivity">
 
     <TextView
         android:layout_width="wrap_content"

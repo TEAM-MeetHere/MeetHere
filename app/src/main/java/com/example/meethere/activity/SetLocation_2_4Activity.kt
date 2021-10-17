@@ -1,20 +1,21 @@
-package com.example.meethere
+package com.example.meethere.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meethere.Address
+import com.example.meethere.R
+import com.example.meethere.adapter.AddressAdapter
 import kotlinx.android.synthetic.main.activity_set_location24.*
 
-class SetLocation_2_4 : AppCompatActivity() {
-    private lateinit var addressAdapter: AddressAdopter
+class SetLocation_2_4Activity : AppCompatActivity() {
+    private lateinit var addressAdapter: AddressAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_location24)
-        addressAdapter = AddressAdopter(mutableListOf())
+        addressAdapter = AddressAdapter(mutableListOf())
 
 
         recyclerViewAddress.adapter = addressAdapter
@@ -55,14 +56,14 @@ class SetLocation_2_4 : AppCompatActivity() {
             val name = "임시"
             val addressObject = Address(address, name)
 
-            val intent = Intent(applicationContext, SelectLocation_2_5::class.java)
+            val intent = Intent(applicationContext, SelectLocation_2_5Activity::class.java)
             startActivity(intent) // 후일에 고칠 부분
             addressAdapter.addAddress(arrayOB[listnumber])
             listnumber++
         }
         btnStart.setOnClickListener {
             //val intent = Intent(applicationContext, selectDestination_2_6::class.java)
-            val intent = Intent(applicationContext, SelectDestination_2_6::class.java)
+            val intent = Intent(applicationContext, SelectDestination_2_6Activity::class.java)
             startActivity(intent)
         }
 

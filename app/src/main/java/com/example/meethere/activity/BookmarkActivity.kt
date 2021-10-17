@@ -1,12 +1,12 @@
-package com.example.meethere
+package com.example.meethere.activity
 
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.BitmapCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meethere.adapter.BookmarkAdapter
+import com.example.meethere.BookmarkItem
+import com.example.meethere.R
 import com.example.meethere.databinding.ActivityBookmarkBinding
-import com.example.meethere.databinding.ActivityMainBinding
 
 class BookmarkActivity : AppCompatActivity() {
     private var mBinding: ActivityBookmarkBinding? = null

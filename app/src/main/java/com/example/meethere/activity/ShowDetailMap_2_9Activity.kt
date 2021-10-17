@@ -1,8 +1,9 @@
-package com.example.meethere
+package com.example.meethere.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import com.example.meethere.R
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -12,7 +13,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.meethere.databinding.ActivityShowDetailMap29Binding
 
-class ShowDetailMap_2_9 : AppCompatActivity(), OnMapReadyCallback {
+class ShowDetailMap_2_9Activity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityShowDetailMap29Binding

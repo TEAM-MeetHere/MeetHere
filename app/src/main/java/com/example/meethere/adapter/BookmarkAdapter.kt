@@ -1,4 +1,4 @@
-package com.example.meethere
+package com.example.meethere.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.meethere.BookmarkItem
+import com.example.meethere.R
 
 class BookmarkAdapter(val locationList: ArrayList<BookmarkItem>) :
     RecyclerView.Adapter<BookmarkAdapter.CustomViewHolder>() {

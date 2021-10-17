@@ -1,25 +1,26 @@
-package com.example.meethere
+package com.example.meethere.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_set_location24.*
 import kotlinx.android.synthetic.main.activity_show_result27.*
 import kotlinx.android.synthetic.main.item_result.*
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.view.MenuItem
+import com.example.meethere.R
+import com.example.meethere.Result
+import com.example.meethere.adapter.ResultAdapter
 
 
-class ShowResult_2_7 : AppCompatActivity() {
-    private lateinit var resultAdapter: ResultAdopter
+class ShowResult_2_7Activity : AppCompatActivity() {
+    private lateinit var resultAdapter: ResultAdapter
 
     private fun startToDetailActivity(id: Int, message: String) {
-        val intent = Intent(applicationContext, ShowDetail_2_8::class.java)
+        val intent = Intent(applicationContext, ShowDetail_2_8Activity::class.java)
         startActivity(intent)
     }
 
@@ -27,7 +28,7 @@ class ShowResult_2_7 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_result27)
 
-        resultAdapter = ResultAdopter(mutableListOf())
+        resultAdapter = ResultAdapter(mutableListOf())
 
         recyclerViewResult.adapter = resultAdapter
         recyclerViewResult.layoutManager = LinearLayoutManager(this)
@@ -42,7 +43,7 @@ class ShowResult_2_7 : AppCompatActivity() {
         resultAdapter.addResult(resultObject4)
 
         buttonSave.setOnClickListener {
-            Toast.makeText(this@ShowResult_2_7, "즐겨찾기에 저장이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ShowResult_2_7Activity, "즐겨찾기에 저장이 완료되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
         buttonShare.setOnClickListener {
@@ -50,7 +51,7 @@ class ShowResult_2_7 : AppCompatActivity() {
                 getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("label", "aTHaon(임시공유코드)")
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this@ShowResult_2_7, "공유 코드가 클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ShowResult_2_7Activity, "공유 코드가 클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show()
         }
         buttonHome.setOnClickListener {
             val intentHome = Intent(applicationContext, MainActivity::class.java)

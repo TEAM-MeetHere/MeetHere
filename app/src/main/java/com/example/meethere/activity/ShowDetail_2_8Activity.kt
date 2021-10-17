@@ -1,12 +1,13 @@
-package com.example.meethere
+package com.example.meethere.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import com.example.meethere.R
 import kotlinx.android.synthetic.main.activity_show_detail28.*
 
-class ShowDetail_2_8 : AppCompatActivity() {
+class ShowDetail_2_8Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_detail28)
@@ -18,7 +19,7 @@ class ShowDetail_2_8 : AppCompatActivity() {
 
         btnShowMap.setOnClickListener {
             //val intent = Intent(applicationContext, selectDestination_2_6::class.java)
-            val intent = Intent(applicationContext, ShowDetailMap_2_9::class.java)
+            val intent = Intent(applicationContext, ShowDetailMap_2_9Activity::class.java)
             startActivity(intent)
         }
     }

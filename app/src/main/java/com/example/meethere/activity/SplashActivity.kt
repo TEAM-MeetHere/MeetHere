@@ -1,9 +1,10 @@
-package com.example.meethere
+package com.example.meethere.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.example.meethere.R
 
 
 class SplashActivity : AppCompatActivity() {

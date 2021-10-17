@@ -1,15 +1,17 @@
-package com.example.meethere
+package com.example.meethere.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import com.google.android.material.progressindicator.BaseProgressIndicator
+import com.example.meethere.R
+import com.example.meethere.selectDestination_sort_distance
+import com.example.meethere.selectDestination_sort_time
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_select_destination26.*
 
-class SelectDestination_2_6 : AppCompatActivity() {
+class SelectDestination_2_6Activity : AppCompatActivity() {
     lateinit var tabTime: selectDestination_sort_time
     lateinit var tabDistance: selectDestination_sort_distance
 
@@ -52,7 +54,7 @@ class SelectDestination_2_6 : AppCompatActivity() {
             }
         })
         buttonTemporary.setOnClickListener {
-            val intent2 = Intent(applicationContext, ShowResult_2_7::class.java)
+            val intent2 = Intent(applicationContext, ShowResult_2_7Activity::class.java)
             startActivity(intent2)
         }
     }

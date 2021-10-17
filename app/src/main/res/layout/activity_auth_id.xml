@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="16"
-    tools:context=".AuthID">
+    tools:context=".activity.AuthIDActivity">
 
     <TextView
         android:layout_width="wrap_content"

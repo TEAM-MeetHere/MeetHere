@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="20"
-    tools:context=".SetLocation_2_4">
+    tools:context=".activity.SetLocation_2_4Activity">
 
     <Space
         android:layout_width="match_parent"

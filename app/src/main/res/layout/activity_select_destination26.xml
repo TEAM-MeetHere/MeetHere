@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".SelectDestination_2_6">
+    tools:context=".activity.SelectDestination_2_6Activity">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
-        tools:context=".SelectDestination_2_6" />
+        tools:context=".activity.SelectDestination_2_6Activity" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

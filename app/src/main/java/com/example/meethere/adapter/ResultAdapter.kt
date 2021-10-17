@@ -1,4 +1,4 @@
-package com.example.meethere
+package com.example.meethere.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,19 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meethere.databinding.ItemResultBinding
 import kotlinx.android.synthetic.main.item_result.view.*
-import android.widget.Toast
 
-import android.R
-import android.content.Context
 import android.content.Intent
-import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
-import java.security.AccessController.getContext
+import com.example.meethere.Result
+import com.example.meethere.activity.ShowDetail_2_8Activity
 
 
-class ResultAdopter(
+class ResultAdapter(
     private val results: MutableList<Result>
-) : RecyclerView.Adapter<ResultAdopter.ResultViewHolder>() {
+) : RecyclerView.Adapter<ResultAdapter.ResultViewHolder>() {
     class ResultViewHolder(val binding: ItemResultBinding) : RecyclerView.ViewHolder(binding.root) {
         val btn = binding.btnDetail
 
@@ -52,7 +48,7 @@ class ResultAdopter(
         notifyItemInserted(results.size - 1)
     }
 
-    override fun onBindViewHolder(holder: ResultAdopter.ResultViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
         val curAddress = results[position]
         holder.itemView.apply {
             textViewName.text = curAddress.Name
@@ -66,7 +62,7 @@ class ResultAdopter(
                     results.remove(results[position])
                 notifyDataSetChanged()*/
                 val context = holder.itemView.context
-                val intent = Intent(context, ShowDetail_2_8::class.java)
+                val intent = Intent(context, ShowDetail_2_8Activity::class.java)
                 intent.putExtra("Name", curAddress.Name)
                 context.startActivity(intent)
             }

@@ -1,17 +1,17 @@
-package com.example.meethere
+package com.example.meethere.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.meethere.Address
 import com.example.meethere.databinding.ItemAddressBinding
 import kotlinx.android.synthetic.main.item_address.view.*
 
 
-class AddressAdopter(
+class AddressAdapter(
     private val addresses: MutableList<Address>
-) : RecyclerView.Adapter<AddressAdopter.AddressViewHolder>() {
+) : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
     class AddressViewHolder(val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val btn2 = binding.btnDeleteAddress
@@ -38,7 +38,7 @@ class AddressAdopter(
         notifyItemInserted(addresses.size - 1)
     }
 
-    override fun onBindViewHolder(holder: AddressAdopter.AddressViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         val curAddress = addresses[position]
         holder.itemView.apply {
             textViewAddress.text = curAddress.Address

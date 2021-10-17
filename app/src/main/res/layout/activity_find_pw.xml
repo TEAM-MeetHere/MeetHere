@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="16"
-    tools:context=".FindPW">
+    tools:context=".activity.FindPWActivity">
 
     <TextView
         android:layout_width="wrap_content"
