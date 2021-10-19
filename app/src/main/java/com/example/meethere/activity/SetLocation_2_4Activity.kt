@@ -16,8 +16,6 @@ class SetLocation_2_4Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_location24)
         addressAdapter = AddressAdapter(mutableListOf())
-
-
         recyclerViewAddress.adapter = addressAdapter
         recyclerViewAddress.layoutManager = LinearLayoutManager(this)
 

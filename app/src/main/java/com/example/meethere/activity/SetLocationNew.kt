@@ -29,6 +29,7 @@ class SetLocationNew : AppCompatActivity() {
             flag++
             changeFragment(flag)
         }
+
     }
 
     private fun changeFragment(flag_: Int) {
