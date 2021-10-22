@@ -8,6 +8,7 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.example.meethere.R
+import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebViewActivity : AppCompatActivity() {
     private var browser: WebView? = null
@@ -36,5 +37,9 @@ class WebViewActivity : AppCompatActivity() {
             }
         }
         browser!!.loadUrl("http://13.124.215.113/daum_address.html")
+
+        btnCancel.setOnClickListener() {
+            finish()
+        }
     }
 }

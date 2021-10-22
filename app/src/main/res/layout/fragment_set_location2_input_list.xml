@@ -11,16 +11,11 @@
         android:orientation="vertical"
         android:weightSum="20">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAddress"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="17"
+            android:layout_weight="17.5"
             android:background="@drawable/borderline_gray" />
 
         <Space
@@ -37,7 +32,6 @@
             android:background="@drawable/button_color_drawable2"
             android:textSize="20sp"
             android:text="인원 더 추가하기" />
-
 
     </LinearLayout>
 

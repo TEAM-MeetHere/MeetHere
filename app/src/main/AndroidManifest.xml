@@ -22,7 +22,9 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.WebViewActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="장소 검색하기"
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.SetLocationNew"
             android:exported="true"
@@ -75,7 +77,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
-            android:theme="@style/Main" />
+            android:theme="@style/NoActionBarStyle" />
         <activity
             android:name=".activity.SetLocation_2_4Activity"
             android:label="주소 입력"

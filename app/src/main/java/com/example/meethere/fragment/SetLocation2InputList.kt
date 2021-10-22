@@ -29,7 +29,6 @@ class SetLocation2InputList : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    val address_DataArray: ArrayList<Address> = ArrayList()
     private lateinit var addressAdapter: AddressAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,33 +53,10 @@ class SetLocation2InputList : Fragment() {
         recyclerViewAddress.adapter = addressAdapter
         recyclerViewAddress.layoutManager = LinearLayoutManager(requireContext())
 
-        var arrayAD = arrayOf<String>(
-            "인천광역시 미추홀구 인하로 100",
-            "인천광역시 남동구 정각로 29",
-            "인천광역시 서구 가좌동 217",
-            "인천광역시 미추홀구 주안동 24-24"
-        )
-        var arrayNM = arrayOf<String>("김철수", "박민수", "최진수", "이상수")
-        var arrayOB = Array(20) { Address("임시 주소", "임시 이름") }
-
-        for (a in 0..3) {
-            arrayOB[a] = Address(arrayAD[a], arrayNM[a])
-        }
-
         var listnumber = 0
         btnAdd.setOnClickListener {
-            /* val address = textViewAddress.text.toString()
-             val name = textViewName.text.toString()*/
-            val address = "주소 추가"
-            val name = "임시"
-            val addressObject = Address(address, name)
-
-/*
-            addressAdapter.addAddress(arrayOB[listnumber])
-            listnumber++
-*/
-
-            (activity as SetLocationNew).changeFragment(100)
+            // 주소를 입력하는 프래그먼트로 이동
+            (activity as SetLocationNew).changeFragment(3)
         }
     }
 
@@ -104,7 +80,8 @@ class SetLocation2InputList : Fragment() {
             }
     }
 
-    public fun addAddress(address: String, name: String) {
+    // 메인에서 2번 프래그먼트에게 호출할 함수
+    fun addAddress(address: String, name: String) {
         addressAdapter.addAddress(Address(address, name))
     }
 }

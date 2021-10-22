@@ -1,5 +1,5 @@
 package com.example.meethere.activity
-
+// 안 쓰는 액티비티
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem

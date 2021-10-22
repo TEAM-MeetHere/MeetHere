@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activity.SetLocationNew">
 
-
     <FrameLayout
         android:id="@+id/frameLayoutSetLocation"
         android:layout_width="0dp"
@@ -15,9 +14,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnPrev"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnPrev"
@@ -47,7 +44,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnPrev"
+        app:layout_constraintStart_toEndOf="@+id/btnPrev" />
 
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>

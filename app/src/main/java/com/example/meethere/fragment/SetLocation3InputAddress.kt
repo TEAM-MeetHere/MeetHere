@@ -15,7 +15,11 @@ import androidx.core.app.ActivityCompat.startActivityForResult
 
 import com.example.meethere.activity.WebViewActivity
 import android.R.attr.data
+import android.graphics.Color
+import android.text.TextWatcher
 import com.example.meethere.activity.SetLocationNew
+import android.text.Editable
+import kotlinx.android.synthetic.main.activity_set_location24.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,6 +37,7 @@ class SetLocation3InputAddress : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    // 웹 뷰로 이동하여 주소를 검색하고 에딧박스에 주소를 저장
     var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -65,24 +70,43 @@ class SetLocation3InputAddress : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 처음엔 확인 버튼 비활성
+        btnAddAddress.visibility = View.GONE
+
+        // 웹 뷰로 주소 결과를 검색하기 위하여 이동하는 함수
         etAddress.setOnClickListener {
-/*
-            val i = Intent(requireContext(), WebViewActivity::class.java)
-            startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY)
-*/
             val intent = Intent(requireContext(), WebViewActivity::class.java)
             resultLauncher.launch(intent)
         }
 
+        etAddress.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun afterTextChanged(editable: Editable) {
+                // 주소가 입력되고 나면 버튼을 활성화
+                if (editable.isNotEmpty()) {
+                    btnAddAddress.visibility = View.VISIBLE
+                } else {
+                    btnAddAddress.visibility = View.GONE
+                }
+
+            }
+        })
+
+        // 입력받은 이름들로 주소를 추가하기 위해 메인 액티비티의 addAddress를 거쳐 2번 프래그먼트의 addAddress를 호출
         btnAddAddress.setOnClickListener {
-            val address: String = etAddress.text.toString()
-            val name: String = etName.text.toString()
+            var address: String = etAddress.text.toString()
+            var name: String = etName.text.toString()
+
+            if (name == "") {
+                name = "홍길동"
+            }
+
             etAddress.setText("")
             etName.setText("")
             (activity as SetLocationNew).addAddress(address, name)
         }
     }
-
 
     companion object {
         /**
