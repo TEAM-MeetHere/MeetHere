@@ -21,11 +21,14 @@
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.WebViewActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.SetLocationNew"
             android:exported="true"
             android:label="장소 검색하기"
             android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/Search"/>
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true"
@@ -72,7 +75,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
-            android:theme="@style/Main"></activity>
+            android:theme="@style/Main" />
         <activity
             android:name=".activity.SetLocation_2_4Activity"
             android:label="주소 입력"

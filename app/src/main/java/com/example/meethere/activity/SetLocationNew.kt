@@ -3,23 +3,33 @@ package com.example.meethere.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import com.example.meethere.R
-import com.example.meethere.databinding.ActivitySetLocationNewBinding
 import com.example.meethere.fragment.SetLocation1Keyword
 import com.example.meethere.fragment.SetLocation2InputList
+import com.example.meethere.fragment.SetLocation3InputAddress
 import kotlinx.android.synthetic.main.activity_set_location_new.*
 
+
 class SetLocationNew : AppCompatActivity() {
-    var flag: Int = 1
+    private var flag: Int = 1
+    private val f1: Fragment = SetLocation1Keyword()
+    private val f2: Fragment = SetLocation2InputList()
+    private val f3: Fragment = SetLocation3InputAddress()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_set_location_new)
+        setContentView(com.example.meethere.R.layout.activity_set_location_new)
 
-        replaceFragment(SetLocation1Keyword())
+
+        supportFragmentManager.beginTransaction()
+            .add(com.example.meethere.R.id.frameLayoutSetLocation, f1, "TAG1")
+        supportFragmentManager.beginTransaction()
+            .add(com.example.meethere.R.id.frameLayoutSetLocation, f2, "TAG2")
+        supportFragmentManager.beginTransaction()
+            .add(com.example.meethere.R.id.frameLayoutSetLocation, f3, "TAG3")
+
+        replaceFragment(f1)
 
         btnPrev.setOnClickListener {
             flag--
@@ -32,18 +42,21 @@ class SetLocationNew : AppCompatActivity() {
 
     }
 
-    private fun changeFragment(flag_: Int) {
+    fun changeFragment(flag_: Int) {
         when (flag_) {
             0 -> {
                 finish()
             }
             1 -> {
-                replaceFragment(SetLocation1Keyword())
+                replaceFragment(f1)
             }
             2 -> {
-                replaceFragment(SetLocation2InputList())
+                replaceFragment(f2)
             }
-            3 -> {
+            100 -> {
+                replaceFragment(f3)
+            }
+            else -> {
                 flag = 2
                 val intent = Intent(applicationContext, SelectDestination_2_6Activity::class.java)
                 startActivity(intent)
@@ -56,7 +69,7 @@ class SetLocationNew : AppCompatActivity() {
             if (fragment.isAdded) {
                 show(fragment)
             } else {
-                add(R.id.frameLayout, fragment)
+                add(com.example.meethere.R.id.frameLayoutSetLocation, fragment)
             }
 
             supportFragmentManager.fragments.forEach {
@@ -65,6 +78,13 @@ class SetLocationNew : AppCompatActivity() {
                 }
             }
         }.commit()
+    }
+
+    fun addAddress(address: String, name: String) {
+        val fragment: SetLocation2InputList =
+            supportFragmentManager.findFragmentByTag("TAG2") as SetLocation2InputList
+        fragment.addAddress(address, name)
+        replaceFragment(f2)
     }
 
     override fun onBackPressed() {

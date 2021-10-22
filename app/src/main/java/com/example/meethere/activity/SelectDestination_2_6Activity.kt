@@ -20,7 +20,7 @@ class SelectDestination_2_6Activity : AppCompatActivity() {
         setContentView(R.layout.activity_select_destination26)
         tabTime = selectDestination_sort_time()
         tabDistance = selectDestination_sort_distance()
-        supportFragmentManager.beginTransaction().add(R.id.frameLayout, tabTime).commit()
+        supportFragmentManager.beginTransaction().add(R.id.frameLayoutDestination, tabTime).commit()
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
@@ -49,7 +49,7 @@ class SelectDestination_2_6Activity : AppCompatActivity() {
                 selectedFragment = tab
                 selectedFragment?.let {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.frameLayout, it).commit()
+                        .replace(R.id.frameLayoutDestination, it).commit()
                 }
             }
         })
@@ -58,6 +58,7 @@ class SelectDestination_2_6Activity : AppCompatActivity() {
             startActivity(intent2)
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.getItemId()) {
             android.R.id.home -> {

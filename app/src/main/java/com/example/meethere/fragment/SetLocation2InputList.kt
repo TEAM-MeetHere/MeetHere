@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.Address
 import com.example.meethere.R
+import com.example.meethere.activity.MainActivity
+import com.example.meethere.activity.SetLocationNew
 import com.example.meethere.adapter.AddressAdapter
 import kotlinx.android.synthetic.main.fragment_set_location2_input_list.*
 import kotlinx.android.synthetic.main.fragment_set_location2_input_list.btnAdd
@@ -27,7 +29,7 @@ class SetLocation2InputList : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    val address_DataArray : ArrayList<Address> = ArrayList()
+    val address_DataArray: ArrayList<Address> = ArrayList()
     private lateinit var addressAdapter: AddressAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +40,10 @@ class SetLocation2InputList : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_set_location2_input_list, container, false)
     }
 
@@ -71,8 +75,12 @@ class SetLocation2InputList : Fragment() {
             val name = "임시"
             val addressObject = Address(address, name)
 
+/*
             addressAdapter.addAddress(arrayOB[listnumber])
             listnumber++
+*/
+
+            (activity as SetLocationNew).changeFragment(100)
         }
     }
 
@@ -86,12 +94,17 @@ class SetLocation2InputList : Fragment() {
          * @return A new instance of fragment SetLocation2InputList.
          */
         // TODO: Rename and change types and number of parameters
-        @JvmStatic fun newInstance(param1: String, param2: String) =
-                SetLocation2InputList().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            SetLocation2InputList().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
+            }
+    }
+
+    public fun addAddress(address: String, name: String) {
+        addressAdapter.addAddress(Address(address, name))
     }
 }
