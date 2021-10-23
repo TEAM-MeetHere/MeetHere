@@ -1,9 +1,11 @@
 package com.example.meethere.retrofit
 
 import android.util.Log
+import com.example.meethere.sharedpreferences.App
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.isJsonArray
 import com.example.meethere.utils.isJsonObejct
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
@@ -25,6 +27,19 @@ object RetrofitClient {
 
         //okhttp 인스턴스 생성
         val client = OkHttpClient.Builder()
+            .addInterceptor{ chain: Interceptor.Chain ->
+                val original = chain.request()
+                if (original.url.encodedPath.equals("/api/members", true)
+                        || original.url.encodedPath.equals("/authenticate", true)
+                        ||original.url.encodedPath.equals("/api/members/verify",true)
+                ){
+                    chain.proceed(original)
+                }else{
+                    chain.proceed(original.newBuilder().apply {
+                        addHeader("Authorization", "Bearer "+App.prefs.token!!)
+                    }.build())
+                }
+            }
 
         //LOG를 찍기 위해 로깅 인터셉터 설정
         val loggingInterceptor = HttpLoggingInterceptor(object:HttpLoggingInterceptor.Logger{

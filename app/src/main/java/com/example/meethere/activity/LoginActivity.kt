@@ -3,10 +3,12 @@ package com.example.meethere.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.meethere.databinding.ActivityLoginBinding
 import com.example.meethere.retrofit.Login
 import com.example.meethere.retrofit.RetrofitManager
+import com.example.meethere.sharedpreferences.App
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
 import org.json.JSONObject
@@ -59,6 +61,37 @@ class LoginActivity : AppCompatActivity() {
                             //{}->JSONObject, []->JSONArray
                             val jsonObject = JSONObject(responseBody)
                             val statusCode = jsonObject.getInt("statusCode")
+
+                            if (statusCode == 200) {
+                                val token = jsonObject.getString("token")
+                                App.prefs.token = token
+
+                                val email = jsonObject.getString("email")
+                                App.prefs.email = email
+
+                                val username = jsonObject.getString("username")
+                                App.prefs.username = username
+
+                                val memberId = jsonObject.getLong("memberId")
+                                App.prefs.memberId = memberId
+
+                                Log.d(TAG, "token = $token")
+                                Log.d(TAG, "memberID = $memberId")
+                                Log.d(TAG, "email = $email")
+                                Log.d(TAG, "username = $username")
+
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                            } else {
+                                val errorMessage = jsonObject.getString("message")
+                                Log.d(TAG, "error message = $errorMessage")
+                                Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT)
+                                    .show()
+
+                            }
+
+
+                            /*val statusCode = jsonObject.getInt("statusCode")
                             val message = jsonObject.getString("message")
                             Log.d(TAG, "statusCode = $statusCode ")
                             Log.d(TAG, "message = $message")
@@ -79,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
                                 Log.d(TAG, "memberName = $name")
                                 Log.d(TAG, "memberAddress = $address")
                                 Log.d(TAG, "memberPhone = $phone")
-                            }
+                            }*/
 
                         }
                         //API 호출 실패시

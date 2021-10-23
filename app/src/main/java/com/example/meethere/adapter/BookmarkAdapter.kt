@@ -21,7 +21,7 @@ class BookmarkAdapter(val locationList: ArrayList<BookmarkItem>) :
                 val tempItem: BookmarkItem = locationList.get(curPos)
                 Toast.makeText(
                     parent.context,
-                    "${tempItem.location}에 대한 내용을 가져올 예정",
+                    "${tempItem.destination}에 대한 내용을 가져올 예정",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -30,7 +30,7 @@ class BookmarkAdapter(val locationList: ArrayList<BookmarkItem>) :
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.itemLogo.setImageResource(locationList.get(position).item_star)
-        holder.itemLocation.text = locationList.get(position).location
+        holder.itemLocation.text = locationList.get(position).destination
     }
 
     override fun getItemCount(): Int {

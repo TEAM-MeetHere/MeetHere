@@ -20,15 +20,60 @@ class RetrofitManager {
     private val iRetrofit: IRetrofit? =
         RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
 
+    //회원가입 API 호출
+    fun registerService(register: Register, completion: (RESPONSE_STATE, String) -> Unit){
+
+        val term = register?:""
+        var call=iRetrofit?.registerService(register=term as Register)?:return
+
+        call.enqueue(object :retrofit2.Callback<JsonElement>{
+
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+
+        })
+    }
+
+
+    //즐겨찾기 리스트 API 호출
+    fun bookmarkListService(memberId: Long?, completion: (RESPONSE_STATE, String) -> Unit) {
+
+        //null이면 "", 아니면 해당 값 설정
+        val term = memberId ?: ""
+        var call = iRetrofit?.bookmarkListService(memberId = term as Long) ?: return
+
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
+
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+        })
+
+    }
 
     //로그인 API 호출
     fun loginService(login: Login?, completion: (RESPONSE_STATE, String) -> Unit) {
 
         //null이면 "", 아니면 해당 값 설정
-        val term = login?:""
-        val call = iRetrofit?.loginService(login = term as Login)?:return
+        val term = login ?: ""
+        val call = iRetrofit?.loginService(login = term as Login) ?: return
 
-        call.enqueue(object:retrofit2.Callback<JsonElement>{
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
 
             //응답 성공
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
