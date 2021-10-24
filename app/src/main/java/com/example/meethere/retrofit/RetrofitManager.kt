@@ -1,10 +1,15 @@
 package com.example.meethere.retrofit
 
 import android.util.Log
+import com.example.meethere.retrofit.request.Login
+import com.example.meethere.retrofit.request.Register
+import com.example.meethere.retrofit.request.Update
+import com.example.meethere.retrofit.request.Verify
 import com.example.meethere.utils.API
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Response
 
@@ -20,13 +25,57 @@ class RetrofitManager {
     private val iRetrofit: IRetrofit? =
         RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
 
+
+    //회원정보 수정 API 호출
+    fun updateService(update: Update, completion: (RESPONSE_STATE, String) -> Unit) {
+
+        val term = update ?: ""
+        var call = iRetrofit?.updateService(update = term as Update) ?: return
+
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
+
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+        })
+    }
+
+
+    //회원가입 인증코드 입력 API 호출
+    fun verifyService(verify: Verify, completion: (RESPONSE_STATE, String) -> Unit) {
+
+        val term = verify ?: ""
+        var call = iRetrofit?.verifyService(verify = term as Verify) ?: return
+
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
+
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+        })
+    }
+
     //회원가입 API 호출
-    fun registerService(register: Register, completion: (RESPONSE_STATE, String) -> Unit){
+    fun registerService(register: Register, completion: (RESPONSE_STATE, String) -> Unit) {
 
-        val term = register?:""
-        var call=iRetrofit?.registerService(register=term as Register)?:return
+        val term = register ?: ""
+        var call = iRetrofit?.registerService(register = term as Register) ?: return
 
-        call.enqueue(object :retrofit2.Callback<JsonElement>{
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
 
             //응답 성공
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {

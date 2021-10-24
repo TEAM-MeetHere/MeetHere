@@ -173,7 +173,7 @@
         android:layout_weight="1"
         android:background="@drawable/border"
         android:gravity="left|center_vertical"
-        android:hint="-를 제외하고 입력"
+        android:hint="ex) 010-1234-1234"
         android:inputType="text|phone"
         android:paddingLeft="10dp"
         android:singleLine="true"
@@ -186,7 +186,7 @@
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/auth_ID"
+        android:id="@+id/next_BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"

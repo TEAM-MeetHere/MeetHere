@@ -17,4 +17,8 @@ object API {
     const val BOOKMARK_LIST = "api/bookmark/list"
 
     const val REGISTER = "api/members"
+
+    const val VERIFY = "api/members/verify"
+
+    const val UPDATE = "api/members/update"
 }

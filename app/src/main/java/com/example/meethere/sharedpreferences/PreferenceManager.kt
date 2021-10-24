@@ -9,6 +9,8 @@ class PreferenceManager(context: Context) {
     val PREF_MEMBERID = "memberId"
     val PREF_EMAIL = "email"
     val PREF_NAME = "name"
+    val PREF_ADDRESS = "address"
+    val PREF_PHONE = "phone"
     val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
     //파일 이름과 token을 저장할 key 값을 만들고 prefs 인스턴스 초기화
 
@@ -22,7 +24,6 @@ class PreferenceManager(context: Context) {
         get() = prefs.getLong(PREF_MEMBERID, 0)
         set(value) = prefs.edit().putLong(PREF_MEMBERID, value!!).apply()
 
-
     var email: String?
         get() = prefs.getString(PREF_EMAIL, "")
         set(value) = prefs.edit().putString(PREF_EMAIL, value).apply()
@@ -30,4 +31,12 @@ class PreferenceManager(context: Context) {
     var username: String?
         get() = prefs.getString(PREF_NAME, "")
         set(value) = prefs.edit().putString(PREF_NAME, value).apply()
+
+    var address:String?
+        get()=prefs.getString(PREF_ADDRESS, "")
+        set(value) = prefs.edit().putString(PREF_ADDRESS, value).apply()
+
+    var phone:String?
+        get()=prefs.getString(PREF_PHONE, "")
+        set(value) = prefs.edit().putString(PREF_PHONE, value).apply()
 }
