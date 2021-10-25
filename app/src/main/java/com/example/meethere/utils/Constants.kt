@@ -21,4 +21,8 @@ object API {
     const val VERIFY = "api/members/verify"
 
     const val UPDATE = "api/members/update"
+
+    const val FIND_ID = "api/members/findId"
+
+    const val FIND_PW = "api/members/findPw"
 }

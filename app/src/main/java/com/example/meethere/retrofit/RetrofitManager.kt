@@ -25,6 +25,60 @@ class RetrofitManager {
     private val iRetrofit: IRetrofit? =
         RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
 
+    //회원 비밀번호 찾기 API 호출
+    fun findPwService(
+        email: String,
+        name: String,
+        phone: String,
+        completion: (RESPONSE_STATE, String) -> Unit
+    ) {
+
+        val term1 = email ?: ""
+        val term2 = name ?: ""
+        val term3 = phone ?: ""
+
+        val call = iRetrofit?.findPwService(
+            email = term1 as String,
+            name = term2 as String,
+            phone = term3 as String
+        ) ?: return
+
+        call.enqueue(object :retrofit2.Callback<JsonElement>{
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+        })
+    }
+
+    //회원 아이디 찾기 API 호출
+    fun findIdService(name: String, phone: String, completion: (RESPONSE_STATE, String) -> Unit) {
+
+        val term1 = name ?: ""
+        val term2 = phone ?: ""
+        val call =
+            iRetrofit?.findIdService(name = term1 as String, phone = term2 as String) ?: return
+
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
+
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+        })
+    }
 
     //회원정보 수정 API 호출
     fun updateService(update: Update, completion: (RESPONSE_STATE, String) -> Unit) {
