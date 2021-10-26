@@ -19,7 +19,6 @@ import android.graphics.Color
 import android.text.TextWatcher
 import com.example.meethere.activity.SetLocationNew
 import android.text.Editable
-import kotlinx.android.synthetic.main.activity_set_location24.*
 
 
 // TODO: Rename parameter arguments, choose names that match

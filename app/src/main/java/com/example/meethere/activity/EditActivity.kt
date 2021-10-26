@@ -1,9 +1,11 @@
 package com.example.meethere.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.meethere.R
 import com.example.meethere.databinding.ActivityEditBinding
@@ -12,11 +14,26 @@ import com.example.meethere.retrofit.request.Update
 import com.example.meethere.sharedpreferences.App
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
+import kotlinx.android.synthetic.main.activity_edit.*
 import org.json.JSONObject
 
 class EditActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditBinding
+
+    var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // There are no request codes
+                val data: Intent? = result.data
+                if (data != null) {
+                    if (data.hasExtra("data")) {
+                        edit_address.setText(data.getStringExtra("data"))
+                    }
+                }
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditBinding.inflate(layoutInflater)
@@ -87,6 +104,11 @@ class EditActivity : AppCompatActivity() {
                 }
             )
 
+        }
+
+        edit_address.setOnClickListener {
+            val intent = Intent(this, WebViewActivity::class.java)
+            resultLauncher.launch(intent)
         }
     }
 }
