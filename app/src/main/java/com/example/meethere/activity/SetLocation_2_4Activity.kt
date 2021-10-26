@@ -1,5 +1,5 @@
 package com.example.meethere.activity
-
+// 안 쓰는 액티비티
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,8 +16,6 @@ class SetLocation_2_4Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_location24)
         addressAdapter = AddressAdapter(mutableListOf())
-
-
         recyclerViewAddress.adapter = addressAdapter
         recyclerViewAddress.layoutManager = LinearLayoutManager(this)
 

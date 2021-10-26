@@ -24,6 +24,5 @@
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
-    <style name="Main" parent="Theme.AppCompat.Light.NoActionBar"></style>
-
+    <style name="NoActionBarStyle" parent="Theme.AppCompat.Light.NoActionBar"></style>
 </resources>
