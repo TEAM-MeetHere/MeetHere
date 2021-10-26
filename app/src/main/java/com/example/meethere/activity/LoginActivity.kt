@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
 
         //로그인 클릭
         binding.loginBtn.setOnClickListener {
- /*
+
             Log.d(TAG, "LoginActivity - 검색 버튼 클릭 / currentSearchType")
 
             var ID: String = binding.loginId.text.toString()
@@ -103,10 +103,6 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                 })
-        */
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-
         }
 
     }

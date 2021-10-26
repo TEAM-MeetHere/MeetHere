@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_set_location24.*
 import kotlinx.android.synthetic.main.activity_show_result27.*
 import kotlinx.android.synthetic.main.item_result.*
 import android.content.ClipData
