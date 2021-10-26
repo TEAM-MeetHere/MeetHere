@@ -9,8 +9,20 @@ enum class RESPONSE_STATE {
     FAIL
 }
 
-object API{
+object API {
     const val BASE_URL: String = "http://13.124.215.113:8080/"
 
-    const val LOGIN:String="api/members/login"
+    const val LOGIN: String = "authenticate"
+
+    const val BOOKMARK_LIST = "api/bookmark/list"
+
+    const val REGISTER = "api/members"
+
+    const val VERIFY = "api/members/verify"
+
+    const val UPDATE = "api/members/update"
+
+    const val FIND_ID = "api/members/findId"
+
+    const val FIND_PW = "api/members/findPw"
 }

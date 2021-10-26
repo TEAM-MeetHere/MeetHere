@@ -1,9 +1,11 @@
 package com.example.meethere.retrofit
 
 import android.util.Log
+import com.example.meethere.sharedpreferences.App
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.isJsonArray
 import com.example.meethere.utils.isJsonObejct
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
@@ -17,32 +19,45 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
 
     //retrofit client 선언
-    private var retrofitClient: Retrofit?=null
+    private var retrofitClient: Retrofit? = null
 
     //retrofit client 가져오기
-    fun getClient(baseUrl:String):Retrofit?{
+    fun getClient(baseUrl: String): Retrofit? {
         Log.d(TAG, "RetrofitClient - getClient() called")
 
         //okhttp 인스턴스 생성
         val client = OkHttpClient.Builder()
+            .addInterceptor { chain: Interceptor.Chain ->
+                val original = chain.request()
+                if (original.url.encodedPath.equals("/api/members", true)
+                    || original.url.encodedPath.equals("/authenticate", true)
+                    || original.url.encodedPath.equals("/api/members/verify", true)
+                ) {
+                    chain.proceed(original)
+                } else {
+                    chain.proceed(original.newBuilder().apply {
+                        addHeader("Authorization", "Bearer " + App.prefs.token!!)
+                    }.build())
+                }
+            }
 
         //LOG를 찍기 위해 로깅 인터셉터 설정
-        val loggingInterceptor = HttpLoggingInterceptor(object:HttpLoggingInterceptor.Logger{
+        val loggingInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
                 Log.d(TAG, "RetrofitClient - log() called")
 
-                when{
+                when {
                     //message가 Json 객체 형식일 경우
-                    message.isJsonObejct()->
+                    message.isJsonObejct() ->
                         Log.d(TAG, JSONObject(message).toString(4))
                     //message가 Json 배열 형식일 경우
-                    message.isJsonArray()->
+                    message.isJsonArray() ->
                         Log.d(TAG, JSONObject(message).toString(4))
                     //message가 Json 형식이 아닐 경우
-                    else->{
+                    else -> {
                         try {
                             Log.d(TAG, JSONObject(message).toString(4))
-                        }catch (e:Exception){
+                        } catch (e: Exception) {
                             Log.d(TAG, message)
                         }
                     }

@@ -3,10 +3,12 @@ package com.example.meethere.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.meethere.databinding.ActivityLoginBinding
-import com.example.meethere.retrofit.Login
+import com.example.meethere.retrofit.request.Login
 import com.example.meethere.retrofit.RetrofitManager
+import com.example.meethere.sharedpreferences.App
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
 import org.json.JSONObject
@@ -59,28 +61,40 @@ class LoginActivity : AppCompatActivity() {
                             //{}->JSONObject, []->JSONArray
                             val jsonObject = JSONObject(responseBody)
                             val statusCode = jsonObject.getInt("statusCode")
-                            val message = jsonObject.getString("message")
-                            Log.d(TAG, "statusCode = $statusCode ")
-                            Log.d(TAG, "message = $message")
 
-                            //로그인 완료
-                            if (statusCode == 200 || statusCode == 201) {
-                                val data = jsonObject.getJSONObject("data")
-                                val id = data.getInt("id")
-                                val email = data.getString("email")
-                                val pw = data.getString("pw")
-                                val name = data.getString("name")
-                                val address = data.getString("address")
-                                val phone = data.getString("phone")
+                            if (statusCode == 200) {
+                                val token = jsonObject.getString("token")
+                                App.prefs.token = token
 
-                                Log.d(TAG, "memberID = $id")
-                                Log.d(TAG, "memberEmail = $email")
-                                Log.d(TAG, "memberPw = $pw")
-                                Log.d(TAG, "memberName = $name")
-                                Log.d(TAG, "memberAddress = $address")
-                                Log.d(TAG, "memberPhone = $phone")
+                                val email = jsonObject.getString("email")
+                                App.prefs.email = email
+
+                                val username = jsonObject.getString("username")
+                                App.prefs.username = username
+
+                                val memberId = jsonObject.getLong("memberId")
+                                App.prefs.memberId = memberId
+
+                                val address = jsonObject.getString("address")
+                                App.prefs.address = address
+
+                                val phone = jsonObject.getString("phone")
+                                App.prefs.phone = phone
+
+                                Log.d(TAG, "token = $token")
+                                Log.d(TAG, "memberID = $memberId")
+                                Log.d(TAG, "email = $email")
+                                Log.d(TAG, "username = $username")
+
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                            } else {
+                                val errorMessage = jsonObject.getString("message")
+                                Log.d(TAG, "error message = $errorMessage")
+                                Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT)
+                                    .show()
+
                             }
-
                         }
                         //API 호출 실패시
                         RESPONSE_STATE.FAIL -> {

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
+    android:visibility="visible"
     android:weightSum="16"
     tools:context=".activity.FindIDActivity">
 
@@ -72,7 +73,7 @@
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/findID_find"
+        android:id="@+id/findID_btn"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
@@ -84,4 +85,29 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/email_info"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="invisible" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/move_to_login_page"
+        android:layout_width="204dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_color_drawable"
+        android:ems="7"
+        android:text="로그인 화면으로 이동"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
 </LinearLayout>
