@@ -44,8 +44,6 @@ class RegisterActivity : AppCompatActivity() {
         //다음 단계 버튼 클릭 시
         binding.nextBUTTON.setOnClickListener {
 
-//            binding.nextBUTTON.visibility = View.GONE
-            binding.nextBUTTON.isClickable = false
 
             var EMAIL: String = binding.registerEmail.text.toString()
             var PW: String = binding.registerPw.text.toString()
@@ -114,9 +112,8 @@ class RegisterActivity : AppCompatActivity() {
                 }
             )
 
-//            binding.nextBUTTON.visibility = View.VISIBLE
-            binding.nextBUTTON.isClickable = true
         }
+
 
         register_address.setOnClickListener {
             val intent = Intent(this, WebViewActivity::class.java)

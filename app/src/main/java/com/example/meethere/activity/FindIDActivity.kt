@@ -28,6 +28,9 @@ class FindIDActivity : AppCompatActivity() {
             var NAME: String = binding.findIDName.text.toString()
             var PHONE: String = binding.findIDPhone.text.toString()
 
+            Log.d(TAG, "input name = $NAME")
+            Log.d(TAG, "input phone = $PHONE")
+
             //아이디 찾기 API 호출
             RetrofitManager.instance.findIdService(
                 name = NAME,
