@@ -13,13 +13,18 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB0cxRl8WstOzAISge8W_w4k8oq-rx9AJ8" />
+
         <activity
             android:name=".activity.WebViewActivity"
             android:exported="true"
@@ -108,10 +113,6 @@
             android:label="지도보기"
             android:parentActivityName=".activity.ShowDetail_2_8Activity"
             android:theme="@style/Search" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
     </application>
 
 </manifest>

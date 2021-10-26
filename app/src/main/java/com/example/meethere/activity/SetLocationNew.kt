@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.meethere.Address
 import com.example.meethere.fragment.SetLocation1Keyword
 import com.example.meethere.fragment.SetLocation2InputList
 import com.example.meethere.fragment.SetLocation3InputAddress
@@ -39,10 +41,23 @@ class SetLocationNew : AppCompatActivity() {
         }
         btnNext.setOnClickListener {
             if (flag == 2) {
-                val intent = Intent(applicationContext, SelectDestination_2_6Activity::class.java)
+                /*val intent = Intent(applicationContext, SelectDestination_2_6Activity::class.java)*/
+                val intent =
+                    Intent(applicationContext, SelectDestination_2_6Activity::class.java)
+                val fragment2: SetLocation2InputList =
+                    supportFragmentManager.findFragmentByTag("TAG2") as SetLocation2InputList
+
+                if (fragment2.getSize() == 0) {
+                    var t1 = Toast.makeText(this, "인원 추가하기 버튼으로 인원을 추가해주세요", Toast.LENGTH_SHORT)
+                    t1.show()
+                    return@setOnClickListener
+                }
+
+                val addresses: Array<Address> = fragment2.getData().toTypedArray()
+                intent.putExtra("addressData", addresses)
                 startActivity(intent)
-            }
-            else {
+
+            } else {
                 flag++
                 changeFragment(flag)
             }

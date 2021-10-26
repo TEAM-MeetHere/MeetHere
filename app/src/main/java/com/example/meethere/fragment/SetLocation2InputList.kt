@@ -58,6 +58,14 @@ class SetLocation2InputList : Fragment() {
             // 주소를 입력하는 프래그먼트로 이동
             (activity as SetLocationNew).changeFragment(3)
         }
+
+        //// 디버그 코드
+
+        addAddress("인천 연수구 원인재로 14 (동춘동, 무지개마을아파트", "A임영택")
+        addAddress("서울 관악구 장군봉길 6 (봉천동)", "B최규림")
+        addAddress("경기 고양시 일산동구 감내길 1 (성석동)", "C최현호")
+
+        //// 나중에 삭제바람
     }
 
     companion object {
@@ -83,5 +91,13 @@ class SetLocation2InputList : Fragment() {
     // 메인에서 2번 프래그먼트에게 호출할 함수
     fun addAddress(address: String, name: String) {
         addressAdapter.addAddress(Address(address, name))
+    }
+
+    fun getData(): MutableList<Address> {
+        return addressAdapter.getData()
+    }
+
+    fun getSize(): Int {
+        return addressAdapter.itemCount
     }
 }
