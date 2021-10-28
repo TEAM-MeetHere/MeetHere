@@ -18,8 +18,12 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.R
 import com.example.meethere.ResultSearchKeyword
+import com.example.meethere.SearchResultItem
+import com.example.meethere.adapter.SearchResultAdapter
+import com.example.meethere.databinding.ActivitySelectDestination26Binding
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -64,6 +68,9 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
     var averageLat: Double = 0.0
     var averageLon: Double = 0.0
 
+    private lateinit var binding: ActivitySelectDestination26Binding
+    private val listItems = arrayListOf<SearchResultItem>()   // 리사이클러 뷰 아이템
+    private val searchResultAdapter = SearchResultAdapter(listItems)    // 리사이클러 뷰 어댑터
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +79,37 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
             WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         )
 
-        setContentView(R.layout.activity_select_destination26)
+        binding = ActivitySelectDestination26Binding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        binding.recyclerViewSearch.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerViewSearch.adapter = searchResultAdapter
+
+        val addresses: Array<com.example.meethere.Address> =
+            intent.getSerializableExtra("addressData") as Array<com.example.meethere.Address>
+        val lats = DoubleArray(addresses.size)
+        val lons = DoubleArray(addresses.size)
+
+        searchResultAdapter.setItemClickListener(object : SearchResultAdapter.OnItemClickListener {
+            override fun onClick(addressName: String, addressRoad: String) {
+                val intent =
+                    Intent(applicationContext, ShowResult_2_7Activity::class.java)
+                intent.putExtra(
+                    "addressData", addresses
+                )
+                intent.putExtra(
+                    "destinationDataName", addressName
+                )
+                intent.putExtra(
+                    "destinationDataRoad", addressRoad
+                )
+                startActivity(intent)
+
+            }
+        })
+
+        /*setContentView(R.layout.activity_select_destination26)*/
         mLayout = findViewById(R.id.layout_select_destination26)
         locationRequest = LocationRequest()
             .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
@@ -86,10 +123,7 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
         mapFragment!!.getMapAsync(this@SelectDestination_2_6Activity)
         previous_marker = ArrayList()
 
-        val addresses: Array<com.example.meethere.Address> =
-            intent.getSerializableExtra("addressData") as Array<com.example.meethere.Address>
-        val lats = DoubleArray(addresses.size)
-        val lons = DoubleArray(addresses.size)
+
 
         for (i in addresses.indices) {
             val list = geocoder.getFromLocationName(addresses[i].address, 10)
@@ -506,9 +540,9 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
                 response: Response<ResultSearchKeyword>
             ) {
                 // 통신 성공 (검색 결과는 response.body()에 담겨있음)
-
-                Log.d("Test", "Raw: ${response.raw()}")
-                Log.d("Test", "Body: ${response.body()}")
+                addItemsAndMarkers(response.body())
+                Log.d("임영택", "Raw: ${response.raw()}")
+                Log.d("임영택", "Body: ${response.body()}")
             }
 
             override fun onFailure(call: Call<ResultSearchKeyword>, t: Throwable) {
@@ -516,6 +550,44 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
                 Log.w("MainActivity", "통신 실패: ${t.message}")
             }
         })
+
+    }
+
+    private fun addItemsAndMarkers(searchResult: ResultSearchKeyword?) {
+        if (!searchResult?.documents.isNullOrEmpty()) {
+            // 검색 결과 있음
+            listItems.clear()                   // 리스트 초기화
+            for (document in searchResult!!.documents) {
+                // 결과를 리사이클러 뷰에 추가
+                val item = SearchResultItem(
+                    document.place_name,
+                    document.road_address_name,
+                    document.address_name,
+                    document.x.toDouble(),
+                    document.y.toDouble()
+                )
+                searchResultAdapter.addSearchResults(item)
+                Log.d("임영택", "아이템추가완료")
+
+                val lat: Double = document.y.toDouble()
+                val lon: Double = document.x.toDouble()
+
+                val addressPos = LatLng(lat, lon)
+                val markerOptions = MarkerOptions()
+                markerOptions.position(addressPos)
+                markerOptions.title(document.place_name)
+                markerOptions.snippet(document.road_address_name)
+                mMap!!.addMarker(markerOptions)
+            }
+            Log.d("임영택", searchResultAdapter.itemCount.toString())
+            searchResultAdapter.notifyDataSetChanged()
+        } else {
+            // 검색 결과 없음
+            Toast.makeText(this, "검색 결과가 없습니다", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun goToShowResultActivity() {
 
     }
 }

@@ -32,6 +32,7 @@ class ShowResult_2_7Activity : AppCompatActivity() {
         recyclerViewResult.adapter = resultAdapter
         recyclerViewResult.layoutManager = LinearLayoutManager(this)
 
+/*
         val resultObject1 = Result("김철수", 33)
         resultAdapter.addResult(resultObject1)
         val resultObject2 = Result("박민수", 31)
@@ -40,6 +41,19 @@ class ShowResult_2_7Activity : AppCompatActivity() {
         resultAdapter.addResult(resultObject3)
         val resultObject4 = Result("이상수", 38)
         resultAdapter.addResult(resultObject4)
+*/
+
+        val addresses: Array<com.example.meethere.Address> =
+            intent.getSerializableExtra("addressData") as Array<com.example.meethere.Address>
+        val destinationName: String? = intent.getStringExtra("destinationDataName")
+        val destinationRoad: String? = intent.getStringExtra("destinationDataRaod")
+
+        for (i in addresses.indices) {
+            val resultObject = Result(addresses[i].name, 10) // 예상시간을 적을 예정
+            resultAdapter.addResult(resultObject)
+        }
+
+        textView2.text = destinationName + " 까지"
 
         buttonSave.setOnClickListener {
             Toast.makeText(this@ShowResult_2_7Activity, "즐겨찾기에 저장이 완료되었습니다.", Toast.LENGTH_SHORT).show()
