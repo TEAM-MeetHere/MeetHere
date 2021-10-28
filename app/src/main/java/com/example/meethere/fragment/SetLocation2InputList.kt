@@ -61,11 +61,9 @@ class SetLocation2InputList : Fragment() {
 
         //// 디버그 코드
 
-        addAddress("인천 연수구 원인재로 14 (동춘동, 무지개마을아파트", "A임영택")
-        addAddress("서울 관악구 장군봉길 6 (봉천동)", "B최규림")
-        addAddress("경기 고양시 일산동구 감내길 1 (성석동)", "C최현호")
+        addAddress("인천 부평구 부평문화로 37 (부평동, 부평동아아파트)", "김진수")
 
-        //// 나중에 삭제바람
+        //// 나중에 회원의 정보를 가장 먼저 추가하는 부분
     }
 
     companion object {

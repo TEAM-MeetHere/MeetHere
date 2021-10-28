@@ -41,8 +41,8 @@ class AddressAdapter(
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         val curAddress = addresses[position]
         holder.itemView.apply {
-            textViewAddress.text = curAddress.Address
-            textViewName.text = curAddress.Name
+            textViewAddress.text = curAddress.address
+            textViewName.text = curAddress.name
         }
 
         holder.btn2.setOnClickListener(object : View.OnClickListener {

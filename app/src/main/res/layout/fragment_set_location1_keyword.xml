@@ -46,7 +46,9 @@
             android:background="@drawable/border"
             android:ems="10"
             android:hint="카페, PC방, 당구장 등"
+            android:imeOptions="actionDone"
             android:padding="10dp"
+            android:singleLine="true"
             android:textSize="20sp" />
 
         <Space

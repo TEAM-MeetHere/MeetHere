@@ -44,6 +44,8 @@ class SetLocationNew : AppCompatActivity() {
                 /*val intent = Intent(applicationContext, SelectDestination_2_6Activity::class.java)*/
                 val intent =
                     Intent(applicationContext, SelectDestination_2_6Activity::class.java)
+                // 인텐트
+                
                 val fragment2: SetLocation2InputList =
                     supportFragmentManager.findFragmentByTag("TAG2") as SetLocation2InputList
 

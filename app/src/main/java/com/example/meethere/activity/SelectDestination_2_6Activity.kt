@@ -1,10 +1,10 @@
 package com.example.meethere.activity
 
+import KakaoAPI
 import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.icu.text.Transliterator
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
@@ -13,18 +13,13 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.example.meethere.R
-import com.example.meethere.selectDestination_sort_distance
-import com.example.meethere.selectDestination_sort_time
-import com.google.android.gms.identity.intents.Address
+import com.example.meethere.ResultSearchKeyword
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -35,10 +30,14 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout
 
 import kotlinx.android.synthetic.main.activity_select_destination26.*
 import noman.googleplaces.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -61,6 +60,10 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
     private var mLayout: View? = null
     var previous_marker: MutableList<Marker>? = null
     val geocoder = Geocoder(this)
+
+    var averageLat: Double = 0.0
+    var averageLon: Double = 0.0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +92,7 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
         val lons = DoubleArray(addresses.size)
 
         for (i in addresses.indices) {
-            val list = geocoder.getFromLocationName(addresses[i].Address, 10)
+            val list = geocoder.getFromLocationName(addresses[i].address, 10)
             if (list != null) {
                 val address: android.location.Address? = list.get(0)
                 lats[i] = address?.latitude!!.toDouble()
@@ -99,18 +102,11 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
             }
         }
 
-        val averageLat:Double = getMean(lats)
-        val averageLon:Double = getMean(lons)
+        averageLat = getMean(lats)
+        averageLon = getMean(lons)
 
         Log.d("좌표 : ", averageLat.toString())
         Log.d("좌표 : ", averageLon.toString())
-
-        val averagePosition = LatLng(averageLat, averageLon)
-
-        buttonTemporary2.setOnClickListener {
-            showPlaceInformation(averagePosition);
-        }
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -161,6 +157,12 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
         }
         mMap!!.uiSettings.isMyLocationButtonEnabled = true
         mMap!!.setOnMapClickListener { Log.d(SelectDestination_2_6Activity.TAG, "onMapClick :") }
+
+        val averagePosition = LatLng(averageLat, averageLon)
+
+        showPlaceInformation(averagePosition);
+
+        searchKeyword("카페", averageLon.toString(), averageLat.toString(), Integer(5000))
     }
 
     var locationCallback: LocationCallback = object : LocationCallback() {
@@ -215,7 +217,10 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
         super.onStart()
         Log.d(SelectDestination_2_6Activity.TAG, "onStart")
         if (checkPermission()) {
-            Log.d(SelectDestination_2_6Activity.TAG, "onStart : call mFusedLocationClient.requestLocationUpdates")
+            Log.d(
+                SelectDestination_2_6Activity.TAG,
+                "onStart : call mFusedLocationClient.requestLocationUpdates"
+            )
             mFusedLocationClient!!.requestLocationUpdates(locationRequest, locationCallback, null)
             if (mMap != null) mMap!!.isMyLocationEnabled = true
         }
@@ -368,7 +373,10 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
         builder.setCancelable(true)
         builder.setPositiveButton("설정") { dialog, id ->
             val callGPSSettingIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-            startActivityForResult(callGPSSettingIntent, SelectDestination_2_6Activity.GPS_ENABLE_REQUEST_CODE)
+            startActivityForResult(
+                callGPSSettingIntent,
+                SelectDestination_2_6Activity.GPS_ENABLE_REQUEST_CODE
+            )
         }
         builder.setNegativeButton("취소") { dialog, id -> dialog.cancel() }
         builder.create().show()
@@ -422,7 +430,7 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
         val addresses: Array<com.example.meethere.Address> =
             intent.getSerializableExtra("addressData") as Array<com.example.meethere.Address>
         for (i in addresses.indices) {
-            val str: String = addresses[i].Address
+            val str: String = addresses[i].address
             val list = geocoder.getFromLocationName(str, 10)
             if (list != null) {
                 val address: android.location.Address? = list.get(0)
@@ -432,8 +440,8 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
                 val addressPos = LatLng(lat, lon)
                 val markerOptions = MarkerOptions()
                 markerOptions.position(addressPos)
-                markerOptions.title(addresses[i].Name)
-                markerOptions.snippet(addresses[i].Address)
+                markerOptions.title(addresses[i].name)
+                markerOptions.snippet(addresses[i].address)
                 mMap!!.addMarker(markerOptions)
             }
         }
@@ -443,6 +451,7 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
             .key("AIzaSyB0cxRl8WstOzAISge8W_w4k8oq-rx9AJ8")
             .latlng(location!!.latitude, location!!.longitude)
             .radius(500)
+            .minprice(0, 2)
             .type(PlaceType.CAFE)
             .language("ko", "KR")
             .build()
@@ -472,5 +481,41 @@ class SelectDestination_2_6Activity : AppCompatActivity(), OnMapReadyCallback,
         private const val UPDATE_INTERVAL_MS = 1000
         private const val FATEST_UPDATE_INTERVAL_MS = 500
         private const val PERMISSIONS_REQUEST_CODE = 100
+        private const val BASE_URL = "https://dapi.kakao.com/"
+        private const val API_KEY = "KakaoAK d921c75efdd92ffb9c3584afeacee0b6"  // REST API 키
+    }
+
+    private fun searchKeyword(keyword: String, x: String, y: String, radius: Integer) {
+        val retrofit = Retrofit.Builder()   // Retrofit 구성
+            .baseUrl(SelectDestinationActivity.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val api = retrofit.create(KakaoAPI::class.java)   // 통신 인터페이스를 객체로 생성
+        val call = api.getSearchKeyword(
+            SelectDestinationActivity.API_KEY,
+            keyword,
+            x,
+            y,
+            radius
+        )   // 검색 조건 입력
+
+        // API 서버에 요청
+        call.enqueue(object : Callback<ResultSearchKeyword> {
+            override fun onResponse(
+                call: Call<ResultSearchKeyword>,
+                response: Response<ResultSearchKeyword>
+            ) {
+                // 통신 성공 (검색 결과는 response.body()에 담겨있음)
+
+                Log.d("Test", "Raw: ${response.raw()}")
+                Log.d("Test", "Body: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<ResultSearchKeyword>, t: Throwable) {
+                // 통신 실패
+                Log.w("MainActivity", "통신 실패: ${t.message}")
+            }
+        })
+
     }
 }

@@ -41,13 +41,6 @@
     </com.google.android.material.tabs.TabLayout>
 
     <Button
-        android:id="@+id/buttonTemporary2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="장소 검색하기" />
-
-    <Button
         android:id="@+id/buttonTemporary"
         android:layout_width="match_parent"
         android:layout_height="0dp"
