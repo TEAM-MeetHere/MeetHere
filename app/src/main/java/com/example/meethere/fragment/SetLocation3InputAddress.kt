@@ -108,6 +108,9 @@ class SetLocation3InputAddress : Fragment() {
             if (name == "") {
                 addressObject.user_name = "홍길동"
             }
+            else {
+                addressObject.user_name = name
+            }
 
             etRoadAddressName.setText("")
             etUserName.setText("")
