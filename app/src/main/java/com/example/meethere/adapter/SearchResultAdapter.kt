@@ -1,18 +1,13 @@
 package com.example.meethere.adapter
 
-import android.app.appsearch.SearchResult
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.meethere.Address
+import com.example.meethere.AddressObject
 import com.example.meethere.R
 import com.example.meethere.SearchResultItem
-import com.example.meethere.activity.SelectDestination_2_6Activity
-import com.example.meethere.activity.ShowDetail_2_8Activity
-import com.example.meethere.activity.ShowResult_2_7Activity
 
 class SearchResultAdapter(val searchResults: ArrayList<SearchResultItem>) :
     RecyclerView.Adapter<SearchResultAdapter.ViewHolder>() {
@@ -31,13 +26,23 @@ class SearchResultAdapter(val searchResults: ArrayList<SearchResultItem>) :
     }
 
     override fun onBindViewHolder(holder: SearchResultAdapter.ViewHolder, position: Int) {
-        holder.name.text = searchResults[position].name
-        holder.road.text = searchResults[position].road
-        holder.address.text = searchResults[position].address
+        holder.name.text = searchResults[holder.adapterPosition].name
+        holder.road.text = searchResults[holder.adapterPosition].road
+        holder.address.text = searchResults[holder.adapterPosition].address
+
+        var addressObject = AddressObject(
+            searchResults[holder.adapterPosition].name,
+            "",
+            searchResults[holder.adapterPosition].road,
+            searchResults[holder.adapterPosition].address,
+            searchResults[holder.adapterPosition].x,
+            searchResults[holder.adapterPosition].y
+        )
+
         // 아이템 클릭 이벤트
-        holder.itemView.setOnClickListener (object : View.OnClickListener {
+        holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                itemClickListener.onClick(searchResults[position].name, searchResults[position].road)
+                itemClickListener.onClick(addressObject)
             }
         })
     }
@@ -49,7 +54,7 @@ class SearchResultAdapter(val searchResults: ArrayList<SearchResultItem>) :
     }
 
     interface OnItemClickListener {
-        fun onClick(addressName: String, addressRoad: String)
+        fun onClick(addressObject: AddressObject)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {

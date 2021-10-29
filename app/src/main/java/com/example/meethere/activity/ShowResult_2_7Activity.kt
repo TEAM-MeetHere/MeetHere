@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.item_result.*
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.view.MenuItem
+import com.example.meethere.AddressObject
 import com.example.meethere.R
 import com.example.meethere.Result
 import com.example.meethere.adapter.ResultAdapter
@@ -43,13 +44,14 @@ class ShowResult_2_7Activity : AppCompatActivity() {
         resultAdapter.addResult(resultObject4)
 */
 
-        val addresses: Array<com.example.meethere.Address> =
-            intent.getSerializableExtra("addressData") as Array<com.example.meethere.Address>
-        val destinationName: String? = intent.getStringExtra("destinationDataName")
-        val destinationRoad: String? = intent.getStringExtra("destinationDataRaod")
+        val addressObjects: Array<AddressObject> =
+            intent.getSerializableExtra("addressData") as Array<AddressObject>
 
-        for (i in addresses.indices) {
-            val resultObject = Result(addresses[i].name, 10) // 예상시간을 적을 예정
+        val addressObject: AddressObject = intent.getSerializableExtra("addressObject") as AddressObject
+        val destinationName: String? = addressObject.place_name
+
+        for (i in addressObjects.indices) {
+            val resultObject = Result(addressObjects[i].user_name, 10) // 예상시간을 적을 예정
             resultAdapter.addResult(resultObject)
         }
 

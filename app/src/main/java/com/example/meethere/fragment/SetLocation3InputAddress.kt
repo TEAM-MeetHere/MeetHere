@@ -1,6 +1,5 @@
 package com.example.meethere.fragment
 
-import android.R.attr
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -11,14 +10,12 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.meethere.R
 import kotlinx.android.synthetic.main.fragment_set_location3_input_address.*
-import androidx.core.app.ActivityCompat.startActivityForResult
 
-import com.example.meethere.activity.WebViewActivity
-import android.R.attr.data
-import android.graphics.Color
 import android.text.TextWatcher
 import com.example.meethere.activity.SetLocationNew
 import android.text.Editable
+import com.example.meethere.AddressObject
+import com.example.meethere.activity.SearchAddressActivity
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,6 +33,15 @@ class SetLocation3InputAddress : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    val place_name: String = ""
+    val user_name: String = ""
+    val road_address_name: String = ""
+    val address_name: String = ""
+    val lat: Double = 0.0
+    val lon: Double = 0.0
+
+    lateinit var addressObject: AddressObject
+
     // 웹 뷰로 이동하여 주소를 검색하고 에딧박스에 주소를 저장
     var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -43,8 +49,9 @@ class SetLocation3InputAddress : Fragment() {
                 // There are no request codes
                 val data: Intent? = result.data
                 if (data != null) {
-                    if (data.hasExtra("data")) {
-                        etAddress.setText(data.getStringExtra("data"))
+                    if (data.hasExtra("addressObject")) {
+                        addressObject = data.getSerializableExtra("addressObject") as AddressObject
+                        etRoadAddressName.text = addressObject.road_address_name
                     }
                 }
             }
@@ -73,12 +80,14 @@ class SetLocation3InputAddress : Fragment() {
         btnAddAddress.visibility = View.GONE
 
         // 웹 뷰로 주소 결과를 검색하기 위하여 이동하는 함수
-        etAddress.setOnClickListener {
-            val intent = Intent(requireContext(), WebViewActivity::class.java)
+        etRoadAddressName.setOnClickListener {
+/*            val intent = Intent(requireContext(), WebViewActivity::class.java)
+            resultLauncher.launch(intent)*/
+            val intent = Intent(requireContext(), SearchAddressActivity::class.java)
             resultLauncher.launch(intent)
         }
 
-        etAddress.addTextChangedListener(object : TextWatcher {
+        etRoadAddressName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun afterTextChanged(editable: Editable) {
@@ -94,16 +103,15 @@ class SetLocation3InputAddress : Fragment() {
 
         // 입력받은 이름들로 주소를 추가하기 위해 메인 액티비티의 addAddress를 거쳐 2번 프래그먼트의 addAddress를 호출
         btnAddAddress.setOnClickListener {
-            var address: String = etAddress.text.toString()
-            var name: String = etName.text.toString()
+            var name: String = etUserName.text.toString()
 
             if (name == "") {
-                name = "홍길동"
+                addressObject.user_name = "홍길동"
             }
 
-            etAddress.setText("")
-            etName.setText("")
-            (activity as SetLocationNew).addAddress(address, name)
+            etRoadAddressName.setText("")
+            etUserName.setText("")
+            (activity as SetLocationNew).addAddress(addressObject)
         }
     }
 

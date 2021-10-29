@@ -7,11 +7,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.meethere.Address
+import com.example.meethere.AddressObject
 import com.example.meethere.fragment.SetLocation1Keyword
 import com.example.meethere.fragment.SetLocation2InputList
 import com.example.meethere.fragment.SetLocation3InputAddress
 import kotlinx.android.synthetic.main.activity_set_location_new.*
+import kotlinx.android.synthetic.main.fragment_set_location1_keyword.*
 
 
 class SetLocationNew : AppCompatActivity() {
@@ -43,9 +44,11 @@ class SetLocationNew : AppCompatActivity() {
             if (flag == 2) {
                 /*val intent = Intent(applicationContext, SelectDestination_2_6Activity::class.java)*/
                 val intent =
-                    Intent(applicationContext, SelectDestination_2_6Activity::class.java)
+                    Intent(applicationContext, SelectDestinationActivity::class.java)
                 // 인텐트
-                
+
+                val fragment1: SetLocation1Keyword =
+                    supportFragmentManager.findFragmentByTag("TAG1") as SetLocation1Keyword
                 val fragment2: SetLocation2InputList =
                     supportFragmentManager.findFragmentByTag("TAG2") as SetLocation2InputList
 
@@ -55,8 +58,17 @@ class SetLocationNew : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
-                val addresses: Array<Address> = fragment2.getData().toTypedArray()
-                intent.putExtra("addressData", addresses)
+
+                // 먼저 키워드값을 넘겨줌 (공란일경우 카페)
+                if(fragment1.etKeyword.text.toString() == "") {
+                    intent.putExtra("keywordData","카페")
+                }
+                else {
+                    intent.putExtra("keywordData", fragment1.etKeyword.text.toString())
+                }
+                // 입력받은 주소들의 데이터를 통째로 SelectDestination으로 넘겨줌
+                val addressObjects: Array<AddressObject> = fragment2.getData().toTypedArray()
+                intent.putExtra("addressData", addressObjects)
                 startActivity(intent)
 
             } else {
@@ -117,11 +129,11 @@ class SetLocationNew : AppCompatActivity() {
     }
 
     // 3번 프래그먼트가 호출할 메인의 함수 : 주소를 추가하는 함수
-    fun addAddress(address: String, name: String) {
+    fun addAddress(addressObject: AddressObject) {
         // 2번 프래그먼트의 함수를 수행
         val fragment2: SetLocation2InputList =
             supportFragmentManager.findFragmentByTag("TAG2") as SetLocation2InputList
-        fragment2.addAddress(address, name)
+        fragment2.addAddress(addressObject)
         changeFragment(2)
     }
 
