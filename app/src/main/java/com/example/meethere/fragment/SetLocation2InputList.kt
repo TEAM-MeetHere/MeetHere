@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.Address
+import com.example.meethere.AddressObject
 import com.example.meethere.R
-import com.example.meethere.activity.MainActivity
 import com.example.meethere.activity.SetLocationNew
 import com.example.meethere.adapter.AddressAdapter
 import kotlinx.android.synthetic.main.fragment_set_location2_input_list.*
@@ -61,11 +60,18 @@ class SetLocation2InputList : Fragment() {
 
         //// 디버그 코드
 
-        addAddress("인천 연수구 원인재로 14 (동춘동, 무지개마을아파트", "A임영택")
-        addAddress("서울 관악구 장군봉길 6 (봉천동)", "B최규림")
-        addAddress("경기 고양시 일산동구 감내길 1 (성석동)", "C최현호")
+        addAddress(
+            AddressObject(
+                "로그인한 유저의 집",
+                "현재유저",
+                "인천 연수구 원인재로 124",
+                "인천광역시 연수구 동춘동 925",
+                37.40815101996116,
+                126.68072744941465
+            )
+        )
 
-        //// 나중에 삭제바람
+        //// 나중에 회원의 정보를 가장 먼저 추가하는 부분
     }
 
     companion object {
@@ -89,11 +95,11 @@ class SetLocation2InputList : Fragment() {
     }
 
     // 메인에서 2번 프래그먼트에게 호출할 함수
-    fun addAddress(address: String, name: String) {
-        addressAdapter.addAddress(Address(address, name))
+    fun addAddress(addressObject: AddressObject) {
+        addressAdapter.addAddress(addressObject)
     }
 
-    fun getData(): MutableList<Address> {
+    fun getData(): MutableList<AddressObject> {
         return addressAdapter.getData()
     }
 

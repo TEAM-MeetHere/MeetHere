@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.meethere.Address
+import com.example.meethere.AddressObject
 import com.example.meethere.databinding.ItemAddressBinding
 import kotlinx.android.synthetic.main.item_address.view.*
 
 
 class AddressAdapter(
-    private val addresses: MutableList<Address>     // public
+    private val addressObjects: MutableList<AddressObject>     // public
 ) : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
     class AddressViewHolder(val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -33,32 +33,32 @@ class AddressAdapter(
     /*   private fun toggleStrikeThrough(textViewAddress: TextView, textViewName: TextView) {
 
        }*/
-    fun addAddress(address: Address) {
-        addresses.add(address)
-        notifyItemInserted(addresses.size - 1)
+    fun addAddress(addressObject: AddressObject) {
+        addressObjects.add(addressObject)
+        notifyItemInserted(addressObjects.size - 1)
     }
 
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
-        val curAddress = addresses[position]
+        val curAddress = addressObjects[position]
         holder.itemView.apply {
-            textViewAddress.text = curAddress.Address
-            textViewName.text = curAddress.Name
+            textViewAddress.text = curAddress.road_address_name
+            textViewName.text = curAddress.user_name
         }
 
         holder.btn2.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                if (addresses.isNotEmpty())
-                    addresses.remove(addresses[holder.adapterPosition])
+                if (addressObjects.isNotEmpty())
+                    addressObjects.remove(addressObjects[holder.adapterPosition])
                 notifyDataSetChanged()
             }
         })
     }
 
     override fun getItemCount(): Int {
-        return addresses.size
+        return addressObjects.size
     }
 
-    fun getData(): MutableList<Address> {
-        return addresses
+    fun getData(): MutableList<AddressObject> {
+        return addressObjects
     }
 }

@@ -2,22 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_select_destination26"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".activity.SelectDestination_2_6Activity">
+    tools:context=".activity.SelectDestinationActivity">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <net.daum.mf.map.api.MapView
         android:id="@+id/mapDestination"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
-        tools:context=".activity.SelectDestination_2_6Activity" />
+        android:layout_weight="6" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -26,8 +21,7 @@
         android:layout_marginEnd="0dp"
         android:layout_weight="0.5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -40,24 +34,11 @@
             android:text="거리순정렬" />
     </com.google.android.material.tabs.TabLayout>
 
-    <Button
-        android:id="@+id/buttonTemporary2"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSearch"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="장소 검색하기" />
-
-    <Button
-        android:id="@+id/buttonTemporary"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="최종 장소 선택 임시 버튼" />
-
-    <FrameLayout
-        android:id="@+id/frameLayoutDestination"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3" />
+        android:layout_weight="10"
+        />
 
 </LinearLayout>

@@ -13,18 +13,27 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:allowBackup="false"
-        android:usesCleartextTraffic="true"
         android:name=".sharedpreferences.App"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MeetHere">
+        android:theme="@style/Theme.MeetHere"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.SearchAddressActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.SelectDestinationActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB0cxRl8WstOzAISge8W_w4k8oq-rx9AJ8" />
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="2724733817c80378509297f93f9f320a" />
 
         <activity
             android:name=".activity.WebViewActivity"
@@ -37,7 +46,6 @@
             android:label="장소 검색하기"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/Search" />
-
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true"
@@ -85,15 +93,11 @@
             android:name=".activity.MainActivity"
             android:exported="true"
             android:theme="@style/NoActionBarStyle" />
-        <activity
-            android:name=".activity.SelectDestination_2_6Activity"
-            android:label="목적지 선택"
-            android:parentActivityName=".activity.SetLocationNew"
-            android:theme="@style/Search" />
+
         <activity
             android:name=".activity.ShowResult_2_7Activity"
             android:label="검색결과"
-            android:parentActivityName=".activity.SelectDestination_2_6Activity"
+            android:parentActivityName=".activity.SelectDestinationActivity"
             android:theme="@style/Search" />
         <activity
             android:name=".activity.ShowDetail_2_8Activity"
