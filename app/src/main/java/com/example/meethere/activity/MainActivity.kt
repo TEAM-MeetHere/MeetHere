@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
         //장소 검색 시작 버튼 클릭시
         search_btn.setOnClickListener({
-            val intent = Intent(this, SetLocation_2_4Activity::class.java)
+            val intent = Intent(this, SetLocationNew::class.java)
             startActivity(intent)
         })
 

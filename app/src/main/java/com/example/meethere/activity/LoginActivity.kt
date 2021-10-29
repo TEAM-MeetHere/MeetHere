@@ -21,6 +21,15 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //자동 로그인
+        if (!App.prefs.email.isNullOrBlank()) {
+            var loginName: String = App.prefs.username.toString()
+            Log.d(TAG, "LoginActivity - $loginName 님이 자동로그인 되었습니다.")
+            Toast.makeText(this, "$loginName 님이 자동 로그인 되었습니다.", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         //회원가입 클릭
         binding.join.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -41,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
 
         //로그인 클릭
         binding.loginBtn.setOnClickListener {
+
             Log.d(TAG, "LoginActivity - 검색 버튼 클릭 / currentSearchType")
 
             var ID: String = binding.loginId.text.toString()

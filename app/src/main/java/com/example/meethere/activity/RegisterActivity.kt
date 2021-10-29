@@ -1,5 +1,6 @@
 package com.example.meethere.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.meethere.databinding.ActivityRegisterBinding
 import com.example.meethere.retrofit.request.Register
@@ -18,13 +20,28 @@ import org.json.JSONObject
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityRegisterBinding
+
+    var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // There are no request codes
+                val data: Intent? = result.data
+                if (data != null) {
+                    if (data.hasExtra("data")) {
+                        register_address.setText(data.getStringExtra("data"))
+                    }
+                }
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//            binding.nextBUTTON.visibility = View.GONE
+            binding.nextBUTTON.isClickable = false
 
         //다음 단계 버튼 클릭 시
         binding.nextBUTTON.setOnClickListener {
@@ -50,6 +67,8 @@ class RegisterActivity : AppCompatActivity() {
                 )
             ) return@setOnClickListener
 
+//            binding.nextBUTTON.visibility = View.GONE
+            binding.nextBUTTON.isClickable = false
 
             var myRegister = Register(EMAIL, PW, RE_PW, NAME, ADDRESS, PHONE)
 
@@ -101,6 +120,11 @@ class RegisterActivity : AppCompatActivity() {
 
 //            binding.nextBUTTON.visibility = View.VISIBLE
             binding.nextBUTTON.isClickable = true
+        }
+
+        register_address.setOnClickListener {
+            val intent = Intent(this, WebViewActivity::class.java)
+            resultLauncher.launch(intent)
         }
     }
 

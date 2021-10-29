@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_address.view.*
 
 
 class AddressAdapter(
-    private val addresses: MutableList<Address>
+    private val addresses: MutableList<Address>     // public
 ) : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
     class AddressViewHolder(val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -41,8 +41,8 @@ class AddressAdapter(
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         val curAddress = addresses[position]
         holder.itemView.apply {
-            textViewAddress.text = curAddress.Address
-            textViewName.text = curAddress.Name
+            textViewAddress.text = curAddress.address
+            textViewName.text = curAddress.name
         }
 
         holder.btn2.setOnClickListener(object : View.OnClickListener {
@@ -56,5 +56,9 @@ class AddressAdapter(
 
     override fun getItemCount(): Int {
         return addresses.size
+    }
+
+    fun getData(): MutableList<Address> {
+        return addresses
     }
 }

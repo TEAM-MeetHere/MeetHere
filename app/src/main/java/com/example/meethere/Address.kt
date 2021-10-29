@@ -1,6 +1,8 @@
 package com.example.meethere
 
-data class Address(
-    val Address: String,
-    val Name: String
-)
+import java.io.Serializable
+
+data class Address (
+    val address: String,
+    val name: String
+) : Serializable

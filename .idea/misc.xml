@@ -13,6 +13,7 @@
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/button_color_drawable.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/button_color_drawable2.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/button_color_drawable3.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/button_color_drawable4.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/button_color_shape4.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/buttonshape1.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/buttonshape2.xml" value="0.38229166666666664" />
@@ -22,34 +23,48 @@
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/buttonshape6.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/buttonshape7.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/buttonshape8.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/buttonshape9.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/buttonshapenoborder.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/drawable/ic_launcher_background.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_auth_id.xml" value="0.18" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_bookmark.xml" value="0.1" />
-        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_edit.xml" value="0.1" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_calculate_optimal_position.xml" value="0.1609375" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_edit.xml" value="0.18" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_find_id.xml" value="0.33" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_find_pw.xml" value="0.5" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_input_code.xml" value="0.33" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_login.xml" value="0.3496376811594203" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_new.xml" value="0.16" />
-        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_register.xml" value="0.18" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_select_destination.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_select_destination26.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_select_location25.xml" value="0.33" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_set_location24.xml" value="0.3493670886075949" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_set_location_new.xml" value="0.1" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_show_detail28.xml" value="0.10801393728222997" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_show_detail_map29.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_show_result27.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_single_item.xml" value="0.1" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_splash.xml" value="0.20104166666666667" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/activity_web_view.xml" value="0.22" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/add_address_box.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/fragment_search_location.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/fragment_select_destination_sort_distance.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/fragment_select_destination_sort_time.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/fragment_set_location1_keyword.xml" value="0.25" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/fragment_set_location2_input_list.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/fragment_set_location3_input_address.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/fragment_set_location4_select_destination.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/fragment_set_location__keyword.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/item_address.xml" value="0.25" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/item_result.xml" value="0.22" />
+        <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/item_searchresult.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/layout/iten_result.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/K2/AndroidStudioProjects/MeetHere/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_auth_id.xml" value="0.1" />
+        <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_bookmark.xml" value="0.3875" />
         <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_edit.xml" value="0.1" />
         <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_find_id.xml" value="0.128" />
         <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_find_pw.xml" value="0.20052083333333334" />
@@ -57,6 +72,13 @@
         <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_new.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_register.xml" value="0.209375" />
+        <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_select_destination.xml" value="0.25625" />
+        <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_select_destination26.xml" value="0.25625" />
+        <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_set_location_new.xml" value="0.25625" />
+        <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_show_detail28.xml" value="0.25625" />
+        <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_show_detail_map29.xml" value="0.25625" />
+        <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/activity_show_result27.xml" value="0.25625" />
+        <entry key="..\:/Users/adcdm/MeetHere_repository/app/src/main/res/layout/alertdialog_date_name.xml" value="0.2604166666666667" />
       </map>
     </option>
   </component>
