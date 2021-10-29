@@ -12,8 +12,6 @@ import com.example.meethere.ResultSearchKeyword
 import com.example.meethere.SearchResultItem
 import com.example.meethere.adapter.SearchResultAdapter
 import com.example.meethere.databinding.ActivitySelectDestinationBinding
-import net.daum.mf.map.api.MapView
-import kotlinx.android.synthetic.main.activity_select_destination.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,7 +49,7 @@ class SelectDestinationActivity : AppCompatActivity() {
             intent.getSerializableExtra("addressData") as Array<AddressObject>
         val lats = DoubleArray(addressObjects.size)
         val lons = DoubleArray(addressObjects.size)
-        
+
         // 주소의 평균 지점을 구함
         for (i in addressObjects.indices) {
             lats[i] = addressObjects[i].lat
@@ -75,14 +73,14 @@ class SelectDestinationActivity : AppCompatActivity() {
 
         // 중심점을 기준으로 Integer(5000) (임시값)의 키워드를 검색
         val keyword = intent.getStringExtra("keywordData").toString()
-        searchKeyword(keyword, averageLon.toString(), averageLat.toString(), Integer(5000) )
+        searchKeyword(keyword, averageLon.toString(), averageLat.toString(), Integer(5000))
 
         // 최종 목적지를 터치하면 해당 데이터와 입력받은 주소 데이터들을 ShowResult로 넘겨줌
         searchResultAdapter.setItemClickListener(object : SearchResultAdapter.OnItemClickListener {
             override fun onClick(addressObject: AddressObject) {
                 val intent = Intent(applicationContext, ShowResult_2_7Activity::class.java)
                 intent.putExtra("addressData", addressObjects)
-                intent.putExtra("addressObject",addressObject)
+                intent.putExtra("addressObject", addressObject)
                 startActivity(intent)
             }
         })
