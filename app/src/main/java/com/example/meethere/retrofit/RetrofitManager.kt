@@ -1,10 +1,7 @@
 package com.example.meethere.retrofit
 
 import android.util.Log
-import com.example.meethere.retrofit.request.Login
-import com.example.meethere.retrofit.request.Register
-import com.example.meethere.retrofit.request.Update
-import com.example.meethere.retrofit.request.Verify
+import com.example.meethere.retrofit.request.*
 import com.example.meethere.utils.API
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
@@ -25,13 +22,28 @@ class RetrofitManager {
     private val iRetrofit: IRetrofit? =
         RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
 
+
+    //즐겨찾기 저장 API 호출
+    fun saveBookmarkService(bookmark: Bookmark, completion: (RESPONSE_STATE, String) -> Unit){
+        val term = bookmark ?: ""
+        val call = iRetrofit?.saveBookmarkService(bookmark = term as Bookmark) ?: return
+
+        call.enqueue(object :retrofit2.Callback<JsonElement>{
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+        })
+    }
+
+
     //회원 비밀번호 찾기 API 호출
-    fun findPwService(
-        email: String,
-        name: String,
-        phone: String,
-        completion: (RESPONSE_STATE, String) -> Unit
-    ) {
+    fun findPwService(email: String, name: String, phone: String, completion: (RESPONSE_STATE, String) -> Unit) {
 
         val term1 = email ?: ""
         val term2 = name ?: ""

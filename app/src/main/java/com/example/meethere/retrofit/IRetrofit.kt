@@ -1,9 +1,6 @@
 package com.example.meethere.retrofit
 
-import com.example.meethere.retrofit.request.Login
-import com.example.meethere.retrofit.request.Register
-import com.example.meethere.retrofit.request.Update
-import com.example.meethere.retrofit.request.Verify
+import com.example.meethere.retrofit.request.*
 import com.example.meethere.utils.API
 import com.google.gson.JsonElement
 import retrofit2.Call
@@ -53,4 +50,7 @@ interface IRetrofit {
     )
             : Call<JsonElement>
 
+    @POST(API.SAVE_BOOKMARK)
+    fun saveBookmarkService(@Body bookmark: Bookmark)
+            : Call<JsonElement>
 }

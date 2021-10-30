@@ -44,9 +44,11 @@ class ShowResult_2_7Activity : AppCompatActivity() {
         resultAdapter.addResult(resultObject4)
 */
 
+        //출발 주소 리스트
         val addressObjects: Array<AddressObject> =
             intent.getSerializableExtra("addressData") as Array<AddressObject>
 
+        //도착 주소
         val addressObject: AddressObject = intent.getSerializableExtra("addressObject") as AddressObject
         val destinationName: String? = addressObject.place_name
 
@@ -57,8 +59,14 @@ class ShowResult_2_7Activity : AppCompatActivity() {
 
         textView2.text = destinationName + " 까지"
 
+        //저장하기 버튼 클릭시 -> 캘린더, 약속이름 정하러가기
         buttonSave.setOnClickListener {
-            Toast.makeText(this@ShowResult_2_7Activity, "즐겨찾기에 저장이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+
+            var intent = Intent(this, SaveBookmarkActivity::class.java)
+            intent.putExtra("startAddressList", addressObjects)
+            intent.putExtra("destinationAddress", addressObject)
+            startActivity(intent)
+//            Toast.makeText(this@ShowResult_2_7Activity, "즐겨찾기에 저장이 완료되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
         buttonShare.setOnClickListener {
