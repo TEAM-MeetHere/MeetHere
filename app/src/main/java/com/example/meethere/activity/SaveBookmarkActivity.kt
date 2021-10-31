@@ -46,7 +46,6 @@ class SaveBookmarkActivity : AppCompatActivity() {
         var myStartAddress = ArrayList<StartAddress>()
 
         for (addressObject in addressObjects) {
-            var temp:List<StartAddress>
 
             val placeName = addressObject.place_name
             val userName = addressObject.user_name
@@ -105,8 +104,7 @@ class SaveBookmarkActivity : AppCompatActivity() {
                 var date: String = myDate
 
                 var myBookmark = Bookmark(
-                    memberId, destination, startAddressList,
-                    name, dateName, roadAddressName, addressName, lat, lon, date
+                    memberId, destination, name, dateName, roadAddressName, addressName, lat, lon, date, startAddressList
                 )
                 Log.d(TAG, "@@@@@@@@@@@@@@")
                 Log.d(TAG, "날짜날짜 = ${myBookmark.date}")

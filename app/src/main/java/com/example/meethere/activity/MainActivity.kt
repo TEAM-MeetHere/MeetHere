@@ -1,16 +1,25 @@
 package com.example.meethere.activity
 
 import android.content.Intent
+import android.location.Address
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.meethere.*
+import com.example.meethere.databinding.ActivityInputCodeBinding
 import com.example.meethere.databinding.ActivityMainBinding
+import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.sharedpreferences.App
+import com.example.meethere.utils.Constants.TAG
+import com.example.meethere.utils.RESPONSE_STATE
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         //공유코드 입력 버튼 클릭시
         binding.codeBtn.setOnClickListener {
+
             val mCodeView = LayoutInflater.from(this).inflate(R.layout.activity_input_code, null)
             val mBuilder = AlertDialog.Builder(this)
                 .setView(mCodeView)
@@ -53,9 +63,112 @@ class MainActivity : AppCompatActivity() {
             val mAlertDialog = mBuilder.show()
             val okButton = mCodeView.findViewById<Button>(R.id.input_code_btn)
             okButton.setOnClickListener {
-                val intent = Intent(this, ShowResult_2_7Activity::class.java)
-                startActivity(intent)
-                mAlertDialog.dismiss()
+
+                val random_code = mCodeView.findViewById<EditText>(R.id.input_code_text).text.toString()
+                Log.d(TAG, "입력된 랜덤코드 = $random_code")
+                //공유코드(도착지점) 불러오기 API 호출
+                RetrofitManager.instance.shareDestinationService(
+                    code = random_code,
+                    completion = {responseState, responseBody ->
+                        when(responseState){
+
+                            //API 호출 성공시
+                            RESPONSE_STATE.OKAY->{
+                                Log.d(TAG, "API 호출 성공 : $responseBody")
+
+                                //JSON parsing
+                                //{}->JSONObject, []->JSONArray
+                                val jsonObject = JSONObject(responseBody)
+                                val statusCode = jsonObject.getInt("statusCode")
+
+                                if (statusCode == 200) {
+                                    val message = jsonObject.getString("message")
+                                    Log.d(TAG, "message = $message")
+                                    val data = jsonObject.getJSONObject("data")
+
+                                    val shareId = data.getLong("id")
+                                    val placeName = data.getString("placeName")
+                                    val username = data.getString("username")
+                                    val roadAddressName = data.getString("roadAddressName")
+                                    val addressName = data.getString("addressName")
+                                    val lat = data.getDouble("lat")
+                                    val lon = data.getDouble("lon")
+
+                                    Log.d(TAG, "shareID = $shareId")
+                                    Log.d(TAG, "placeName = $placeName")
+                                    Log.d(TAG, "username = $username")
+                                    Log.d(TAG, "roadAddressName = $roadAddressName")
+                                    Log.d(TAG, "addressName = $addressName")
+                                    Log.d(TAG, "lat = $lat")
+                                    Log.d(TAG, "lon = $lon")
+
+                                    var addressObject = AddressObject(placeName, username, roadAddressName, addressName, lat, lon)
+                                    var addressObjects = ArrayList<AddressObject>()
+
+                                    //공유코드(출발지점 리스트) 불러오기 API 호출
+                                    RetrofitManager.instance.shareStartService(
+                                        shareId = shareId,
+                                        completion = {responseState, responseBody ->
+                                            when(responseState){
+                                                //API 호출 성공시
+                                                RESPONSE_STATE.OKAY->{
+                                                    Log.d(TAG, "API 호출 성공 : $responseBody")
+
+                                                    //JSON parsing
+                                                    //{}->JSONObject, []->JSONArray
+                                                    val jsonObject = JSONObject(responseBody)
+                                                    val statusCode = jsonObject.getInt("statusCode")
+
+                                                    if (statusCode == 200) {
+                                                        val dataArray = jsonObject.getJSONArray("data")
+                                                        for (i in 0..dataArray.length() - 1) {
+
+                                                            val iObject = dataArray.getJSONObject(i)
+
+                                                            val placeName = iObject.getString("placeName")
+                                                            val username = iObject.getString("username")
+                                                            val roadAddressName = iObject.getString("roadAddressName")
+                                                            val addressName = iObject.getString("addressName")
+                                                            val lat = iObject.getDouble("lat")
+                                                            val lon = iObject.getDouble("lon")
+
+                                                            addressObjects.add(AddressObject(placeName, username, roadAddressName, addressName, lat, lon))
+                                                        }
+
+                                                        val intent = Intent(this, ShowResult_2_7Activity::class.java)
+                                                        intent.putExtra("addressData", addressObjects)
+                                                        intent.putExtra("addressObject", addressObject)
+                                                        startActivity(intent)
+                                                        mAlertDialog.dismiss()
+
+                                                    } else {
+                                                        var errorMessage = jsonObject.getString("message")
+                                                        Log.d(TAG, "error message = $errorMessage")
+                                                        Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                                                    }
+
+                                                }
+                                                //API 호출 실패시
+                                                RESPONSE_STATE.FAIL->{
+                                                    Log.d(TAG, "API 호출 실패 : $responseBody")
+                                                }
+                                            }
+                                        }
+                                    )
+                                } else {
+                                    val errorMessage = jsonObject.getString("message")
+                                    Log.d(TAG, "error message = $errorMessage")
+                                    Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                            //API 호출 실패시
+                            RESPONSE_STATE.FAIL->{
+                                Log.d(TAG, "API 호출 실패 : $responseBody")
+                            }
+                        }
+                    }
+                )
+
             }
         }
 

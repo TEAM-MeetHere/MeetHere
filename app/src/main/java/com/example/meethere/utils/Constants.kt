@@ -27,4 +27,10 @@ object API {
     const val FIND_PW = "api/members/findPw"
 
     const val SAVE_BOOKMARK = "api/bookmark/save"
+
+    const val SAVE_SHARE = "api/share/save"
+
+    const val SHARE_DESTINATION = "api/share/destination"
+
+    const val SHARE_START = "api/share/start"
 }

@@ -23,10 +23,10 @@ class RetrofitManager {
         RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
 
 
-    //즐겨찾기 저장 API 호출
-    fun saveBookmarkService(bookmark: Bookmark, completion: (RESPONSE_STATE, String) -> Unit){
-        val term = bookmark ?: ""
-        val call = iRetrofit?.saveBookmarkService(bookmark = term as Bookmark) ?: return
+    //공유코드 내용(출발지점 리스트) 불러오기
+    fun shareStartService(shareId:Long, completion: (RESPONSE_STATE, String) -> Unit){
+        var term = shareId?:""
+        val call = iRetrofit?.shareStartService(shareId = term as Long) ?: return
 
         call.enqueue(object :retrofit2.Callback<JsonElement>{
             //응답 성공
@@ -34,6 +34,7 @@ class RetrofitManager {
                 Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
                 completion(RESPONSE_STATE.OKAY, response.body().toString())
             }
+
             //응답 실패
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 completion(RESPONSE_STATE.FAIL, t.toString())
@@ -41,9 +42,70 @@ class RetrofitManager {
         })
     }
 
+    //공유코드 내용(도착지점) 불러오기
+    fun shareDestinationService(code: String, completion: (RESPONSE_STATE, String) -> Unit) {
+        val term = code ?: ""
+        val call = iRetrofit?.shareDestinationService(code = term as String) ?: return
+
+        call.enqueue(object :retrofit2.Callback<JsonElement>{
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+        })
+    }
+
+    //공유코드 저장
+    fun saveShareService(share: Share, completion: (RESPONSE_STATE, String) -> Unit) {
+        val term = share ?: ""
+        val call = iRetrofit?.saveShareService(share = term as Share) ?: return
+
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+        })
+    }
+
+    //즐겨찾기 저장 API 호출
+    fun saveBookmarkService(bookmark: Bookmark, completion: (RESPONSE_STATE, String) -> Unit) {
+        val term = bookmark ?: ""
+        val call = iRetrofit?.saveBookmarkService(bookmark = term as Bookmark) ?: return
+
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+        })
+    }
 
     //회원 비밀번호 찾기 API 호출
-    fun findPwService(email: String, name: String, phone: String, completion: (RESPONSE_STATE, String) -> Unit) {
+    fun findPwService(
+        email: String,
+        name: String,
+        phone: String,
+        completion: (RESPONSE_STATE, String) -> Unit
+    ) {
 
         val term1 = email ?: ""
         val term2 = name ?: ""
@@ -55,7 +117,7 @@ class RetrofitManager {
             phone = term3 as String
         ) ?: return
 
-        call.enqueue(object :retrofit2.Callback<JsonElement>{
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
             //응답 성공
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
