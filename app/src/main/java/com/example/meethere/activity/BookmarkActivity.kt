@@ -49,13 +49,13 @@ class BookmarkActivity : AppCompatActivity() {
 
                                 val iObject = dataArray.getJSONObject(i)
                                 val id = iObject.getLong("id")
-                                val destination = iObject.getString("destination")
+                                val dateName = iObject.getString("dateName")
 
-                                bookmarkList.add(BookmarkItem(R.drawable.star, id, destination))
+                                bookmarkList.add(BookmarkItem(R.drawable.star, id, dateName))
 
                                 Log.d(TAG, "$i 번째")
                                 Log.d(TAG, "bookmarkId = $id")
-                                Log.d(TAG, "destination = $destination")
+                                Log.d(TAG, "약속 이름 = $dateName")
                             }
 
                             binding.re.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

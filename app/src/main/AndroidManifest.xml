@@ -22,6 +22,9 @@
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.SaveBookmarkActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.SearchAddressActivity"
             android:exported="true" />
         <activity
@@ -93,7 +96,6 @@
             android:name=".activity.MainActivity"
             android:exported="true"
             android:theme="@style/NoActionBarStyle" />
-
         <activity
             android:name=".activity.ShowResult_2_7Activity"
             android:label="검색결과"
