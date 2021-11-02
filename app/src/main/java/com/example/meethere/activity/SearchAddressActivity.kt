@@ -44,9 +44,16 @@ class SearchAddressActivity : AppCompatActivity() {
         binding.rvList.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvList.adapter = listAdapter
-        
+
         listAdapter.setItemClickListener(object : SearchResultAdapter.OnItemClickListener {
-            override fun onClick(addressObject: AddressObject) {
+            override fun onClick(addressObject: AddressObject, position: Int) {
+                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
+                binding.mapView.setMapCenterPointAndZoomLevel(mapPoint, 2, true)
+            }
+        })
+
+        listAdapter.setItemClickListener2(object : SearchResultAdapter.OnItemClickListener {
+            override fun onClick(addressObject: AddressObject, position: Int) {
                 if (addressObject.road_address_name == "") {
                     Toast.makeText(
                         this@SearchAddressActivity,
@@ -57,7 +64,6 @@ class SearchAddressActivity : AppCompatActivity() {
                 }
 
                 val intent = intent
-
                 intent.putExtra("addressObject", addressObject)
                 // 오브젝트를 이전 액티비티로 전달해줌
                 setResult(Activity.RESULT_OK, intent)
@@ -69,6 +75,7 @@ class SearchAddressActivity : AppCompatActivity() {
         binding.btnSearch.setOnClickListener {
             keyword = binding.etSearchField.text.toString()
             pageNumber = 1
+            binding.tvPageNumber.text = pageNumber.toString()
             searchKeyword(keyword, pageNumber)
         }
 
@@ -87,7 +94,9 @@ class SearchAddressActivity : AppCompatActivity() {
         }
 
         // 초기 기본 위치로 카메라 이동
-        binding.mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.4499641433847, 126.653467210032), true);
+        val mapPoint = MapPoint.mapPointWithGeoCoord(37.4499641433847, 126.653467210032)
+        binding.mapView.setMapCenterPoint(mapPoint, true)
+        binding.mapView.setZoomLevel(2, true)
     }
 
     // 키워드 검색 함수
@@ -128,8 +137,8 @@ class SearchAddressActivity : AppCompatActivity() {
                     document.place_name,
                     document.road_address_name,
                     document.address_name,
-                    document.y.toDouble(),
-                    document.x.toDouble()
+                    document.x.toDouble(),
+                    document.y.toDouble()
                 )
                 listItems.add(item)
 

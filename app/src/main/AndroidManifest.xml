@@ -21,34 +21,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
+
+
         <activity
             android:name=".activity.SearchAddressActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SelectDestinationActivity"
-            android:exported="true" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB0cxRl8WstOzAISge8W_w4k8oq-rx9AJ8" />
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="2724733817c80378509297f93f9f320a" />
+            android:exported="true"
+            android:label="목적지 선택"
+            android:parentActivityName=".activity.SetLocationNew"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
 
         <activity
             android:name=".activity.WebViewActivity"
             android:exported="true"
             android:label="장소 검색하기"
+            android:screenOrientation="portrait"
             android:theme="@style/Search" />
         <activity
             android:name=".activity.SetLocationNew"
             android:exported="true"
             android:label="장소 검색하기"
             android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Search" />
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,57 +61,75 @@
         </activity>
         <activity
             android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ID" />
         <activity
             android:name=".activity.RegisterActivity"
             android:label="회원가입"
             android:parentActivityName=".activity.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Register" />
         <activity
             android:name=".activity.FindIDActivity"
             android:label="아이디 찾기"
             android:parentActivityName=".activity.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Register" />
         <activity
             android:name=".activity.FindPWActivity"
             android:label="비밀번호 찾기"
             android:parentActivityName=".activity.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Register" />
         <activity
             android:name=".activity.AuthIDActivity"
             android:label="이메일 인증"
             android:parentActivityName=".activity.RegisterActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Register" />
         <activity
             android:name=".activity.EditActivity"
             android:label="정보 수정"
             android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Register" />
         <activity
             android:name=".activity.BookmarkActivity"
             android:label="즐겨찾기"
             android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Register" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/NoActionBarStyle" />
 
         <activity
             android:name=".activity.ShowResult_2_7Activity"
             android:label="검색결과"
             android:parentActivityName=".activity.SelectDestinationActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Search" />
         <activity
             android:name=".activity.ShowDetail_2_8Activity"
             android:label="상세보기"
             android:parentActivityName=".activity.ShowResult_2_7Activity"
+            android:screenOrientation="portrait"
             android:theme="@style/Search" />
         <activity
             android:name=".activity.ShowDetailMap_2_9Activity"
             android:label="지도보기"
             android:parentActivityName=".activity.ShowDetail_2_8Activity"
+            android:screenOrientation="portrait"
             android:theme="@style/Search" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB0cxRl8WstOzAISge8W_w4k8oq-rx9AJ8" />
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="2724733817c80378509297f93f9f320a" />
     </application>
 
 </manifest>
