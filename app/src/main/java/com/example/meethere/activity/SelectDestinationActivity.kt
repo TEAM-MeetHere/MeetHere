@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.AddressObject
@@ -25,6 +26,7 @@ class SelectDestinationActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySelectDestinationBinding
     private val listItems = arrayListOf<SearchResultItem>()   // 리사이클러 뷰 아이템
     private val searchResultAdapter = SearchResultAdapter(listItems)    // 리사이클러 뷰 어댑터
+    private var pageNumber = 1      // 검색 페이지 번호
 
     var averageLat: Double = 0.0
     var averageLon: Double = 0.0
@@ -61,7 +63,7 @@ class SelectDestinationActivity : AppCompatActivity() {
         // 지도의 중심점을 평균 지점으로 설정, 확대 레벨 설정 (값이 작을수록 더 확대됨)
         val mapPoint = MapPoint.mapPointWithGeoCoord(averageLat, averageLon)
         binding.mapDestination.setMapCenterPoint(mapPoint, true)
-        binding.mapDestination.setZoomLevel(1, true)
+        binding.mapDestination.setZoomLevel(2, true)
 
         // 마커 생성
         val marker = MapPOIItem()
@@ -70,14 +72,36 @@ class SelectDestinationActivity : AppCompatActivity() {
         marker.markerType = MapPOIItem.MarkerType.YellowPin
         marker.selectedMarkerType = MapPOIItem.MarkerType.RedPin
         binding.mapDestination.addPOIItem(marker)
+        //
+
 
         // 중심점을 기준으로 Integer(5000) (임시값)의 키워드를 검색
         val keyword = intent.getStringExtra("keywordData").toString()
-        searchKeyword(keyword, averageLon.toString(), averageLat.toString(), Integer(5000))
+        searchKeyword(keyword, pageNumber, averageLon.toString(), averageLat.toString(), Integer(5000))
+
+        binding.btnPrevPage.setOnClickListener {
+            pageNumber--
+            binding.tvPageNumber.text = pageNumber.toString()
+            searchKeyword(keyword, pageNumber, averageLon.toString(), averageLat.toString(), Integer(5000))
+        }
+
+        // 다음 페이지 버튼
+        binding.btnNextPage.setOnClickListener {
+            pageNumber++
+            binding.tvPageNumber.text = pageNumber.toString()
+            searchKeyword(keyword, pageNumber, averageLon.toString(), averageLat.toString(), Integer(5000))
+        }
+
+        searchResultAdapter.setItemClickListener(object : SearchResultAdapter.OnItemClickListener {
+            override fun onClick(addressObject: AddressObject, position:Int) {
+                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
+                binding.mapDestination.setMapCenterPointAndZoomLevel(mapPoint, 2, true)
+            }
+        })
 
         // 최종 목적지를 터치하면 해당 데이터와 입력받은 주소 데이터들을 ShowResult로 넘겨줌
-        searchResultAdapter.setItemClickListener(object : SearchResultAdapter.OnItemClickListener {
-            override fun onClick(addressObject: AddressObject) {
+        searchResultAdapter.setItemClickListener2(object : SearchResultAdapter.OnItemClickListener {
+            override fun onClick(addressObject: AddressObject, position:Int) {
                 val intent = Intent(applicationContext, ShowResult_2_7Activity::class.java)
                 intent.putExtra("addressData", addressObjects)
                 intent.putExtra("addressObject", addressObject)
@@ -87,7 +111,7 @@ class SelectDestinationActivity : AppCompatActivity() {
     }
 
     // 키워드 검색 함수
-    private fun searchKeyword(keyword: String, x: String, y: String, radius: Integer) {
+    private fun searchKeyword(keyword: String, page:Int, x: String, y: String, radius: Integer) {
         val retrofit = Retrofit.Builder()   // Retrofit 구성
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -96,6 +120,7 @@ class SelectDestinationActivity : AppCompatActivity() {
         val call = api.getSearchKeyword(
             API_KEY,
             keyword,
+            page,
             x,
             y,
             radius
@@ -122,6 +147,7 @@ class SelectDestinationActivity : AppCompatActivity() {
         if (!searchResult?.documents.isNullOrEmpty()) {
             // 검색 결과 있음
             listItems.clear()                   // 리스트 초기화
+            binding.mapDestination.removeAllPOIItems()
             for (document in searchResult!!.documents) {
                 // 결과를 리사이클러 뷰에 추가
                 val item = SearchResultItem(
@@ -146,7 +172,17 @@ class SelectDestinationActivity : AppCompatActivity() {
                 binding.mapDestination.addPOIItem(point)
             }
 
+            binding.mapDestination.setMapCenterPoint(
+                MapPoint.mapPointWithGeoCoord(
+                    searchResult.documents[0].y.toDouble(),
+                    searchResult.documents[0].x.toDouble()
+                ), true
+            )
+
             searchResultAdapter.notifyDataSetChanged()
+
+            binding.btnNextPage.isEnabled = !searchResult.meta.is_end // 페이지가 더 있을 경우 다음 버튼 활성화
+            binding.btnPrevPage.isEnabled = pageNumber != 1             // 1페이지가 아닐 경우 이전 버튼 활성화
         } else {
             // 검색 결과 없음
             Toast.makeText(this, "검색 결과가 없습니다", Toast.LENGTH_SHORT).show()
@@ -168,4 +204,13 @@ class SelectDestinationActivity : AppCompatActivity() {
         return sum / numbers.size.toDouble()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

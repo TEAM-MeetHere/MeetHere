@@ -101,7 +101,7 @@ class SetLocationNew : AppCompatActivity() {
             }
             3 -> {
                 flag = 3
-                btnNext.visibility = View.GONE
+                btnNext.visibility = View.INVISIBLE
                 replaceFragment(f3)
             }
             else -> {
