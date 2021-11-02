@@ -61,11 +61,11 @@ class EditActivity : AppCompatActivity() {
 
             var myUpdate = Update(
                 memberId, pw1!!, pw2!!, name!!, phone!!,
-                addressObject.place_name,
+                com.example.meethere.retrofit.request.AddressObject(addressObject.place_name,
                 addressObject.road_address_name,
                 addressObject.address_name,
                 addressObject.lat,
-                addressObject.lon
+                addressObject.lon)
             )
 
             RetrofitManager.instance.updateService(

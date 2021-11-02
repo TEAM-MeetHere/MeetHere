@@ -67,11 +67,11 @@ class RegisterActivity : AppCompatActivity() {
             var myRegister =
                 Register(
                     EMAIL, PW, RE_PW, NAME, PHONE, "WWG",
-                    addressObject.place_name,
+                    com.example.meethere.retrofit.request.AddressObject(addressObject.place_name,
                     addressObject.road_address_name,
                     addressObject.address_name,
                     addressObject.lat,
-                    addressObject.lon
+                    addressObject.lon)
                 )
 
             //회원가입 API 호출
