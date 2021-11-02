@@ -13,5 +13,5 @@ data class Bookmark(
     var lat:Double,
     var lon:Double,
     var date:String,
-    var shareAddressDtoList:List<StartAddress>
+    var startAddressList:List<StartAddress>
     )
