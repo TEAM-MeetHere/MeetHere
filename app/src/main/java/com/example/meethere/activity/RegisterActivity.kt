@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.meethere.AddressObject
 import com.example.meethere.databinding.ActivityRegisterBinding
 import com.example.meethere.retrofit.request.Register
 import com.example.meethere.retrofit.RetrofitManager
@@ -22,14 +23,17 @@ import java.util.regex.Pattern
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
 
+    lateinit var addressObject: AddressObject
+
     var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 // There are no request codes
                 val data: Intent? = result.data
                 if (data != null) {
-                    if (data.hasExtra("data")) {
-                        register_address.setText(data.getStringExtra("data"))
+                    if (data.hasExtra("addressObject")) {
+                        addressObject = data.getSerializableExtra("addressObject") as AddressObject
+                        binding.registerAddress.setText(addressObject.road_address_name)
                     }
                 }
             }
@@ -40,11 +44,8 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         //다음 단계 버튼 클릭 시
         binding.nextBUTTON.setOnClickListener {
-
-
             var EMAIL: String = binding.registerEmail.text.toString()
             var PW: String = binding.registerPw.text.toString()
             var RE_PW: String = binding.registerRewritePw.text.toString()
@@ -63,8 +64,15 @@ class RegisterActivity : AppCompatActivity() {
                 )
             ) return@setOnClickListener
 
-
-            var myRegister = Register(EMAIL, PW, RE_PW, NAME, ADDRESS, PHONE)
+            var myRegister =
+                Register(
+                    EMAIL, PW, RE_PW, NAME, PHONE, "WWG",
+                    addressObject.place_name,
+                    addressObject.road_address_name,
+                    addressObject.address_name,
+                    addressObject.lat,
+                    addressObject.lon
+                )
 
             //회원가입 API 호출
             RetrofitManager.instance.registerService(
@@ -111,12 +119,10 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             )
-
         }
 
-
         register_address.setOnClickListener {
-            val intent = Intent(this, WebViewActivity::class.java)
+            val intent = Intent(this, SearchAddressActivity::class.java)
             resultLauncher.launch(intent)
         }
     }

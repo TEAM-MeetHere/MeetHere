@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.meethere.AddressObject
 import com.example.meethere.R
 import com.example.meethere.databinding.ActivityEditBinding
 import com.example.meethere.retrofit.RetrofitManager
@@ -21,14 +22,17 @@ class EditActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditBinding
 
+    lateinit var addressObject: AddressObject
+
     var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 // There are no request codes
                 val data: Intent? = result.data
                 if (data != null) {
-                    if (data.hasExtra("data")) {
-                        edit_address.setText(data.getStringExtra("data"))
+                    if (data.hasExtra("addressObject")) {
+                        addressObject = data.getSerializableExtra("addressObject") as AddressObject
+                        binding.editAddress.setText(addressObject.road_address_name)
                     }
                 }
             }
@@ -39,10 +43,10 @@ class EditActivity : AppCompatActivity() {
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.editEmail.setText(intent.getStringExtra("email").toString())
-        binding.editName.setText(intent.getStringExtra("name").toString())
-        binding.editAddress.setText(intent.getStringExtra("address").toString())
-        binding.editPhone.setText(intent.getStringExtra("phone").toString())
+        binding.editEmail.setText(App.prefs.email)
+        binding.editName.setText(App.prefs.username)
+        binding.editAddress.setText(App.prefs.road_address_name)
+        binding.editPhone.setText(App.prefs.phone)
 
         //수정 버튼 클릭시
         binding.editInfoButton.setOnClickListener {
@@ -54,7 +58,15 @@ class EditActivity : AppCompatActivity() {
             var name: String? = binding.editName.text.toString()
             var address: String? = binding.editAddress.text.toString()
             var phone: String? = binding.editPhone.text.toString()
-            var myUpdate = Update(memberId, pw1!!, pw2!!, name!!, address!!, phone!!)
+
+            var myUpdate = Update(
+                memberId, pw1!!, pw2!!, name!!, phone!!,
+                addressObject.place_name,
+                addressObject.road_address_name,
+                addressObject.address_name,
+                addressObject.lat,
+                addressObject.lon
+            )
 
             RetrofitManager.instance.updateService(
                 update = myUpdate,
@@ -76,8 +88,12 @@ class EditActivity : AppCompatActivity() {
 
                             if (statusCode == 200) {
                                 App.prefs.username = name
-                                App.prefs.address = address
                                 App.prefs.phone = phone
+                                App.prefs.place_name = addressObject.place_name
+                                App.prefs.road_address_name = addressObject.road_address_name
+                                App.prefs.address_name = addressObject.address_name
+                                App.prefs.lat = addressObject.lat.toString()
+                                App.prefs.lon = addressObject.lon.toString()
 
                                 var message = jsonObject.getString("message")
                                 Log.d(TAG, "message = $message")
@@ -98,16 +114,13 @@ class EditActivity : AppCompatActivity() {
                         RESPONSE_STATE.FAIL -> {
                             Log.d(TAG, "API 호출 실패 : $responseBody")
                         }
-
                     }
-
                 }
             )
-
         }
 
         edit_address.setOnClickListener {
-            val intent = Intent(this, WebViewActivity::class.java)
+            val intent = Intent(this, SearchAddressActivity::class.java)
             resultLauncher.launch(intent)
         }
     }

@@ -1,18 +1,15 @@
 package com.example.meethere.activity
 
 import android.content.Intent
-import android.location.Address
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.meethere.*
-import com.example.meethere.databinding.ActivityInputCodeBinding
 import com.example.meethere.databinding.ActivityMainBinding
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.sharedpreferences.App
@@ -175,10 +172,6 @@ class MainActivity : AppCompatActivity() {
         //정보 수정 버튼 클릭시
         edit_btn.setOnClickListener({
             val intent = Intent(this, EditActivity::class.java)
-            intent.putExtra("email", App.prefs.email)
-            intent.putExtra("name", App.prefs.username)
-            intent.putExtra("address", App.prefs.address)
-            intent.putExtra("phone", App.prefs.phone)
             startActivity(intent)
         })
 

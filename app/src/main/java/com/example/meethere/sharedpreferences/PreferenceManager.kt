@@ -2,6 +2,7 @@ package com.example.meethere.sharedpreferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.meethere.AddressObject
 
 class PreferenceManager(context: Context) {
     val PREFS_FILENAME = "prefs"
@@ -9,8 +10,12 @@ class PreferenceManager(context: Context) {
     val PREF_MEMBERID = "memberId"
     val PREF_EMAIL = "email"
     val PREF_NAME = "name"
-    val PREF_ADDRESS = "address"
     val PREF_PHONE = "phone"
+    val PREF_PLACE_NAME = "place_name"
+    val PREF_ROAD_ADDRESS_NAME = "road_address_name"
+    val PREF_ADDRESS_NAME = "address_name"
+    val PREF_LAT = "0.0"
+    val PREF_LON = "0.0"
     val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
     //파일 이름과 token을 저장할 key 값을 만들고 prefs 인스턴스 초기화
 
@@ -32,11 +37,27 @@ class PreferenceManager(context: Context) {
         get() = prefs.getString(PREF_NAME, "")
         set(value) = prefs.edit().putString(PREF_NAME, value).apply()
 
-    var address:String?
-        get()=prefs.getString(PREF_ADDRESS, "")
-        set(value) = prefs.edit().putString(PREF_ADDRESS, value).apply()
-
-    var phone:String?
-        get()=prefs.getString(PREF_PHONE, "")
+    var phone: String?
+        get() = prefs.getString(PREF_PHONE, "")
         set(value) = prefs.edit().putString(PREF_PHONE, value).apply()
+
+    var place_name: String?
+        get() = prefs.getString(PREF_PLACE_NAME, "")
+        set(value) = prefs.edit().putString(PREF_PLACE_NAME, value).apply()
+
+    var road_address_name
+        get() = prefs.getString(PREF_ROAD_ADDRESS_NAME, "")
+        set(value) = prefs.edit().putString(PREF_ROAD_ADDRESS_NAME, value).apply()
+
+    var address_name
+        get() = prefs.getString(PREF_ADDRESS_NAME, "")
+        set(value) = prefs.edit().putString(PREF_ADDRESS_NAME, value).apply()
+
+    var lat
+        get() = prefs.getString(PREF_LAT, "")
+        set(value) = prefs.edit().putString(PREF_LAT, value).apply()
+
+    var lon
+        get() = prefs.getString(PREF_LON, "")
+        set(value) = prefs.edit().putString(PREF_LON, value).apply()
 }

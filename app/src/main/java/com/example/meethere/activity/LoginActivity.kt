@@ -76,11 +76,23 @@ class LoginActivity : AppCompatActivity() {
                                 val memberId = jsonObject.getLong("memberId")
                                 App.prefs.memberId = memberId
 
-                                val address = jsonObject.getString("address")
-                                App.prefs.address = address
-
                                 val phone = jsonObject.getString("phone")
                                 App.prefs.phone = phone
+
+                                val place_name = jsonObject.getString("place_name")
+                                App.prefs.place_name = place_name
+
+                                val road_address_name = jsonObject.getString("road_address_name")
+                                App.prefs.road_address_name = road_address_name
+
+                                val address_name = jsonObject.getString("address_name")
+                                App.prefs.address_name = address_name
+
+                                val lat = jsonObject.getString("lat")
+                                App.prefs.lat = lat
+
+                                val lon = jsonObject.getString("lon")
+                                App.prefs.lon = lon
 
                                 Log.d(TAG, "token = $token")
                                 Log.d(TAG, "memberID = $memberId")
@@ -103,6 +115,8 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                 })
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
 
     }
