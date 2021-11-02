@@ -10,6 +10,7 @@ import com.example.meethere.AddressObject
 import com.example.meethere.R
 import com.example.meethere.activity.SetLocationNew
 import com.example.meethere.adapter.AddressAdapter
+import com.example.meethere.sharedpreferences.App
 import kotlinx.android.synthetic.main.fragment_set_location2_input_list.*
 import kotlinx.android.synthetic.main.fragment_set_location2_input_list.btnAdd
 
@@ -62,12 +63,12 @@ class SetLocation2InputList : Fragment() {
 
         addAddress(
             AddressObject(
-                "로그인한 유저의 집",
-                "현재유저",
-                "인천 연수구 원인재로 124",
-                "인천광역시 연수구 동춘동 925",
-                37.40815101996116,
-                126.68072744941465
+                App.prefs.place_name.toString(),
+                App.prefs.username.toString(),
+                App.prefs.road_address_name.toString(),
+                App.prefs.address_name.toString(),
+                App.prefs.lat!!.toDouble(),
+                App.prefs.lon!!.toDouble()
             )
         )
 
