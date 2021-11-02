@@ -97,7 +97,6 @@ class SetLocation3InputAddress : Fragment() {
                 } else {
                     btnAddAddress.visibility = View.GONE
                 }
-
             }
         })
 
