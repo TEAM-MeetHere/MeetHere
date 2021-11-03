@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.makeText
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.AddressObject
 import com.example.meethere.ResultSearchKeyword
@@ -47,7 +46,7 @@ class SearchAddressActivity : AppCompatActivity() {
 
         listAdapter.setItemClickListener(object : SearchResultAdapter.OnItemClickListener {
             override fun onClick(addressObject: AddressObject, position: Int) {
-                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
+                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].lat, listItems[position].lon)
                 binding.mapView.setMapCenterPointAndZoomLevel(mapPoint, 2, true)
             }
         })
@@ -62,6 +61,9 @@ class SearchAddressActivity : AppCompatActivity() {
                     ).show()
                     return
                 }
+
+                Log.d("임영택 SearchAddress - lat : ",addressObject.lat.toString())
+                Log.d("임영택 SearchAddress - lon : ",addressObject.lon.toString())
 
                 val intent = intent
                 intent.putExtra("addressObject", addressObject)
@@ -137,8 +139,8 @@ class SearchAddressActivity : AppCompatActivity() {
                     document.place_name,
                     document.road_address_name,
                     document.address_name,
-                    document.x.toDouble(),
-                    document.y.toDouble()
+                    document.y.toDouble(),
+                    document.x.toDouble()
                 )
                 listItems.add(item)
 

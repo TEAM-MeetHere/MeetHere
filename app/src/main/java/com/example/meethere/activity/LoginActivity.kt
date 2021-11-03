@@ -11,6 +11,7 @@ import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.sharedpreferences.App
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
+import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
@@ -95,6 +96,11 @@ class LoginActivity : AppCompatActivity() {
 
                                 val lon = addressObject.getString("lon")
                                 App.prefs.lon = lon
+
+                                Log.d("임영택 Login lat ",addressObject.getString("lat"))
+                                Log.d("임영택 Login lon ",addressObject.getString("lon"))
+                                Log.d("임영택 Login lat pref ",lat)
+                                Log.d("임영택 Login lon pref ",lon)
 
                                 Log.d(TAG, "token = $token")
                                 Log.d(TAG, "memberID = $memberId")

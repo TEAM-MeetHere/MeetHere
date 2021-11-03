@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.textView.setText("안녕하세요 " + App.prefs.username + "님")
 
+        Log.d("임영택 Main Activity lat pref",App.prefs.lat!!)
+        Log.d("임영택 Main Activity lon pref",App.prefs.lon!!)
+
         //로그아웃 클릭 시
         binding.logoutBtn.setOnClickListener {
             App.prefs.username = null

@@ -11,8 +11,8 @@ interface KakaoAPI {
         @Header("Authorization") key: String,     // 카카오 API 인증키 [필수]
         @Query("query") query: String,             // 검색을 원하는 질의어 [필수]
         @Query("page") page: Int,
-        @Query("x") x: String,
-        @Query("y") y: String,
+        @Query("x") x: String,          // 경도 longitude
+        @Query("y") y: String,          // 위도 latitude
         @Query("radius") radius: Integer,
         @Query("sort") sort: String = "distance"
         // 매개변수 추가 가능

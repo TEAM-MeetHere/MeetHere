@@ -56,6 +56,8 @@ class SelectDestinationActivity : AppCompatActivity() {
         for (i in addressObjects.indices) {
             lats[i] = addressObjects[i].lat
             lons[i] = addressObjects[i].lon
+            Log.d("임영택 SelectDestination : lat", i.toString() + "좌표" + addressObjects[i].lat)
+            Log.d("임영택 SelectDestination : lon", i.toString() + "좌표" + addressObjects[i].lon)
         }
         averageLat = getMean(lats)
         averageLon = getMean(lons)
@@ -74,27 +76,29 @@ class SelectDestinationActivity : AppCompatActivity() {
         binding.mapDestination.addPOIItem(marker)
         //
 
-
         // 중심점을 기준으로 Integer(5000) (임시값)의 키워드를 검색
         val keyword = intent.getStringExtra("keywordData").toString()
-        searchKeyword(keyword, pageNumber, averageLon.toString(), averageLat.toString(), Integer(5000))
+        searchKeyword(keyword, pageNumber, averageLat.toString(), averageLon.toString(), Integer(5000))
+
+        Log.d("임영택 SelectDestination : averagelat", averageLat.toString())
+        Log.d("임영택 SelectDestination : avergaelon", averageLon.toString())
 
         binding.btnPrevPage.setOnClickListener {
             pageNumber--
             binding.tvPageNumber.text = pageNumber.toString()
-            searchKeyword(keyword, pageNumber, averageLon.toString(), averageLat.toString(), Integer(5000))
+            searchKeyword(keyword, pageNumber, averageLat.toString(), averageLon.toString(), Integer(5000))
         }
 
         // 다음 페이지 버튼
         binding.btnNextPage.setOnClickListener {
             pageNumber++
             binding.tvPageNumber.text = pageNumber.toString()
-            searchKeyword(keyword, pageNumber, averageLon.toString(), averageLat.toString(), Integer(5000))
+            searchKeyword(keyword, pageNumber, averageLat.toString(), averageLon.toString(), Integer(5000))
         }
 
         searchResultAdapter.setItemClickListener(object : SearchResultAdapter.OnItemClickListener {
             override fun onClick(addressObject: AddressObject, position:Int) {
-                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
+                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].lat, listItems[position].lon)
                 binding.mapDestination.setMapCenterPointAndZoomLevel(mapPoint, 2, true)
             }
         })
@@ -111,7 +115,7 @@ class SelectDestinationActivity : AppCompatActivity() {
     }
 
     // 키워드 검색 함수
-    private fun searchKeyword(keyword: String, page:Int, x: String, y: String, radius: Integer) {
+    private fun searchKeyword(keyword: String, page:Int, lat: String, lon: String, radius: Integer) {
         val retrofit = Retrofit.Builder()   // Retrofit 구성
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -121,8 +125,8 @@ class SelectDestinationActivity : AppCompatActivity() {
             API_KEY,
             keyword,
             page,
-            x,
-            y,
+            lon,
+            lat,
             radius
         )   // 검색 조건 입력
 
@@ -154,8 +158,8 @@ class SelectDestinationActivity : AppCompatActivity() {
                     document.place_name,
                     document.road_address_name,
                     document.address_name,
-                    document.x.toDouble(),
-                    document.y.toDouble()
+                    document.y.toDouble(),
+                    document.x.toDouble()
                 )
                 listItems.add(item)
 

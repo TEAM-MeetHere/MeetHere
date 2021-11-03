@@ -1,6 +1,7 @@
 package com.example.meethere.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -71,6 +72,10 @@ class SetLocation2InputList : Fragment() {
                 App.prefs.lon!!.toDouble()
             )
         )
+
+        Log.d("임영택 SetLocation2 lat prefs",App.prefs.lat!!)
+        Log.d("임영택 SetLocation2 lon prefs",App.prefs.lon!!)
+
 
         //// 나중에 회원의 정보를 가장 먼저 추가하는 부분
     }
