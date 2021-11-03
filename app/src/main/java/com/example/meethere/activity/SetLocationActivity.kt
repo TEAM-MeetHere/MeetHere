@@ -7,15 +7,15 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.meethere.AddressObject
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.fragment.SetLocation1Keyword
 import com.example.meethere.fragment.SetLocation2InputList
 import com.example.meethere.fragment.SetLocation3InputAddress
-import kotlinx.android.synthetic.main.activity_set_location_new.*
+import kotlinx.android.synthetic.main.activity_set_location.*
 import kotlinx.android.synthetic.main.fragment_set_location1_keyword.*
 
 
-class SetLocationNew : AppCompatActivity() {
+class SetLocationActivity : AppCompatActivity() {
     private var flag: Int = 1
 
     // 프래그먼트 변수 선언
@@ -25,7 +25,7 @@ class SetLocationNew : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.meethere.R.layout.activity_set_location_new)
+        setContentView(com.example.meethere.R.layout.activity_set_location)
 
         supportFragmentManager.beginTransaction()
             .add(com.example.meethere.R.id.frameLayoutSetLocation, f1, "TAG1")

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.meethere.BookmarkObject
+import com.example.meethere.objects.BookmarkObject
 import com.example.meethere.databinding.ItemBookmarkBinding
 import kotlinx.android.synthetic.main.item_bookmark.view.*
 

@@ -1,4 +1,4 @@
-package com.example.meethere
+package com.example.meethere.objects
 
 import java.io.Serializable
 

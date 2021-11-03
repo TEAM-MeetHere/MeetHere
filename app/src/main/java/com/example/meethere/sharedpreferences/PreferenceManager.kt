@@ -2,7 +2,6 @@ package com.example.meethere.sharedpreferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.meethere.AddressObject
 
 class PreferenceManager(context: Context) {
     val PREFS_FILENAME = "prefs"

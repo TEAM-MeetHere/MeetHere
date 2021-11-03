@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.meethere.AddressObject
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.R
-import com.example.meethere.SearchResultItem
+import com.example.meethere.objects.SearchResultObject
 
-class SearchResultAdapter(val searchResults: ArrayList<SearchResultItem>) :
+class SearchResultAdapter(val searchResults: ArrayList<SearchResultObject>) :
     RecyclerView.Adapter<SearchResultAdapter.ViewHolder>() {
 
     private var oldPosition = -1
@@ -88,7 +88,7 @@ class SearchResultAdapter(val searchResults: ArrayList<SearchResultItem>) :
         this.itemClickListener2 = onItemClickListener
     }
 
-    fun addSearchResults(searchResult: SearchResultItem) {
+    fun addSearchResults(searchResult: SearchResultObject) {
         searchResults.add(searchResult)
         notifyItemInserted(searchResults.size - 1)
     }

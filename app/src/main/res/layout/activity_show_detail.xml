@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".activity.ShowDetail_2_8Activity">
+    tools:context=".activity.ShowDetailActivity">
 
     <TextView
         android:id="@+id/textViewNameDetail"

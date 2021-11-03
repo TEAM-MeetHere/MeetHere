@@ -8,9 +8,9 @@ import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.AddressObject
-import com.example.meethere.ResultSearchKeyword
-import com.example.meethere.SearchResultItem
+import com.example.meethere.objects.AddressObject
+import com.example.meethere.objects.ResultSearchKeyword
+import com.example.meethere.objects.SearchResultObject
 import com.example.meethere.adapter.SearchResultAdapter
 import com.example.meethere.databinding.ActivitySearchAddressBinding
 import net.daum.mf.map.api.MapPOIItem
@@ -29,7 +29,7 @@ class SearchAddressActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivitySearchAddressBinding
-    private val listItems = arrayListOf<SearchResultItem>()   // 리사이클러 뷰 아이템
+    private val listItems = arrayListOf<SearchResultObject>()   // 리사이클러 뷰 아이템
     private val listAdapter = SearchResultAdapter(listItems)    // 리사이클러 뷰 어댑터
     private var pageNumber = 1      // 검색 페이지 번호
     private var keyword = ""        // 검색 키워드
@@ -135,7 +135,7 @@ class SearchAddressActivity : AppCompatActivity() {
             binding.mapView.removeAllPOIItems() // 지도의 마커 모두 제거
             for (document in searchResult!!.documents) {
                 // 결과를 리사이클러 뷰에 추가
-                val item = SearchResultItem(
+                val item = SearchResultObject(
                     document.place_name,
                     document.road_address_name,
                     document.address_name,

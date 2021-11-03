@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import com.example.meethere.R
-import kotlinx.android.synthetic.main.activity_show_detail28.*
+import kotlinx.android.synthetic.main.activity_show_detail.*
 
-class ShowDetail_2_8Activity : AppCompatActivity() {
+class ShowDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_show_detail28)
+        setContentView(R.layout.activity_show_detail)
 
         val intent = intent
         val Name = intent.getStringExtra("Name")
@@ -19,7 +19,7 @@ class ShowDetail_2_8Activity : AppCompatActivity() {
 
         btnShowMap.setOnClickListener {
             //val intent = Intent(applicationContext, selectDestination_2_6::class.java)
-            val intent = Intent(applicationContext, ShowDetailMap_2_9Activity::class.java)
+            val intent = Intent(applicationContext, ShowDetailMapActivity::class.java)
             startActivity(intent)
         }
     }

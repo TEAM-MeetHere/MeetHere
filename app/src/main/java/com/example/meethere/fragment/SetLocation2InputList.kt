@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.AddressObject
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.R
-import com.example.meethere.activity.SetLocationNew
+import com.example.meethere.activity.SetLocationActivity
 import com.example.meethere.adapter.AddressAdapter
 import com.example.meethere.sharedpreferences.App
 import kotlinx.android.synthetic.main.fragment_set_location2_input_list.*
@@ -57,7 +57,7 @@ class SetLocation2InputList : Fragment() {
         var listnumber = 0
         btnAdd.setOnClickListener {
             // 주소를 입력하는 프래그먼트로 이동
-            (activity as SetLocationNew).changeFragment(3)
+            (activity as SetLocationActivity).changeFragment(3)
         }
 
         //// 디버그 코드

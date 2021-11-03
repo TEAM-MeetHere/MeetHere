@@ -1,6 +1,6 @@
-package com.example.meethere
+package com.example.meethere.objects
 
-data class SearchResultItem(
+data class SearchResultObject(
     val name: String,      // 장소명
     val road: String,      // 도로명 주소
     val address: String,   // 지번 주소

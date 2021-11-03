@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
-import com.example.meethere.AddressObject
-import com.example.meethere.R
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.databinding.ActivitySaveBookmarkBinding
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.retrofit.request.Bookmark
@@ -16,8 +15,6 @@ import com.example.meethere.sharedpreferences.App
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
 import org.json.JSONObject
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 

@@ -11,17 +11,17 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.example.meethere.databinding.ActivityShowDetailMap29Binding
+import com.example.meethere.databinding.ActivityShowDetailMapBinding
 
-class ShowDetailMap_2_9Activity : AppCompatActivity(), OnMapReadyCallback {
+class ShowDetailMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    private lateinit var binding: ActivityShowDetailMap29Binding
+    private lateinit var binding: ActivityShowDetailMapBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityShowDetailMap29Binding.inflate(layoutInflater)
+        binding = ActivityShowDetailMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

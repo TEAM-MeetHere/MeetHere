@@ -1,5 +1,4 @@
-import com.example.meethere.ResultGeocode
-import com.example.meethere.ResultSearchKeyword
+import com.example.meethere.objects.ResultSearchKeyword
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

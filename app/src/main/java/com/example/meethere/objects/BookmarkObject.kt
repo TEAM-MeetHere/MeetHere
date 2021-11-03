@@ -1,4 +1,4 @@
-package com.example.meethere
+package com.example.meethere.objects
 
 data class BookmarkObject (
     val promise_id: Long,

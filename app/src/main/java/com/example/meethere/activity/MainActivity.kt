@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.meethere.*
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.databinding.ActivityMainBinding
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.sharedpreferences.App
@@ -135,7 +136,7 @@ class MainActivity : AppCompatActivity() {
                                                             addressObjects.add(AddressObject(placeName, username, roadAddressName, addressName, lat, lon))
                                                         }
 
-                                                        val intent = Intent(this, ShowResult_2_7Activity::class.java)
+                                                        val intent = Intent(this, ShowResultActivity::class.java)
                                                         intent.putExtra("addressData", addressObjects)
                                                         intent.putExtra("addressObject", addressObject)
                                                         startActivity(intent)
@@ -186,7 +187,7 @@ class MainActivity : AppCompatActivity() {
 
         //장소 검색 시작 버튼 클릭시
         search_btn.setOnClickListener({
-            val intent = Intent(this, SetLocationNew::class.java)
+            val intent = Intent(this, SetLocationActivity::class.java)
             startActivity(intent)
         })
 

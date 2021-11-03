@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.adapter.BookmarkAdapter
-import com.example.meethere.BookmarkObject
+import com.example.meethere.objects.BookmarkObject
 import com.example.meethere.R
 import com.example.meethere.databinding.ActivityBookmarkBinding
 import com.example.meethere.retrofit.RetrofitManager

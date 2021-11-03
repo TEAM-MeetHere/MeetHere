@@ -8,9 +8,9 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.AddressObject
-import com.example.meethere.ResultSearchKeyword
-import com.example.meethere.SearchResultItem
+import com.example.meethere.objects.AddressObject
+import com.example.meethere.objects.ResultSearchKeyword
+import com.example.meethere.objects.SearchResultObject
 import com.example.meethere.adapter.SearchResultAdapter
 import com.example.meethere.databinding.ActivitySelectDestinationBinding
 import retrofit2.Call
@@ -24,7 +24,7 @@ import net.daum.mf.map.api.MapPoint
 
 class SelectDestinationActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySelectDestinationBinding
-    private val listItems = arrayListOf<SearchResultItem>()   // 리사이클러 뷰 아이템
+    private val listItems = arrayListOf<SearchResultObject>()   // 리사이클러 뷰 아이템
     private val searchResultAdapter = SearchResultAdapter(listItems)    // 리사이클러 뷰 어댑터
     private var pageNumber = 1      // 검색 페이지 번호
 
@@ -106,7 +106,7 @@ class SelectDestinationActivity : AppCompatActivity() {
         // 최종 목적지를 터치하면 해당 데이터와 입력받은 주소 데이터들을 ShowResult로 넘겨줌
         searchResultAdapter.setItemClickListener2(object : SearchResultAdapter.OnItemClickListener {
             override fun onClick(addressObject: AddressObject, position:Int) {
-                val intent = Intent(applicationContext, ShowResult_2_7Activity::class.java)
+                val intent = Intent(applicationContext, ShowResultActivity::class.java)
                 intent.putExtra("addressData", addressObjects)
                 intent.putExtra("addressObject", addressObject)
                 startActivity(intent)
@@ -154,7 +154,7 @@ class SelectDestinationActivity : AppCompatActivity() {
             binding.mapDestination.removeAllPOIItems()
             for (document in searchResult!!.documents) {
                 // 결과를 리사이클러 뷰에 추가
-                val item = SearchResultItem(
+                val item = SearchResultObject(
                     document.place_name,
                     document.road_address_name,
                     document.address_name,
