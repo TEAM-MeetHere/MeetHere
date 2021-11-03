@@ -15,18 +15,10 @@ class AddressAdapter(
     class AddressViewHolder(val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val btn2 = binding.btnDeleteAddress
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {
         val binding = ItemAddressBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        /*  return AddressViewHolder(
-              LayoutInflater.from(parent.context).inflate(
-                  R.layout.item_address,
-                  parent,
-                  false
-              )
-          )*/
         return AddressViewHolder(binding)
     }
 

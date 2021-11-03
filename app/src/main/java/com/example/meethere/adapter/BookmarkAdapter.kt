@@ -3,42 +3,54 @@ package com.example.meethere.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.meethere.BookmarkItem
-import com.example.meethere.R
+import com.example.meethere.BookmarkObject
+import com.example.meethere.databinding.ItemBookmarkBinding
+import kotlinx.android.synthetic.main.item_bookmark.view.*
 
-class BookmarkAdapter(val locationList: ArrayList<BookmarkItem>) :
-    RecyclerView.Adapter<BookmarkAdapter.CustomViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.activity_single_item, parent, false)
-        return CustomViewHolder(view).apply {
-            itemView.setOnClickListener {
-                val curPos: Int = adapterPosition
-                val tempItem: BookmarkItem = locationList.get(curPos)
-                Toast.makeText(
-                    parent.context,
-                    "${tempItem.destination}에 대한 내용을 가져올 예정",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
+class BookmarkAdapter(
+    private val bookmarkObjects: MutableList<BookmarkObject>
+) : RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>() {
+    class BookmarkViewHolder(val binding: ItemBookmarkBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val buttonEdit = binding.buttonEdit
+        val buttonDelete = binding.buttonDelete
     }
 
-    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.itemLogo.setImageResource(locationList.get(position).item_star)
-        holder.itemLocation.text = locationList.get(position).destination
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkViewHolder {
+        val binding =
+            ItemBookmarkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BookmarkViewHolder(binding)
+    }
+
+    fun addPromise(bookmarkObject: BookmarkObject) {
+        bookmarkObjects.add(bookmarkObject)
+        notifyItemInserted(bookmarkObjects.size - 1)
+    }
+
+    override fun onBindViewHolder(holder: BookmarkViewHolder, position: Int) {
+        val curBookmark = bookmarkObjects[position]
+        holder.itemView.apply {
+            tv_promise_name.text = curBookmark.promise_name
+            tv_promise_date.text = curBookmark.promise_date
+            tv_promise_member.text = curBookmark.promise_member
+        }
+
+        holder.buttonEdit.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                // 수정
+            }
+        })
+        holder.buttonDelete.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                if (bookmarkObjects.isNotEmpty())
+                    bookmarkObjects.remove(bookmarkObjects[holder.adapterPosition])
+                notifyDataSetChanged()
+            }
+        })
     }
 
     override fun getItemCount(): Int {
-        return locationList.size
-    }
-
-    inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemLogo = itemView.findViewById<ImageView>(R.id.item_logo)
-        val itemLocation = itemView.findViewById<TextView>(R.id.item_location)
+        return bookmarkObjects.size
     }
 }

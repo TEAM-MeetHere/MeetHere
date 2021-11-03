@@ -21,11 +21,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
-
-
+        <activity
+            android:name=".activity.ShowBookmarkActivity"
+            android:exported="true" />
         <activity
             android:name=".activity.SaveBookmarkActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="목적지 선택"
+            android:parentActivityName=".activity.ShowResult_2_7Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.SearchAddressActivity"
             android:exported="true"
@@ -37,7 +42,6 @@
             android:parentActivityName=".activity.SetLocationNew"
             android:screenOrientation="portrait"
             android:theme="@style/Search" />
-
         <activity
             android:name=".activity.WebViewActivity"
             android:exported="true"
