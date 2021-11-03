@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.adapter.BookmarkAdapter
-import com.example.meethere.BookmarkItem
+import com.example.meethere.objects.BookmarkObject
 import com.example.meethere.R
 import com.example.meethere.databinding.ActivityBookmarkBinding
 import com.example.meethere.retrofit.RetrofitManager
@@ -25,7 +25,7 @@ class BookmarkActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //즐겨찾기 목록 받아올 리스트
-        val bookmarkList = arrayListOf<BookmarkItem>()
+        val bookmarkList = arrayListOf<BookmarkObject>()
 
         //즐겨찾기 목록 API 호출
         RetrofitManager.instance.bookmarkListService(
@@ -51,14 +51,19 @@ class BookmarkActivity : AppCompatActivity() {
                                 val id = iObject.getLong("id")
                                 val dateName = iObject.getString("dateName")
 
-                                bookmarkList.add(BookmarkItem(R.drawable.star, id, dateName))
+                                bookmarkList.add(
+                                    BookmarkObject(
+                                        id, dateName, "멤버", "날짜", "목적지"
+                                    )
+                                )
 
                                 Log.d(TAG, "$i 번째")
                                 Log.d(TAG, "bookmarkId = $id")
                                 Log.d(TAG, "약속 이름 = $dateName")
                             }
 
-                            binding.re.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                            binding.re.layoutManager =
+                                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
                             binding.re.setHasFixedSize(true)
                             binding.re.adapter = BookmarkAdapter(bookmarkList)
                         } else {
@@ -77,5 +82,4 @@ class BookmarkActivity : AppCompatActivity() {
             }
         )
     }
-
 }

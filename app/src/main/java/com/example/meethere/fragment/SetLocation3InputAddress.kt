@@ -12,9 +12,9 @@ import com.example.meethere.R
 import kotlinx.android.synthetic.main.fragment_set_location3_input_address.*
 
 import android.text.TextWatcher
-import com.example.meethere.activity.SetLocationNew
+import com.example.meethere.activity.SetLocationActivity
 import android.text.Editable
-import com.example.meethere.AddressObject
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.activity.SearchAddressActivity
 
 
@@ -113,7 +113,7 @@ class SetLocation3InputAddress : Fragment() {
 
             etRoadAddressName.setText("")
             etUserName.setText("")
-            (activity as SetLocationNew).addAddress(addressObject)
+            (activity as SetLocationActivity).addAddress(addressObject)
         }
     }
 

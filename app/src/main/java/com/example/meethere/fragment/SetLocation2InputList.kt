@@ -1,14 +1,15 @@
 package com.example.meethere.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.AddressObject
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.R
-import com.example.meethere.activity.SetLocationNew
+import com.example.meethere.activity.SetLocationActivity
 import com.example.meethere.adapter.AddressAdapter
 import com.example.meethere.sharedpreferences.App
 import kotlinx.android.synthetic.main.fragment_set_location2_input_list.*
@@ -56,7 +57,7 @@ class SetLocation2InputList : Fragment() {
         var listnumber = 0
         btnAdd.setOnClickListener {
             // 주소를 입력하는 프래그먼트로 이동
-            (activity as SetLocationNew).changeFragment(3)
+            (activity as SetLocationActivity).changeFragment(3)
         }
 
         //// 디버그 코드
@@ -71,6 +72,10 @@ class SetLocation2InputList : Fragment() {
                 App.prefs.lon!!.toDouble()
             )
         )
+
+        Log.d("임영택 SetLocation2 lat prefs",App.prefs.lat!!)
+        Log.d("임영택 SetLocation2 lon prefs",App.prefs.lon!!)
+
 
         //// 나중에 회원의 정보를 가장 먼저 추가하는 부분
     }

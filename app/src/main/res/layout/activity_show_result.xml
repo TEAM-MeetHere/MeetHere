@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".activity.ShowResult_2_7Activity">
+    tools:context=".activity.ShowResultActivity">
 
     <Space
         android:layout_width="match_parent"

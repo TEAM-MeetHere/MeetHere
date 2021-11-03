@@ -2,7 +2,6 @@ package com.example.meethere.sharedpreferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.meethere.AddressObject
 
 class PreferenceManager(context: Context) {
     val PREFS_FILENAME = "prefs"
@@ -14,8 +13,8 @@ class PreferenceManager(context: Context) {
     val PREF_PLACE_NAME = "place_name"
     val PREF_ROAD_ADDRESS_NAME = "road_address_name"
     val PREF_ADDRESS_NAME = "address_name"
-    val PREF_LAT = "0.0"
-    val PREF_LON = "0.0"
+    val PREF_LAT = "lat"
+    val PREF_LON = "lon"
     val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
     //파일 이름과 token을 저장할 key 값을 만들고 prefs 인스턴스 초기화
 

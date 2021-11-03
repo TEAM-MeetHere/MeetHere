@@ -4,9 +4,9 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
-import com.example.meethere.AddressObject
-import com.example.meethere.R
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.databinding.ActivitySaveBookmarkBinding
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.retrofit.request.Bookmark
@@ -15,8 +15,6 @@ import com.example.meethere.sharedpreferences.App
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
 import org.json.JSONObject
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -60,7 +58,7 @@ class SaveBookmarkActivity : AppCompatActivity() {
         addressObject.user_name = App.prefs.username.toString() //도착지에 username 로그인 유저로 대
 
         //캘린더 클릭
-        binding.calendarBtn.setOnClickListener {
+        binding.etBookmarkDate.setOnClickListener {
             //캘린더
             val cal = Calendar.getInstance()
             DatePickerDialog(this, DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
@@ -73,12 +71,13 @@ class SaveBookmarkActivity : AppCompatActivity() {
                 myDate = "$year-$month-$day"
                 Log.d(TAG, "약속 날짜 = $myDate")
 
+                binding.etBookmarkDate.setText(myDate)
             }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)).show()
         }
 
         //저장 버튼 클릭시
         binding.saveBtn.setOnClickListener {
-            dateName = binding.dateName.text.toString()
+            dateName = binding.etBookmarkName.text.toString()
 
             //약속 장소 입력되는 경우에만 진행
             if (dateName != "") {
@@ -152,5 +151,15 @@ class SaveBookmarkActivity : AppCompatActivity() {
                 Toast.makeText(this, "약속 장소가 입력되지 않았습니다.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.meethere
+package com.example.meethere.objects
 
 data class ResultSearchKeyword(
     var meta: PlaceMeta,                // 장소 메타데이터

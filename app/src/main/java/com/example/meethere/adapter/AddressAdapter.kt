@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.meethere.AddressObject
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.databinding.ItemAddressBinding
 import kotlinx.android.synthetic.main.item_address.view.*
 
@@ -15,18 +15,10 @@ class AddressAdapter(
     class AddressViewHolder(val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val btn2 = binding.btnDeleteAddress
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {
         val binding = ItemAddressBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        /*  return AddressViewHolder(
-              LayoutInflater.from(parent.context).inflate(
-                  R.layout.item_address,
-                  parent,
-                  false
-              )
-          )*/
         return AddressViewHolder(binding)
     }
 

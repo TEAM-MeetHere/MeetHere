@@ -21,11 +21,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
-
-
+        <activity
+            android:name=".activity.ShowBookmarkActivity"
+            android:exported="true" />
         <activity
             android:name=".activity.SaveBookmarkActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="목적지 선택"
+            android:parentActivityName=".activity.ShowResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.SearchAddressActivity"
             android:exported="true"
@@ -34,10 +39,9 @@
             android:name=".activity.SelectDestinationActivity"
             android:exported="true"
             android:label="목적지 선택"
-            android:parentActivityName=".activity.SetLocationNew"
+            android:parentActivityName=".activity.SetLocationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Search" />
-
         <activity
             android:name=".activity.WebViewActivity"
             android:exported="true"
@@ -45,7 +49,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Search" />
         <activity
-            android:name=".activity.SetLocationNew"
+            android:name=".activity.SetLocationActivity"
             android:exported="true"
             android:label="장소 검색하기"
             android:parentActivityName=".activity.MainActivity"
@@ -98,7 +102,7 @@
             android:theme="@style/Register" />
         <activity
             android:name=".activity.BookmarkActivity"
-            android:label="즐겨찾기"
+            android:label="약속 목록"
             android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Register" />
@@ -108,21 +112,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarStyle" />
         <activity
-            android:name=".activity.ShowResult_2_7Activity"
+            android:name=".activity.ShowResultActivity"
             android:label="검색결과"
             android:parentActivityName=".activity.SelectDestinationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Search" />
         <activity
-            android:name=".activity.ShowDetail_2_8Activity"
+            android:name=".activity.ShowDetailActivity"
             android:label="상세보기"
-            android:parentActivityName=".activity.ShowResult_2_7Activity"
+            android:parentActivityName=".activity.ShowResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Search" />
         <activity
-            android:name=".activity.ShowDetailMap_2_9Activity"
+            android:name=".activity.ShowDetailMapActivity"
             android:label="지도보기"
-            android:parentActivityName=".activity.ShowDetail_2_8Activity"
+            android:parentActivityName=".activity.ShowDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Search" />
 

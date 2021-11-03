@@ -5,15 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_show_result27.*
+import kotlinx.android.synthetic.main.activity_show_result.*
 import kotlinx.android.synthetic.main.item_result.*
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.util.Log
 import android.view.MenuItem
-import com.example.meethere.AddressObject
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.R
-import com.example.meethere.Result
+import com.example.meethere.objects.ResultObject
 import com.example.meethere.adapter.ResultAdapter
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.retrofit.request.Share
@@ -24,17 +24,17 @@ import com.example.meethere.utils.RESPONSE_STATE
 import org.json.JSONObject
 
 
-class ShowResult_2_7Activity : AppCompatActivity() {
+class ShowResultActivity : AppCompatActivity() {
     private lateinit var resultAdapter: ResultAdapter
 
     private fun startToDetailActivity(id: Int, message: String) {
-        val intent = Intent(applicationContext, ShowDetail_2_8Activity::class.java)
+        val intent = Intent(applicationContext, ShowDetailActivity::class.java)
         startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_show_result27)
+        setContentView(R.layout.activity_show_result)
 
         resultAdapter = ResultAdapter(mutableListOf())
 
@@ -42,8 +42,8 @@ class ShowResult_2_7Activity : AppCompatActivity() {
         recyclerViewResult.layoutManager = LinearLayoutManager(this)
 
         //출발 주소 리스트
-        val addressObjects: Array<AddressObject> =
-            intent.getSerializableExtra("addressData") as Array<AddressObject>
+        val addressObjects: ArrayList<AddressObject> =
+            intent.getSerializableExtra("addressData") as ArrayList<AddressObject>
 
         //도착 주소
         val addressObject: AddressObject =
@@ -51,7 +51,7 @@ class ShowResult_2_7Activity : AppCompatActivity() {
         val destinationName: String? = addressObject.place_name
 
         for (i in addressObjects.indices) {
-            val resultObject = Result(addressObjects[i].user_name, 10) // 예상시간을 적을 예정
+            val resultObject = ResultObject(addressObjects[i].user_name, 10) // 예상시간을 적을 예정
             resultAdapter.addResult(resultObject)
         }
 
@@ -118,13 +118,13 @@ class ShowResult_2_7Activity : AppCompatActivity() {
                                     getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
                                 val clip = ClipData.newPlainText("RANDOM_CODE", random_code)
                                 clipboard.setPrimaryClip(clip)
-                                Toast.makeText(this@ShowResult_2_7Activity, "공유 코드가 클립보드에 복사되었습니다.", Toast.LENGTH_SHORT)
+                                Toast.makeText(this@ShowResultActivity, "공유 코드가 클립보드에 복사되었습니다.", Toast.LENGTH_SHORT)
                                     .show()
 
                             } else {
                                 val errorMessage = jsonObject.getString("message")
                                 Log.d(TAG, "error message = ${errorMessage}")
-                                Toast.makeText(this@ShowResult_2_7Activity, errorMessage, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@ShowResultActivity, errorMessage, Toast.LENGTH_SHORT).show()
                             }
                         }
 

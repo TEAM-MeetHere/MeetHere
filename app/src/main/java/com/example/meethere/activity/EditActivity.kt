@@ -7,8 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.example.meethere.AddressObject
-import com.example.meethere.R
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.databinding.ActivityEditBinding
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.retrofit.request.Update

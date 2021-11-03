@@ -1,21 +1,16 @@
 package com.example.meethere.adapter
 
-import android.content.Intent
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
-import com.example.meethere.AddressObject
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.R
-import com.example.meethere.SearchResultItem
-import com.example.meethere.activity.ShowDetail_2_8Activity
+import com.example.meethere.objects.SearchResultObject
 
-class SearchResultAdapter(val searchResults: ArrayList<SearchResultItem>) :
+class SearchResultAdapter(val searchResults: ArrayList<SearchResultObject>) :
     RecyclerView.Adapter<SearchResultAdapter.ViewHolder>() {
 
     private var oldPosition = -1
@@ -45,8 +40,8 @@ class SearchResultAdapter(val searchResults: ArrayList<SearchResultItem>) :
             "",
             searchResults[holder.adapterPosition].road,
             searchResults[holder.adapterPosition].address,
-            searchResults[holder.adapterPosition].x,
-            searchResults[holder.adapterPosition].y
+            searchResults[holder.adapterPosition].lat,
+            searchResults[holder.adapterPosition].lon
         )
 
         if (selectedPosition == holder.adapterPosition) holder.buttonSelect.visibility = View.VISIBLE
@@ -93,7 +88,7 @@ class SearchResultAdapter(val searchResults: ArrayList<SearchResultItem>) :
         this.itemClickListener2 = onItemClickListener
     }
 
-    fun addSearchResults(searchResult: SearchResultItem) {
+    fun addSearchResults(searchResult: SearchResultObject) {
         searchResults.add(searchResult)
         notifyItemInserted(searchResults.size - 1)
     }
