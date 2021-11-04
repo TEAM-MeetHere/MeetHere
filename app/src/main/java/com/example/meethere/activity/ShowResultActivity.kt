@@ -42,8 +42,8 @@ class ShowResultActivity : AppCompatActivity() {
         recyclerViewResult.layoutManager = LinearLayoutManager(this)
 
         //출발 주소 리스트
-        val addressObjects: ArrayList<AddressObject> =
-            intent.getSerializableExtra("addressData") as ArrayList<AddressObject>
+        val addressObjects: Array<AddressObject> =
+            intent.getSerializableExtra("addressData") as Array<AddressObject>
 
         //도착 주소
         val addressObject: AddressObject =
@@ -59,7 +59,6 @@ class ShowResultActivity : AppCompatActivity() {
 
         //저장하기 버튼 클릭시 -> 캘린더, 약속이름 정하러가기
         buttonSave.setOnClickListener {
-
             var intent = Intent(this, SaveBookmarkActivity::class.java)
             intent.putExtra("startAddressList", addressObjects)
             intent.putExtra("destinationAddress", addressObject)
