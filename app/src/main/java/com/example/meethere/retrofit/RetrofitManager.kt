@@ -22,6 +22,25 @@ class RetrofitManager {
     private val iRetrofit: IRetrofit? =
         RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
 
+    //즐겨찾기 출발지점 리스트 불러오기
+    fun findStartAddressListService(bookmarkId:Long, completion: (RESPONSE_STATE, String) -> Unit){
+        var term = bookmarkId?:""
+        val call = iRetrofit?.findStartAddressListService(bookmarkId = term as Long)?:return
+
+        call.enqueue(object:retrofit2.Callback<JsonElement>{
+            //응답 성공
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "Retrofitmanager - onResponse() called /t:${response.raw()}")
+                completion(RESPONSE_STATE.OKAY, response.body().toString())
+            }
+
+            //응답 실패
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                completion(RESPONSE_STATE.FAIL, t.toString())
+            }
+        })
+    }
+
 
     //공유코드 내용(출발지점 리스트) 불러오기
     fun shareStartService(shareId:Long, completion: (RESPONSE_STATE, String) -> Unit){

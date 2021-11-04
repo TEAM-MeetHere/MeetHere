@@ -1,5 +1,6 @@
 package com.example.meethere.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -50,10 +51,13 @@ class BookmarkActivity : AppCompatActivity() {
                                 val iObject = dataArray.getJSONObject(i)
                                 val id = iObject.getLong("id")
                                 val dateName = iObject.getString("dateName")
+                                val username = iObject.getString("username")
+                                val date = iObject.getString("date")
+                                val placeName = iObject.getString("placeName")
 
                                 bookmarkList.add(
                                     BookmarkObject(
-                                        id, dateName, "멤버", "날짜", "목적지"
+                                        id, dateName, username, date, placeName
                                     )
                                 )
 

@@ -33,4 +33,6 @@ object API {
     const val SHARE_DESTINATION = "api/share/destination"
 
     const val SHARE_START = "api/share/start"
+
+    const val FIND_START_ADDRESS_LIST = "api/bookmark/load"
 }

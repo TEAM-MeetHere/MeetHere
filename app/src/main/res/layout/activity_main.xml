@@ -153,5 +153,11 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/startList_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="출발지점 리스트" />
+
 
 </LinearLayout>
