@@ -65,4 +65,8 @@ interface IRetrofit {
     @GET(API.SHARE_START)
     fun shareStartService(@Query("shareId") shareId: Long)
             : Call<JsonElement>
+
+    @GET(API.FIND_START_ADDRESS_LIST)
+    fun findStartAddressListService(@Query("bookmarkId") bookmarkId: Long)
+            : Call<JsonElement>
 }
