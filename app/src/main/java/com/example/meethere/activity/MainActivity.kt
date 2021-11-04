@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity() {
                                                         }
 
                                                         val intent = Intent(this, ShowResultActivity::class.java)
-                                                        intent.putExtra("addressData", addressObjects)
+                                                        intent.putExtra("addressData", addressObjects.toArray(arrayOfNulls<AddressObject>(addressObjects.size)))
                                                         intent.putExtra("addressObject", addressObject)
                                                         startActivity(intent)
                                                         mAlertDialog.dismiss()
