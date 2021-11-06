@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meethere.objects.BookmarkObject
 import com.example.meethere.databinding.ItemBookmarkBinding
+import com.example.meethere.objects.AddressObject
 import kotlinx.android.synthetic.main.item_bookmark.view.*
 
 class BookmarkAdapter(
@@ -32,9 +33,23 @@ class BookmarkAdapter(
         val curBookmark = bookmarkObjects[position]
         holder.itemView.apply {
             tv_promise_name.text = curBookmark.promise_name
+            tv_promise_place_name.text = curBookmark.promise_place_name
             tv_promise_date.text = curBookmark.promise_date
-            tv_promise_member.text = curBookmark.promise_member
         }
+
+        holder.itemView.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                val addressObject = AddressObject(
+                    curBookmark.promise_place_name,
+                    curBookmark.promise_name,
+                    curBookmark.promise_road_address_name,
+                    curBookmark.promise_address_name,
+                    curBookmark.promise_lat.toDouble(),
+                    curBookmark.promise_lon.toDouble()
+                )
+                itemClickListener.onClick(curBookmark.promise_id, addressObject, holder.adapterPosition)
+            }
+        })
 
         holder.buttonEdit.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
@@ -46,6 +61,7 @@ class BookmarkAdapter(
                 if (bookmarkObjects.isNotEmpty())
                     bookmarkObjects.remove(bookmarkObjects[holder.adapterPosition])
                 notifyDataSetChanged()
+                // 데이터베이스에서도 삭제하는 코드 필요
             }
         })
     }
@@ -53,4 +69,14 @@ class BookmarkAdapter(
     override fun getItemCount(): Int {
         return bookmarkObjects.size
     }
+
+    interface OnItemClickListener {
+        fun onClick(promise_id: Long, addressObject: AddressObject, position: Int)
+    }
+
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
+
+    private lateinit var itemClickListener: OnItemClickListener
 }

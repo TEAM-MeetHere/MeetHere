@@ -23,7 +23,11 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.ShowBookmarkActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="약속 상세"
+            android:parentActivityName=".activity.BookmarkActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.SaveBookmarkActivity"
             android:exported="true"

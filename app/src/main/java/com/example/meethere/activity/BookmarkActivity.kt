@@ -3,6 +3,7 @@ package com.example.meethere.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import com.example.meethere.adapter.BookmarkAdapter
 import com.example.meethere.objects.BookmarkObject
 import com.example.meethere.R
 import com.example.meethere.databinding.ActivityBookmarkBinding
+import com.example.meethere.objects.AddressObject
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.sharedpreferences.App
 import com.example.meethere.utils.Constants.TAG
@@ -19,14 +21,28 @@ import org.json.JSONObject
 class BookmarkActivity : AppCompatActivity() {
     private var mBinding: ActivityBookmarkBinding? = null
     private val binding get() = mBinding!!
+
+    private val bookmarkObjects = arrayListOf<BookmarkObject>()
+    private val bookmarkAdapter = BookmarkAdapter(bookmarkObjects)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bookmark)
         mBinding = ActivityBookmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //즐겨찾기 목록 받아올 리스트
-        val bookmarkList = arrayListOf<BookmarkObject>()
+        binding.rvBookmarkList.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvBookmarkList.adapter = bookmarkAdapter
+
+        bookmarkAdapter.setItemClickListener(object : BookmarkAdapter.OnItemClickListener {
+            override fun onClick(promise_id: Long, addressObject: AddressObject, position: Int) {
+                val intent = Intent(this@BookmarkActivity, ShowBookmarkActivity::class.java)
+                intent.putExtra("bookmarkId", promise_id.toString())
+                intent.putExtra("addressObject", addressObject)
+                startActivity(intent)
+            }
+        })
 
         //즐겨찾기 목록 API 호출
         RetrofitManager.instance.bookmarkListService(
@@ -51,13 +67,24 @@ class BookmarkActivity : AppCompatActivity() {
                                 val iObject = dataArray.getJSONObject(i)
                                 val id = iObject.getLong("id")
                                 val dateName = iObject.getString("dateName")
-                                val username = iObject.getString("username")
+//                              val username = iObject.getString("username")
                                 val date = iObject.getString("date")
                                 val placeName = iObject.getString("placeName")
+                                val roadAddressName = iObject.getString("roadAddressName")
+                                val addressName = iObject.getString("addressName")
+                                val lat = iObject.getString("lat")
+                                val lon = iObject.getString("lon")
 
-                                bookmarkList.add(
+                                bookmarkObjects.add(
                                     BookmarkObject(
-                                        id, dateName, username, date, placeName
+                                        id,
+                                        dateName,
+                                        date,
+                                        placeName,
+                                        roadAddressName,
+                                        addressName,
+                                        lat,
+                                        lon
                                     )
                                 )
 
@@ -66,10 +93,7 @@ class BookmarkActivity : AppCompatActivity() {
                                 Log.d(TAG, "약속 이름 = $dateName")
                             }
 
-                            binding.re.layoutManager =
-                                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                            binding.re.setHasFixedSize(true)
-                            binding.re.adapter = BookmarkAdapter(bookmarkList)
+                            bookmarkAdapter.notifyDataSetChanged()
                         } else {
                             val errorMessage = jsonObject.getString("message")
                             Log.d(TAG, "error message = $errorMessage")
@@ -85,5 +109,15 @@ class BookmarkActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

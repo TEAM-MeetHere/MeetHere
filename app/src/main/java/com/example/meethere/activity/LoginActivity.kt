@@ -22,9 +22,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.loginId.setText("log8450@gmail.com")
-        binding.loginPw.setText("asdqwe1!")
-
         //회원가입 클릭
         binding.join.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)

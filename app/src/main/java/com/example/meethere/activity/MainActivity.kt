@@ -194,12 +194,7 @@ class MainActivity : AppCompatActivity() {
         //TEST
         //즐겨찾기의 출발지 지점 리스트 확인
         binding.startListBtn.setOnClickListener {
-            val intent = Intent(this, ShowBookmarkActivity::class.java)
 
-            //ShowBookmarkActivity에서 getLongExtra로 받을 수가 없어서
-            //String으로 받고 ShowBookmarkActivity에서 Long으로 변환
-            intent.putExtra("bookmarkId", "32")
-            startActivity(intent)
         }
     }
 }
