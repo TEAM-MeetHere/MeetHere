@@ -14,8 +14,6 @@ object API {
 
     const val LOGIN: String = "authenticate"
 
-    const val BOOKMARK_LIST = "api/bookmark/list"
-
     const val REGISTER = "api/members"
 
     const val VERIFY = "api/members/verify"
@@ -26,7 +24,15 @@ object API {
 
     const val FIND_PW = "api/members/findPw"
 
+    const val DELETE_MEM = "api/members/delete"
+
     const val SAVE_BOOKMARK = "api/bookmark/save"
+
+    const val FIND_START_ADDRESS_LIST = "api/bookmark/load"
+
+    const val BOOKMARK_LIST = "api/bookmark/list"
+
+    const val DELETE_BOOKMARK = "api/bookmark/delete"
 
     const val SAVE_SHARE = "api/share/save"
 
@@ -34,5 +40,12 @@ object API {
 
     const val SHARE_START = "api/share/start"
 
-    const val FIND_START_ADDRESS_LIST = "api/bookmark/load"
+    const val FIND_FRIEND = "api/friend/find"
+
+    const val ADD_FRIEND = "api/friend/save"
+
+    const val FRIEND_LIST = "api/friend/list"
+
+    const val DELETE_FRIEND = "api/friend/delete"
+
 }
