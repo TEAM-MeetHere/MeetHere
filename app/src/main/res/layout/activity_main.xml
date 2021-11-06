@@ -76,7 +76,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="10dp"
         android:layout_marginRight="50dp"
         android:layout_weight="1"
         android:background="@drawable/border"
@@ -124,13 +123,10 @@
             android:id="@+id/bookmark_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
             android:background="@drawable/button_color_drawable2"
             android:text="즐겨찾기\n목록"
-            android:textSize="20sp"
-
-            />
+            android:textSize="20sp" />
 
         <Space
             android:layout_width="50dp"
@@ -153,11 +149,21 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/startList_btn"
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="출발지점 리스트" />
+        android:layout_height="25dp"
+        android:layout_weight="0" />
 
+    <Button
+        android:id="@+id/friend_btn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_weight="1"
+        android:background="@drawable/border"
+        android:text="친구 기능"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
 
 </LinearLayout>

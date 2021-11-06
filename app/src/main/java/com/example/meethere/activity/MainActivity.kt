@@ -191,10 +191,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
-        //TEST
-        //즐겨찾기의 출발지 지점 리스트 확인
-        binding.startListBtn.setOnClickListener {
+        friend_btn.setOnClickListener( {
 
-        }
+        })
     }
 }

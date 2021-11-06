@@ -14,7 +14,6 @@ class BookmarkAdapter(
 ) : RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>() {
     class BookmarkViewHolder(val binding: ItemBookmarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val buttonEdit = binding.buttonEdit
         val buttonDelete = binding.buttonDelete
     }
 
@@ -47,15 +46,16 @@ class BookmarkAdapter(
                     curBookmark.promise_lat.toDouble(),
                     curBookmark.promise_lon.toDouble()
                 )
-                itemClickListener.onClick(curBookmark.promise_id, addressObject, holder.adapterPosition)
+                itemClickListener.onClick(
+                    curBookmark.promise_id,
+                    addressObject,
+                    curBookmark.promise_name,
+                    curBookmark.promise_date,
+                    holder.adapterPosition
+                )
             }
         })
 
-        holder.buttonEdit.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                // 수정
-            }
-        })
         holder.buttonDelete.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 if (bookmarkObjects.isNotEmpty())
@@ -71,7 +71,13 @@ class BookmarkAdapter(
     }
 
     interface OnItemClickListener {
-        fun onClick(promise_id: Long, addressObject: AddressObject, position: Int)
+        fun onClick(
+            promise_id: Long,
+            addressObject: AddressObject,
+            promise_name: String,
+            promise_date: String,
+            position: Int
+        )
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {

@@ -22,6 +22,12 @@
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.EditBookmarkActivity"
+            android:exported="true"
+            android:label="약속 수정"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
+        <activity
             android:name=".activity.ShowBookmarkActivity"
             android:exported="true"
             android:label="약속 상세"

@@ -16,6 +16,7 @@ import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.sharedpreferences.App
 import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
+import kotlinx.android.synthetic.main.item_bookmark.*
 import org.json.JSONObject
 
 class BookmarkActivity : AppCompatActivity() {
@@ -36,10 +37,12 @@ class BookmarkActivity : AppCompatActivity() {
         binding.rvBookmarkList.adapter = bookmarkAdapter
 
         bookmarkAdapter.setItemClickListener(object : BookmarkAdapter.OnItemClickListener {
-            override fun onClick(promise_id: Long, addressObject: AddressObject, position: Int) {
+            override fun onClick(promise_id: Long, addressObject: AddressObject, promise_name: String, promise_date: String, position: Int) {
                 val intent = Intent(this@BookmarkActivity, ShowBookmarkActivity::class.java)
                 intent.putExtra("bookmarkId", promise_id.toString())
                 intent.putExtra("addressObject", addressObject)
+                intent.putExtra("promise_name", promise_name)
+                intent.putExtra("promise_date", promise_date)
                 startActivity(intent)
             }
         })
