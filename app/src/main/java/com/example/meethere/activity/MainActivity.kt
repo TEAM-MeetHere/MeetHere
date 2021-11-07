@@ -174,25 +174,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         //정보 수정 버튼 클릭시
-        edit_btn.setOnClickListener({
+        edit_btn.setOnClickListener {
             val intent = Intent(this, EditActivity::class.java)
             startActivity(intent)
-        })
+        }
 
         //즐겨찾기 목록 버튼 클릭시
-        bookmark_btn.setOnClickListener({
+        bookmark_btn.setOnClickListener {
             val intent = Intent(this, BookmarkActivity::class.java)
             startActivity(intent)
-        })
+        }
 
         //장소 검색 시작 버튼 클릭시
-        search_btn.setOnClickListener({
+        search_btn.setOnClickListener {
             val intent = Intent(this, SetLocationActivity::class.java)
             startActivity(intent)
-        })
+        }
 
-        friend_btn.setOnClickListener( {
-
-        })
+        friend_btn.setOnClickListener {
+            val intent = Intent(this, FriendActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -22,6 +22,18 @@
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.AddFriendActivity"
+            android:exported="true"
+            android:label="친구 추가"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
+        <activity
+            android:name=".activity.FriendActivity"
+            android:exported="true"
+            android:label="친구 목록"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
+        <activity
             android:name=".activity.EditBookmarkActivity"
             android:exported="true"
             android:label="약속 수정"
