@@ -27,11 +27,35 @@
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
         <activity
+<<<<<<< HEAD
             android:name=".activity.SendShareCodeActivity"
             android:exported="true" />
+=======
+            android:name=".activity.AddFriendActivity"
+            android:exported="true"
+            android:label="친구 추가"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
+        <activity
+            android:name=".activity.FriendActivity"
+            android:exported="true"
+            android:label="친구 목록"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
+        <activity
+            android:name=".activity.EditBookmarkActivity"
+            android:exported="true"
+            android:label="약속 수정"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
+>>>>>>> c8ef4877edb2d2a29b38561c1176e279b0ffa033
         <activity
             android:name=".activity.ShowBookmarkActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="약속 상세"
+            android:parentActivityName=".activity.BookmarkActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Search" />
         <activity
             android:name=".activity.SaveBookmarkActivity"
             android:exported="true"
