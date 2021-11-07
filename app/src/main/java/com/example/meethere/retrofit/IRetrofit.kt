@@ -62,6 +62,11 @@ interface IRetrofit {
     fun findStartAddressListService(@Query("bookmarkId") bookmarkId: Long)
             : Call<JsonElement>
 
+    //즐겨찾기 수정
+    @POST(API.UPDATE_BOOKMARK)
+    fun updateBookmarkService(@Body updateBookmark: UpdateBookmark)
+            : Call<JsonElement>
+
     //즐겨찾기 삭제
     @DELETE(API.DELETE_BOOKMARK)
     fun deleteBookmarkService(@Query("bookmarkId") bookmarkId: Long)
