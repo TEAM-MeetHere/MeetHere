@@ -32,6 +32,8 @@ object API {
 
     const val BOOKMARK_LIST = "api/bookmark/list"
 
+    const val UPDATE_BOOKMARK = "api/bookmark/update"
+
     const val DELETE_BOOKMARK = "api/bookmark/delete"
 
     const val SAVE_SHARE = "api/share/save"
