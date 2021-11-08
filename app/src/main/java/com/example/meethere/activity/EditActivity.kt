@@ -21,7 +21,10 @@ class EditActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditBinding
 
-    lateinit var addressObject: AddressObject
+    private var addressObject = AddressObject(
+        App.prefs.place_name.toString(), App.prefs.username.toString(),
+        App.prefs.road_address_name.toString(), App.prefs.address_name.toString(),
+        App.prefs.lat!!.toDouble(), App.prefs.lon!!.toDouble())
 
     var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -57,6 +60,8 @@ class EditActivity : AppCompatActivity() {
             var name: String? = binding.editName.text.toString()
             var address: String? = binding.editAddress.text.toString()
             var phone: String? = binding.editPhone.text.toString()
+
+
 
             var myUpdate = Update(
                 memberId, pw1!!, pw2!!, name!!, phone!!,

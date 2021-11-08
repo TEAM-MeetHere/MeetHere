@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SendRequestLocationActivity">
+
+
+    <TextView
+        android:id="@+id/tv_receiver_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="수신자 이름"
+        app:layout_constraintBottom_toTopOf="@+id/tv_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="211dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="124dp"
+        android:ems="10"
+        android:text="Friend Name"
+        android:gravity="center"
+        android:background="@drawable/border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_receiver_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="수신자 번호"
+        app:layout_constraintBottom_toTopOf="@+id/tv_phone"
+        app:layout_constraintStart_toStartOf="@+id/tv_phone" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:gravity="center"
+        android:text="Mobile No."
+        android:background="@drawable/border"
+        app:layout_constraintEnd_toEndOf="@+id/tv_name"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+
+    <TextView
+        android:id="@+id/et_request_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="356dp"
+        android:ems="10"
+        android:hint="위치 요청 메시지"
+        android:gravity="center"
+        android:lines="5"
+        android:minHeight="48dp"
+        android:background="@drawable/border"
+        app:layout_constraintEnd_toEndOf="@+id/tv_phone"
+        app:layout_constraintHorizontal_bias="0.565"
+        app:layout_constraintStart_toStartOf="@+id/tv_phone"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bt_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="136dp"
+        android:text="현재위치 요청 문자 전송"
+        app:layout_constraintEnd_toEndOf="@+id/et_request_message"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/et_request_message"
+        app:layout_constraintTop_toBottomOf="@+id/et_request_message" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

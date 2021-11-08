@@ -98,7 +98,7 @@ interface IRetrofit {
     //친구 추가
     @POST(API.ADD_FRIEND)
     fun addFriendService(
-        @Query("membrId") memberId: Long,
+        @Query("memberId") memberId: Long,
         @Query("friendId") friendId: Long
     ): Call<JsonElement>
 

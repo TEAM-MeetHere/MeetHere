@@ -1,16 +1,22 @@
 package com.example.meethere.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meethere.objects.BookmarkObject
 import com.example.meethere.databinding.ItemBookmarkBinding
 import com.example.meethere.objects.AddressObject
+import com.example.meethere.retrofit.RetrofitManager
+import com.example.meethere.utils.Constants.TAG
+import com.example.meethere.utils.RESPONSE_STATE
 import kotlinx.android.synthetic.main.item_bookmark.view.*
+import org.json.JSONObject
 
 class BookmarkAdapter(
-    private val bookmarkObjects: MutableList<BookmarkObject>
+    private val bookmarkObjects: MutableList<BookmarkObject>,
 ) : RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>() {
     class BookmarkViewHolder(val binding: ItemBookmarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -58,10 +64,47 @@ class BookmarkAdapter(
 
         holder.buttonDelete.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                if (bookmarkObjects.isNotEmpty())
-                    bookmarkObjects.remove(bookmarkObjects[holder.adapterPosition])
-                notifyDataSetChanged()
+
                 // 데이터베이스에서도 삭제하는 코드 필요
+                val bookmarkId = bookmarkObjects[holder.adapterPosition].promise_id
+
+                RetrofitManager.instance.deleteBookmarkService(
+                    bookmarkId = bookmarkId,
+                    completion = { responseState, responseBody ->
+                        when (responseState) {
+
+                            //API 호출 성공시
+                            RESPONSE_STATE.OKAY -> {
+                                Log.d(TAG, "API 호출 성공 : $responseBody")
+
+                                //JSON parsing
+                                //{}->JSONObejct, []->JSONArray
+                                val jsonObjects = JSONObject(responseBody)
+                                val statusCode = jsonObjects.getInt("statusCode")
+
+                                if (statusCode == 200) {
+                                    val message = jsonObjects.getString("message")
+                                    Log.d(TAG, "message = $message")
+                                    Toast.makeText(p0!!.context, message, Toast.LENGTH_LONG).show()
+
+                                    if (bookmarkObjects.isNotEmpty())
+                                        bookmarkObjects.remove(bookmarkObjects[holder.adapterPosition])
+                                    notifyDataSetChanged()
+
+                                } else {
+                                    val errorMessage = jsonObjects.getString("message")
+                                    Log.d(TAG, "error message = $errorMessage")
+                                    Toast.makeText(p0!!.context, errorMessage, Toast.LENGTH_LONG).show()
+                                }
+                            }
+
+                            //API 호출 실패시
+                            RESPONSE_STATE.FAIL -> {
+                                Log.d(TAG, "API 호출 실패 : $responseBody")
+                            }
+                        }
+                    }
+                )
             }
         })
     }
@@ -76,7 +119,7 @@ class BookmarkAdapter(
             addressObject: AddressObject,
             promise_name: String,
             promise_date: String,
-            position: Int
+            position: Int,
         )
     }
 

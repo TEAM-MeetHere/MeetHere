@@ -160,7 +160,7 @@ class RetrofitManager {
     //해당 즐겨찾기 삭제 API 호출
     fun deleteBookmarkService(bookmarkId: Long, completion: (RESPONSE_STATE, String) -> Unit) {
         var term = bookmarkId ?: ""
-        val call = iRetrofit?.findStartAddressListService(bookmarkId = term as Long) ?: return
+        val call = iRetrofit?.deleteBookmarkService(bookmarkId = term as Long) ?: return
 
         callEnqueue(call, completion)
     }
