@@ -1,14 +1,21 @@
 package com.example.meethere.activity
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.meethere.R
 import com.example.meethere.databinding.ActivityEditBookmarkBinding
+import com.example.meethere.retrofit.RetrofitManager
+import com.example.meethere.retrofit.request.Bookmark
+import com.example.meethere.retrofit.request.UpdateBookmark
 import com.example.meethere.utils.Constants
+import com.example.meethere.utils.Constants.TAG
+import com.example.meethere.utils.RESPONSE_STATE
 import kotlinx.android.synthetic.main.activity_edit_bookmark.*
+import org.json.JSONObject
 import java.util.*
 
 class EditBookmarkActivity : AppCompatActivity() {
@@ -51,9 +58,59 @@ class EditBookmarkActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
+
+            Log.d(TAG, "EditBookmarkActivity - 수정 버튼 클릭")
             dateName = binding.etBookmarkName.text.toString()
 
+            if (dateName == "") {
+                Toast.makeText(this@EditBookmarkActivity, "약속 이름을 입력해주세요", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            val myUpdateBookmark = UpdateBookmark(
+                bookmarkId!!, dateName, myDate
+            )
+
             // 통신으로 bookmarkId의 myDate, dateName 만 수정하는 코드
+            RetrofitManager.instance.updateBookmarkService(
+                updateBookmark = myUpdateBookmark,
+                completion = { responseState, responseBody ->
+                    when (responseState) {
+
+                        //API 호출 성공시
+                        RESPONSE_STATE.OKAY -> {
+                            Log.d(TAG, "API 호출 성공 : $responseBody")
+
+                            //JSON parsing
+                            //{}->JSONObject, []->JSONArray
+                            val jsonObjects = JSONObject(responseBody)
+                            val statusCode = jsonObjects.getInt("statusCode")
+
+                            if (statusCode == 200) {
+                                val message = jsonObjects.getString("message")
+                                Log.d(TAG, "message = $message")
+                                Toast.makeText(this@EditBookmarkActivity,
+                                    message,
+                                    Toast.LENGTH_LONG).show()
+
+                                val intent = Intent(this, BookmarkActivity::class.java)
+                                startActivity(intent)
+                            } else {
+                                val errorMessage = jsonObjects.getString("message")
+                                Log.d(TAG, "error message = $errorMessage")
+                                Toast.makeText(this@EditBookmarkActivity,
+                                    errorMessage,
+                                    Toast.LENGTH_LONG).show()
+                            }
+                        }
+
+                        //API 호출 실패시
+                        RESPONSE_STATE.FAIL -> {
+                            Log.d(TAG, "API 호출 실패 : $responseBody")
+                        }
+                    }
+                }
+            )
         }
     }
 }

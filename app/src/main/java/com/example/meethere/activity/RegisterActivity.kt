@@ -3,6 +3,7 @@ package com.example.meethere.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.MenuItem
@@ -43,6 +44,8 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.registerPhone.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         //다음 단계 버튼 클릭 시
         binding.nextBUTTON.setOnClickListener {

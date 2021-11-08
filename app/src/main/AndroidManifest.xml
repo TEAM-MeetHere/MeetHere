@@ -10,6 +10,7 @@
     <!-- SMS 기능을 위한 -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -27,10 +28,12 @@
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
         <activity
-<<<<<<< HEAD
             android:name=".activity.SendShareCodeActivity"
             android:exported="true" />
-=======
+        <activity
+            android:name=".activity.SendRequestLocationActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.AddFriendActivity"
             android:exported="true"
             android:label="친구 추가"
@@ -48,8 +51,7 @@
             android:label="약속 수정"
             android:screenOrientation="portrait"
             android:theme="@style/Search" />
->>>>>>> c8ef4877edb2d2a29b38561c1176e279b0ffa033
-        <activity
+         <activity
             android:name=".activity.ShowBookmarkActivity"
             android:exported="true"
             android:label="약속 상세"
