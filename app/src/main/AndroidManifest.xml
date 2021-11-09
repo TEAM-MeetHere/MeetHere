@@ -29,66 +29,76 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.SendShareCodeActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="공유 코드 전송하기"
+            android:parentActivityName=".activity.FriendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.SendRequestLocationActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="위치 요청 전송하기"
+            android:parentActivityName=".activity.FriendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.AddFriendActivity"
             android:exported="true"
             android:label="친구 추가"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.FriendActivity"
             android:exported="true"
             android:label="친구 목록"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.EditBookmarkActivity"
             android:exported="true"
             android:label="약속 수정"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
-         <activity
+            android:theme="@style/DarkActionBarStyle" />
+        <activity
             android:name=".activity.ShowBookmarkActivity"
             android:exported="true"
             android:label="약속 상세"
             android:parentActivityName=".activity.BookmarkActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.SaveBookmarkActivity"
             android:exported="true"
             android:label="목적지 선택"
             android:parentActivityName=".activity.ShowResultActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.SearchAddressActivity"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:label="주소 검색"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarStyle" />
         <activity
             android:name=".activity.SelectDestinationActivity"
             android:exported="true"
             android:label="목적지 선택"
             android:parentActivityName=".activity.SetLocationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.WebViewActivity"
             android:exported="true"
             android:label="장소 검색하기"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.SetLocationActivity"
             android:exported="true"
             android:label="장소 검색하기"
             android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true"
@@ -109,37 +119,37 @@
             android:label="회원가입"
             android:parentActivityName=".activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Register" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.FindIDActivity"
             android:label="아이디 찾기"
             android:parentActivityName=".activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Register" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.FindPWActivity"
             android:label="비밀번호 찾기"
             android:parentActivityName=".activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Register" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.AuthIDActivity"
             android:label="이메일 인증"
             android:parentActivityName=".activity.RegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Register" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.EditActivity"
             android:label="정보 수정"
             android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Register" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.BookmarkActivity"
             android:label="약속 목록"
             android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Register" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
@@ -150,19 +160,19 @@
             android:label="검색결과"
             android:parentActivityName=".activity.SelectDestinationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.ShowDetailActivity"
             android:label="상세보기"
             android:parentActivityName=".activity.ShowResultActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.ShowDetailMapActivity"
             android:label="지도보기"
             android:parentActivityName=".activity.ShowDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Search" />
+            android:theme="@style/DarkActionBarStyle" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

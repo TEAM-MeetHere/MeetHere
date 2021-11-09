@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.loginId.setText("log8450@gmail.com")
-        binding.loginPw.setText("asdqwe1!")
+        binding.loginPw.setText("qwe123!")
 
         //회원가입 클릭
         binding.join.setOnClickListener {

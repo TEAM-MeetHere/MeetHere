@@ -125,7 +125,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_color_drawable2"
-            android:text="즐겨찾기\n목록"
+            android:text="약속\n목록"
             android:textSize="20sp" />
 
         <Space

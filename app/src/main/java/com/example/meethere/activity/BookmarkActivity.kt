@@ -37,7 +37,13 @@ class BookmarkActivity : AppCompatActivity() {
         binding.rvBookmarkList.adapter = bookmarkAdapter
 
         bookmarkAdapter.setItemClickListener(object : BookmarkAdapter.OnItemClickListener {
-            override fun onClick(promise_id: Long, addressObject: AddressObject, promise_name: String, promise_date: String, position: Int) {
+            override fun onClick(
+                promise_id: Long,
+                addressObject: AddressObject,
+                promise_name: String,
+                promise_date: String,
+                position: Int,
+            ) {
                 val intent = Intent(this@BookmarkActivity, ShowBookmarkActivity::class.java)
                 intent.putExtra("bookmarkId", promise_id.toString())
                 intent.putExtra("addressObject", addressObject)
@@ -46,8 +52,12 @@ class BookmarkActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
+    }
 
-        //즐겨찾기 목록 API 호출
+    override fun onResume() {
+        super.onResume()
+        bookmarkObjects.clear()
+        bookmarkAdapter.notifyDataSetChanged()
         RetrofitManager.instance.bookmarkListService(
             memberId = App.prefs.memberId,
             completion = { responseState, responseBody ->
@@ -103,7 +113,6 @@ class BookmarkActivity : AppCompatActivity() {
                             Toast.makeText(this@BookmarkActivity, errorMessage, Toast.LENGTH_SHORT)
                                 .show()
                         }
-
                     }
 
                     RESPONSE_STATE.FAIL -> {

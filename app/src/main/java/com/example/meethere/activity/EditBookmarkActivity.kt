@@ -92,9 +92,7 @@ class EditBookmarkActivity : AppCompatActivity() {
                                 Toast.makeText(this@EditBookmarkActivity,
                                     message,
                                     Toast.LENGTH_LONG).show()
-
-                                val intent = Intent(this, BookmarkActivity::class.java)
-                                startActivity(intent)
+                                finish()
                             } else {
                                 val errorMessage = jsonObjects.getString("message")
                                 Log.d(TAG, "error message = $errorMessage")
