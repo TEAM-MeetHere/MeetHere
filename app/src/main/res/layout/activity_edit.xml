@@ -35,7 +35,6 @@
         android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
         android:singleLine="true"
-        android:text="lyt0528@naver.com"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
@@ -61,7 +60,7 @@
         android:layout_weight="1"
         android:background="@drawable/border"
         android:gravity="left|center_vertical"
-        android:hint=" 영문자, 숫자의 조합으로 6~45자"
+        android:hint="영문자, 숫자, 특수문자의 조합 6~12자"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
         android:singleLine="true"
@@ -90,7 +89,7 @@
         android:layout_weight="1"
         android:background="@drawable/border"
         android:gravity="left|center_vertical"
-        android:hint=" 비밀번호 재확인"
+        android:hint="비밀번호 재확인"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
         android:singleLine="true"
@@ -121,7 +120,6 @@
         android:gravity="left|center_vertical"
         android:paddingLeft="10dp"
         android:singleLine="true"
-        android:text=" 임영택"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
@@ -174,10 +172,9 @@
         android:layout_weight="1"
         android:background="@drawable/border"
         android:gravity="left|center_vertical"
-        android:inputType="text|phone"
+        android:inputType="phone"
         android:paddingLeft="10dp"
         android:singleLine="true"
-        android:text="010-1234-5678"
         android:textColor="@color/black"
         android:textSize="18sp" />
 

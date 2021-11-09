@@ -11,21 +11,24 @@
         android:id="@+id/tv_receiver_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="수신자 이름"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/tv_name"
         app:layout_constraintStart_toStartOf="@+id/tv_name" />
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="211dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="124dp"
-        android:ems="10"
-        android:text="Friend Name"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/border"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
+        android:ems="10"
+        android:gravity="left|center_vertical"
+        android:padding="8dp"
+        android:text="Friend Name"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,52 +36,68 @@
         android:id="@+id/tv_receiver_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="수신자 번호"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/tv_phone"
         app:layout_constraintStart_toStartOf="@+id/tv_phone" />
 
     <TextView
+        android:id="@+id/tv_receiver_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="위치 요청 메시지"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/et_request_message"
+        app:layout_constraintStart_toStartOf="@+id/et_request_message" />
+
+    <TextView
         android:id="@+id/tv_phone"
-        android:layout_width="210dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="72dp"
-        android:ems="10"
-        android:gravity="center"
-        android:text="Mobile No."
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/border"
-        app:layout_constraintEnd_toEndOf="@+id/tv_name"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        android:ems="10"
+        android:gravity="left|center_vertical"
+        android:padding="8dp"
+        android:text="Mobile No."
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
 
     <TextView
         android:id="@+id/et_request_message"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="356dp"
-        android:ems="10"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/border"
+        android:gravity="left|center_vertical"
         android:hint="위치 요청 메시지"
-        android:gravity="center"
         android:lines="5"
         android:minHeight="48dp"
-        android:background="@drawable/border"
-        app:layout_constraintEnd_toEndOf="@+id/tv_phone"
-        app:layout_constraintHorizontal_bias="0.565"
-        app:layout_constraintStart_toStartOf="@+id/tv_phone"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
     <Button
         android:id="@+id/bt_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="60dp"
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
         android:text="현재위치 요청 문자 전송"
-        app:layout_constraintEnd_toEndOf="@+id/et_request_message"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/et_request_message"
+        android:background="@drawable/button_color_drawable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_request_message" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

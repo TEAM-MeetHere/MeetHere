@@ -13,6 +13,7 @@ import android.provider.Telephony
 import android.telephony.SmsManager
 import android.telephony.SmsMessage
 import android.util.Log
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -93,5 +94,15 @@ class SendShareCodeActivity : AppCompatActivity() {
         }
 
         registerReceiver(br, IntentFilter("android.provider.Telephony.SMS_RECEIVED"))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

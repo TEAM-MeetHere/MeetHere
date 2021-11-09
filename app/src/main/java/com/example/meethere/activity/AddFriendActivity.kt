@@ -3,6 +3,7 @@ package com.example.meethere.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
 import android.widget.Toast
 import com.example.meethere.R
@@ -21,6 +22,8 @@ class AddFriendActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddFriendBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.etFriendPhone.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         binding.saveBtn.setOnClickListener {
             // 저장하는 코드
@@ -111,8 +114,6 @@ class AddFriendActivity : AppCompatActivity() {
                     }
                 }
             )
-
-
         }
     }
 }

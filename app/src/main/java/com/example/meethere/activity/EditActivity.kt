@@ -3,7 +3,10 @@ package com.example.meethere.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
+import android.util.Patterns
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +19,7 @@ import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
 import kotlinx.android.synthetic.main.activity_edit.*
 import org.json.JSONObject
+import java.util.regex.Pattern
 
 class EditActivity : AppCompatActivity() {
 
@@ -49,6 +53,7 @@ class EditActivity : AppCompatActivity() {
         binding.editName.setText(App.prefs.username)
         binding.editAddress.setText(App.prefs.road_address_name)
         binding.editPhone.setText(App.prefs.phone)
+        binding.editPhone.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         //수정 버튼 클릭시
         binding.editInfoButton.setOnClickListener {
@@ -61,15 +66,19 @@ class EditActivity : AppCompatActivity() {
             var address: String? = binding.editAddress.text.toString()
             var phone: String? = binding.editPhone.text.toString()
 
-
+            if (checkValidation(pw1.toString(),
+                    pw2.toString(),
+                    name.toString(),
+                    phone.toString())
+            ) return@setOnClickListener
 
             var myUpdate = Update(
                 memberId, pw1!!, pw2!!, name!!, phone!!,
                 com.example.meethere.retrofit.request.AddressObject(addressObject.place_name,
-                addressObject.road_address_name,
-                addressObject.address_name,
-                addressObject.lat,
-                addressObject.lon)
+                    addressObject.road_address_name,
+                    addressObject.address_name,
+                    addressObject.lat,
+                    addressObject.lon)
             )
 
             RetrofitManager.instance.updateService(
@@ -127,5 +136,48 @@ class EditActivity : AppCompatActivity() {
             val intent = Intent(this, SearchAddressActivity::class.java)
             resultLauncher.launch(intent)
         }
+    }
+
+    private fun checkValidation(
+        PW: String,
+        RE_PW: String,
+        NAME: String,
+        PHONE: String,
+    ): Boolean {
+        //비밀번호 미입력 시
+        if (PW == "") {
+            Toast.makeText(this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            return true
+        }
+        //비밀번호 유효성 확인
+        if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*\\W)(?=\\S+$).{6,12}", PW)) {
+            Toast.makeText(this, "비밀번호 형식이 옳지 않습니다.", Toast.LENGTH_SHORT).show()
+            return true
+        }
+
+        //재입력 비밀번호 미입력 시
+        if (RE_PW == "") {
+            Toast.makeText(this, "확인 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            return true
+        }
+        //재입력 비밀번호 일치 여부 확인
+        if (PW != RE_PW) {
+            Toast.makeText(this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+            return true
+        }
+
+        //이름 미입력 시
+        //비밀번호 미입력 시
+        if (NAME == "") {
+            Toast.makeText(this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            return true
+        }
+
+        //핸드폰 번호 유효성 확인
+        if (!Pattern.matches("^01([0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})$", PHONE)) {
+            Toast.makeText(this, "올바른 휴대폰 번호가 아닙니다.", Toast.LENGTH_SHORT).show()
+            return true
+        }
+        return false
     }
 }

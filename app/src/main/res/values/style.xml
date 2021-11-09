@@ -10,19 +10,24 @@
 
     <style name="ID" parent="Theme.AppCompat.Light.NoActionBar" />
 
-    <style name="Register" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="DarkActionBarStyle" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="colorPrimary">@color/mainColor</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
-    <style name="Search" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="NoActionBarStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="colorPrimary">@color/mainColor</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
-    <style name="NoActionBarStyle" parent="Theme.AppCompat.Light.NoActionBar"></style>
+    <style name="ButtonShape01" parent="Widget.AppCompat.Button">
+        android:background = @drawable/btn_default_material
+        android:clickable = true
+        android:focusable = true
+        android:gravity = center_vertical|center_horizontal
+    </style>
 </resources>
