@@ -6,25 +6,31 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.location.*
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Telephony
 import android.telephony.SmsManager
 import android.telephony.SmsMessage
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.example.meethere.R
-import com.example.meethere.databinding.ActivitySendRequestLocationBinding
+import androidx.core.content.ContextCompat
+import com.example.meethere.databinding.ActivitySendMyLocationBinding
 import com.example.meethere.sharedpreferences.App
+import com.example.meethere.utils.Constants.TAG
 
-class SendRequestLocationActivity : AppCompatActivity() {
+class SendMyLocationActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySendRequestLocationBinding
+    private lateinit var binding: ActivitySendMyLocationBinding
+    private var myLat: Double = 0.0
+    private var myLon: Double = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySendRequestLocationBinding.inflate(layoutInflater)
+        binding = ActivitySendMyLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (ActivityCompat.checkSelfPermission(
@@ -37,7 +43,39 @@ class SendRequestLocationActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS), 111
             )
         } else {
-//            receiveMsg()
+
+        }
+
+        val lm = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val isGPSEnabled: Boolean = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        val isNetworkEnabled: Boolean = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        if (Build.VERSION.SDK_INT >= 23 &&
+            ContextCompat.checkSelfPermission(applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this@SendMyLocationActivity,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                0)
+        } else {
+            when {
+                isNetworkEnabled -> {
+                    val location =
+                        lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                    myLat = location?.latitude!!
+                    myLon = location.longitude
+                    Log.d(TAG, "myLat = $myLat, myLon = $myLon")
+                }
+                isGPSEnabled -> {
+                    val location =
+                        lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                    myLat = location?.latitude!!
+                    myLon = location.longitude
+                    Log.d(TAG, "myLat = $myLat, myLon = $myLon")
+                }
+                else -> {
+
+                }
+            }
         }
 
         val name = intent.getStringExtra("name")
@@ -49,16 +87,22 @@ class SendRequestLocationActivity : AppCompatActivity() {
         binding.tvPhone.setText(phone)
 
         val sender = App.prefs.username
-        binding.etRequestMessage.setText("$sender 님의 현재 위치 요청 메시지 입니다.")
+        val address = "$myLat,$myLon"
+        val address_name = "http://maps.google.com/maps?f=q&q=$address"
+
+        binding.etResponseMessage.setText("$sender 님의 위치입니다. $address_name")
 
         binding.btSend.setOnClickListener {
 
-            val message = binding.etRequestMessage.text.toString()
+            val message = binding.etResponseMessage.text.toString()
 
             if (message != "") {
                 val sms = SmsManager.getDefault()
                 sms.sendTextMessage(tempPhone, null, message, null, null)
-                Toast.makeText(this, "현재 위치 요청 메시지 전송 완료", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "현재 위치 응답 메시지 전송 완료", Toast.LENGTH_LONG).show()
+                Log.d(TAG, "phone = $phone")
+                Log.d(TAG, "tempPhone = $tempPhone")
+                Log.d(TAG, "message = $message")
 
                 finish()
             } else {

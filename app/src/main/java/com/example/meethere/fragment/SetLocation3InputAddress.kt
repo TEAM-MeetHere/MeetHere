@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_set_location3_input_address.*
 import android.text.TextWatcher
 import com.example.meethere.activity.SetLocationActivity
 import android.text.Editable
+import com.example.meethere.activity.FriendListActivity
 import com.example.meethere.objects.AddressObject
 import com.example.meethere.activity.SearchAddressActivity
 
@@ -57,6 +58,21 @@ class SetLocation3InputAddress : Fragment() {
             }
         }
 
+    var resultLauncher2 =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // There are no request codes
+                val data: Intent? = result.data
+                if (data != null) {
+                    if (data.hasExtra("addressObject")) {
+                        addressObject = data.getSerializableExtra("addressObject") as AddressObject
+                        etRoadAddressName.text = addressObject.road_address_name
+                        etUserName.setText(addressObject.user_name)
+                    }
+                }
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -78,6 +94,12 @@ class SetLocation3InputAddress : Fragment() {
 
         // 처음엔 확인 버튼 비활성
         btnAddAddress.visibility = View.GONE
+
+        //친구 목록으로 이동
+        btn_find_friend.setOnClickListener {
+            val intent = Intent(requireContext(), FriendListActivity::class.java)
+            resultLauncher2.launch(intent)
+        }
 
         // 웹 뷰로 주소 결과를 검색하기 위하여 이동하는 함수
         etRoadAddressName.setOnClickListener {
