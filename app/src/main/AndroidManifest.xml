@@ -11,8 +11,6 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -27,6 +25,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.CalendarActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.SendMyLocationActivity"
+            android:exported="true"
+            android:label="현재 위치 전송하기"
+            android:parentActivityName=".activity.FriendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkActionBarStyle" />
+        <activity
+            android:name=".activity.FriendListActivity"
+            android:exported="true" />
         <activity
             android:name=".activity.SendShareCodeActivity"
             android:exported="true"
