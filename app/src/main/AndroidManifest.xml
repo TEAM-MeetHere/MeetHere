@@ -26,6 +26,18 @@
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.ProfileActivity"
+            android:exported="true"
+            android:label="내 프로필"
+            android:parentActivityName=".activity.MainNewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkActionBarStyle" />
+        <activity
+            android:name=".activity.MainNewActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarStyle" />
+        <activity
             android:name=".activity.CalendarActivity"
             android:exported="true" />
         <activity
@@ -80,7 +92,7 @@
         <activity
             android:name=".activity.SaveBookmarkActivity"
             android:exported="true"
-            android:label="목적지 선택"
+            android:label="약속 저장"
             android:parentActivityName=".activity.ShowResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />

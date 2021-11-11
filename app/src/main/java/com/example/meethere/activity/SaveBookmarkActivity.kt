@@ -144,7 +144,7 @@ class SaveBookmarkActivity : AppCompatActivity() {
                     }
                 )
 
-//                finish()
+                finish()
             } else {
                 Log.d(TAG, "약속 장소가 입력되지 않았습니다.")
                 Toast.makeText(this, "약속 장소가 입력되지 않았습니다.", Toast.LENGTH_SHORT).show()

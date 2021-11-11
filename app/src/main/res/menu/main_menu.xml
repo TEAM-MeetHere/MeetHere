@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/MainHome"
+        android:enabled="true"
+        android:icon="@drawable/image_button_home"
+        android:title="홈"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/MainFriend"
+        android:enabled="true"
+        android:icon="@drawable/image_button_human"
+        android:title="친구"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/MainPromise"
+        android:enabled="true"
+        android:icon="@drawable/image_button_calendar"
+        android:title="약속"
+        app:showAsAction="ifRoom" />
+</menu>

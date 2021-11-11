@@ -49,7 +49,6 @@ class EditActivity : AppCompatActivity() {
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.editEmail.setText(App.prefs.email)
         binding.editName.setText(App.prefs.username)
         binding.editAddress.setText(App.prefs.road_address_name)
         binding.editPhone.setText(App.prefs.phone)
@@ -113,8 +112,7 @@ class EditActivity : AppCompatActivity() {
                                 Toast.makeText(this@EditActivity, message, Toast.LENGTH_SHORT)
                                     .show()
 
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
+                                finish()
                             } else {
                                 var errorMessage = jsonObject.getString("message")
                                 Log.d(TAG, "error message = $errorMessage")
@@ -167,7 +165,6 @@ class EditActivity : AppCompatActivity() {
         }
 
         //이름 미입력 시
-        //비밀번호 미입력 시
         if (NAME == "") {
             Toast.makeText(this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
             return true

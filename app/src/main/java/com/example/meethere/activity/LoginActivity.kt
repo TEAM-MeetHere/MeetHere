@@ -110,8 +110,9 @@ class LoginActivity : AppCompatActivity() {
                                 Log.d(TAG, "email = $email")
                                 Log.d(TAG, "username = $username")
 
-                                val intent = Intent(this, MainActivity::class.java)
+                                val intent = Intent(this, MainNewActivity::class.java)
                                 startActivity(intent)
+                                finish()
                             } else {
                                 val errorMessage = jsonObject.getString("message")
                                 Log.d(TAG, "error message = $errorMessage")
