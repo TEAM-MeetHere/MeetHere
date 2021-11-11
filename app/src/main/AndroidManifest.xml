@@ -26,6 +26,9 @@
         android:theme="@style/Theme.MeetHere"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.CalculateSpotActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.ProfileActivity"
             android:exported="true"
             android:label="내 프로필"
@@ -39,7 +42,11 @@
             android:theme="@style/NoActionBarStyle" />
         <activity
             android:name=".activity.CalendarActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="약속 달력"
+            android:parentActivityName=".activity.MainNewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.SendMyLocationActivity"
             android:exported="true"
@@ -49,7 +56,10 @@
             android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.FriendListActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="친구 목록"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.SendShareCodeActivity"
             android:exported="true"

@@ -28,11 +28,11 @@ class CalendarActivity : AppCompatActivity() {
         binding = ActivityCalendarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val bookmarkObjects: Array<BookmarkObject> =
-            intent.getSerializableExtra("bookmarkObjects") as Array<BookmarkObject>
+        val bookmarkObjects: ArrayList<BookmarkObject> =
+            intent.getSerializableExtra("bookmarkObjects") as ArrayList<BookmarkObject>
 
         for (bo in bookmarkObjects) {
-            Log.d(TAG, "bo = ${bo.promise_date}")
+            Log.d(TAG, "임영택ㄱ = ${bo.promise_date}")
         }
 
         // UI값 생성

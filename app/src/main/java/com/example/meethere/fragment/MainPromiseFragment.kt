@@ -1,25 +1,13 @@
 package com.example.meethere.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.R
-import com.example.meethere.activity.ShowBookmarkActivity
-import com.example.meethere.adapter.BookmarkAdapter
 import com.example.meethere.databinding.FragmentMainPromiseBinding
-import com.example.meethere.objects.AddressObject
-import com.example.meethere.objects.BookmarkObject
-import com.example.meethere.retrofit.RetrofitManager
-import com.example.meethere.sharedpreferences.App
-import com.example.meethere.utils.Constants
-import com.example.meethere.utils.RESPONSE_STATE
-import org.json.JSONObject
+import com.google.android.material.tabs.TabLayout
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,8 +24,8 @@ class MainPromiseFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private val bookmarkObjects = arrayListOf<BookmarkObject>()
-    private val bookmarkAdapter = BookmarkAdapter(bookmarkObjects)
+    private val t1: Fragment = MainPromiseListFragment()
+    private var t2: Fragment = MainPromiseCalendarFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,101 +39,52 @@ class MainPromiseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val binding = FragmentMainPromiseBinding.inflate(inflater,container,false)
+        val binding = FragmentMainPromiseBinding.inflate(inflater, container, false)
+        childFragmentManager.beginTransaction().add(binding.FrameLayoutPromise.id, t1, "TAG1")
+        childFragmentManager.beginTransaction().add(binding.FrameLayoutPromise.id, t2, "TAG2")
 
-        binding.rvBookmarkList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvBookmarkList.adapter = bookmarkAdapter
+        fun replaceView(fragment: Fragment) {
+            childFragmentManager.beginTransaction().apply {
+                if (fragment.isAdded) {
+                    show(fragment)
+                } else {
+                    add(binding.FrameLayoutPromise.id, fragment)
+                }
 
-        bookmarkAdapter.setItemClickListener(object : BookmarkAdapter.OnItemClickListener {
-            override fun onClick(
-                promise_id: Long,
-                addressObject: AddressObject,
-                promise_name: String,
-                promise_date: String,
-                position: Int,
-            ) {
-                val intent = Intent(requireContext(), ShowBookmarkActivity::class.java)
-                intent.putExtra("bookmarkId", promise_id.toString())
-                intent.putExtra("addressObject", addressObject)
-                intent.putExtra("promise_name", promise_name)
-                intent.putExtra("promise_date", promise_date)
-                startActivity(intent)
-            }
-        })
-
-        refresh()
-
-        // Inflate the layout for this fragment
-        return binding.root
-    }
-
-    fun refresh() {
-        bookmarkObjects.clear()
-        bookmarkAdapter.notifyDataSetChanged()
-        RetrofitManager.instance.bookmarkListService(
-            memberId = App.prefs.memberId,
-            completion = { responseState, responseBody ->
-                when (responseState) {
-
-                    //API 호출 성공시
-                    RESPONSE_STATE.OKAY -> {
-                        Log.d(Constants.TAG, "API 호출 성공 : $responseBody")
-
-                        //JSON parsing
-                        //{}->JSONObject, []->JSONArray
-                        val jsonObject = JSONObject(responseBody)
-                        val statusCode = jsonObject.getInt("statusCode")
-
-                        if (statusCode < 400) {
-                            val dataArray = jsonObject.getJSONArray("data")
-
-                            for (i in 0..dataArray.length() - 1) {
-
-                                val iObject = dataArray.getJSONObject(i)
-                                val id = iObject.getLong("id")
-                                val dateName = iObject.getString("dateName")
-//                              val username = iObject.getString("username")
-                                val date = iObject.getString("date")
-                                val placeName = iObject.getString("placeName")
-                                val roadAddressName = iObject.getString("roadAddressName")
-                                val addressName = iObject.getString("addressName")
-                                val lat = iObject.getString("lat")
-                                val lon = iObject.getString("lon")
-
-                                bookmarkObjects.add(
-                                    BookmarkObject(
-                                        id,
-                                        dateName,
-                                        date,
-                                        placeName,
-                                        roadAddressName,
-                                        addressName,
-                                        lat,
-                                        lon
-                                    )
-                                )
-
-                                Log.d(Constants.TAG, "$i 번째")
-                                Log.d(Constants.TAG, "bookmarkId = $id")
-                                Log.d(Constants.TAG, "약속 이름 = $dateName")
-                            }
-
-                            bookmarkAdapter.notifyDataSetChanged()
-                        } else {
-                            val errorMessage = jsonObject.getString("message")
-                            Log.d(Constants.TAG, "error message = $errorMessage")
-                            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT)
-                                .show()
-                        }
+                childFragmentManager.fragments.forEach {
+                    if (it != fragment && it.isAdded) {
+                        hide(it)
                     }
+                }
+            }.commit()
+        }
 
-                    RESPONSE_STATE.FAIL -> {
-                        Log.d(Constants.TAG, "API 호출 실패 : $responseBody")
+        replaceView(t1)
+
+        binding.tabLayoutPromise.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0-> {
+                        replaceView(t1)
+                    }
+                    1-> {
+                        replaceView(t2)
                     }
                 }
             }
-        )
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
+
+        // Inflate the layout for this fragment
+        return binding.root
     }
 
     companion object {
