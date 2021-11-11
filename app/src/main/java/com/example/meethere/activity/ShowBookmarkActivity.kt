@@ -208,7 +208,7 @@ class ShowBookmarkActivity : AppCompatActivity() {
 
         //홈버튼 클릭시
         buttonHome.setOnClickListener {
-            val intentHome = Intent(applicationContext, MainActivity::class.java)
+            val intentHome = Intent(applicationContext, MainNewActivity::class.java)
             intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intentHome.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intentHome)
