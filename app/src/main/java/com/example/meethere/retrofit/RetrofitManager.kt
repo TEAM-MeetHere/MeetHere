@@ -179,6 +179,19 @@ class RetrofitManager {
         callEnqueue(call, completion)
     }
 
+    //해당 회원 정보 가져오기
+    fun findUserInfoService(
+        memberId: Long,
+        completion: (RESPONSE_STATE, String) -> Unit,
+    ) {
+        val term = memberId?:""
+        val call = iRetrofit?.findUserInfoService(
+            memberId = term as Long
+        ) ?: return
+
+        callEnqueue(call, completion)
+    }
+
     //회원 비밀번호 찾기 API 호출
     fun findPwService(
         email: String,

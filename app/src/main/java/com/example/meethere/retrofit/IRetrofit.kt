@@ -38,8 +38,13 @@ interface IRetrofit {
     fun findPwService(
         @Query("email") email: String,
         @Query("name") name: String,
-        @Query("phone") phone: String
+        @Query("phone") phone: String,
     )
+            : Call<JsonElement>
+
+    //회원 정보 가져오기
+    @GET(API.USER_INFO)
+    fun findUserInfoService(@Query("memberId") memberId: Long)
             : Call<JsonElement>
 
     //회원 탈퇴
@@ -92,14 +97,14 @@ interface IRetrofit {
     fun findFriendService(
         @Query("email") email: String,
         @Query("name") name: String,
-        @Query("phone") phone: String
+        @Query("phone") phone: String,
     ): Call<JsonElement>
 
     //친구 추가
     @POST(API.ADD_FRIEND)
     fun addFriendService(
         @Query("memberId") memberId: Long,
-        @Query("friendId") friendId: Long
+        @Query("friendId") friendId: Long,
     ): Call<JsonElement>
 
     //친구 목록

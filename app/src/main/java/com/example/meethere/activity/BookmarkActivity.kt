@@ -52,6 +52,12 @@ class BookmarkActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
+        
+        binding.button.setOnClickListener {
+            val intent = Intent(this@BookmarkActivity, CalendarActivity::class.java)
+            intent.putExtra("bookmarkObjects", bookmarkObjects)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {

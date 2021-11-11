@@ -24,6 +24,8 @@ object API {
 
     const val FIND_PW = "api/members/findPw"
 
+    const val USER_INFO = "api/members/find"
+
     const val DELETE_MEM = "api/members/delete"
 
     const val SAVE_BOOKMARK = "api/bookmark/save"

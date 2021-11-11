@@ -37,7 +37,10 @@ class FriendAdapter(
 
     override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
         val curFriend = friendObjects[position]
-        val friendObject = FriendObject(curFriend.friend_id, curFriend.friend_name, curFriend.friend_email, curFriend.friend_phone)
+        val friendObject = FriendObject(curFriend.friend_id,
+            curFriend.friend_name,
+            curFriend.friend_email,
+            curFriend.friend_phone)
 
         holder.itemView.apply {
             tv_friend_name.text = curFriend.friend_name
@@ -76,7 +79,8 @@ class FriendAdapter(
                                 } else {
                                     val errorMessage = jsonObjects.getString("message")
                                     Log.d(TAG, "error message = $errorMessage")
-                                    Toast.makeText(p0!!.context, errorMessage, Toast.LENGTH_LONG).show()
+                                    Toast.makeText(p0!!.context, errorMessage, Toast.LENGTH_LONG)
+                                        .show()
                                 }
                             }
                             //API 호출 실패시
@@ -103,6 +107,21 @@ class FriendAdapter(
                 itemClickListener2.onClick(friendObject, holder.adapterPosition)
             }
         })
+
+        holder.binding.buttonSMS3.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                // SMS 전송(내 위치 전송)
+                itemClickListener3.onClick(friendObject, holder.adapterPosition)
+            }
+        })
+
+        holder.itemView.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                // 친구 정보 불러오기 (인원 더 추가하기에서 사용)
+                itemClickListener4.onClick(friendObject, holder.adapterPosition)
+            }
+
+        })
     }
 
     override fun getItemCount(): Int {
@@ -115,6 +134,8 @@ class FriendAdapter(
 
     private lateinit var itemClickListener: OnItemClickListener
     private lateinit var itemClickListener2: OnItemClickListener
+    private lateinit var itemClickListener3: OnItemClickListener
+    private lateinit var itemClickListener4: OnItemClickListener
 
     interface OnItemClickListener {
         fun onClick(friendObject: FriendObject, position: Int)
@@ -126,5 +147,13 @@ class FriendAdapter(
 
     fun setItemClickListener2(onItemClickListener: OnItemClickListener) {
         this.itemClickListener2 = onItemClickListener
+    }
+
+    fun setItemClickListener3(onItemClickListener: OnItemClickListener){
+        this.itemClickListener3 = onItemClickListener
+    }
+
+    fun setItemClickListener4(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener4 = onItemClickListener
     }
 }

@@ -38,6 +38,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarStyle" />
         <activity
+            android:name=".activity.CalendarActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.SendMyLocationActivity"
+            android:exported="true"
+            android:label="현재 위치 전송하기"
+            android:parentActivityName=".activity.FriendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkActionBarStyle" />
+        <activity
+            android:name=".activity.FriendListActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.SendShareCodeActivity"
             android:exported="true"
             android:label="공유 코드 전송하기"
