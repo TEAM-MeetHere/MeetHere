@@ -8,6 +8,10 @@ import com.example.meethere.R
 import kotlinx.android.synthetic.main.activity_show_detail.*
 
 class ShowDetailActivity : AppCompatActivity() {
+    /*
+    * se
+    *
+    * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_detail)

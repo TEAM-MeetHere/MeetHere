@@ -106,6 +106,7 @@ class SelectDestinationActivity : AppCompatActivity() {
         // 최종 목적지를 터치하면 해당 데이터와 입력받은 주소 데이터들을 ShowResult로 넘겨줌
         searchResultAdapter.setItemClickListener2(object : SearchResultAdapter.OnItemClickListener {
             override fun onClick(addressObject: AddressObject, position:Int) {
+                // addressData -> 시작 지점 정보
                 val intent = Intent(applicationContext, ShowResultActivity::class.java)
                 intent.putExtra("addressData", addressObjects)
                 intent.putExtra("addressObject", addressObject)
