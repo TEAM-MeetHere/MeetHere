@@ -196,7 +196,7 @@
             android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.OtherRouteActivity"
-            android:label="other route"
+            android:label="다른경로"
             android:parentActivityName=".activity.ShowResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />

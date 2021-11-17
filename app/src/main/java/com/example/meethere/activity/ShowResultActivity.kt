@@ -63,12 +63,18 @@ class ShowResultActivity : AppCompatActivity() {
                             // 이 안에서 할 일. 먼저 전체 경로가 몇 개일까여?
                             // busCount + subwayCount + subwayBusCount를 더한 것이 dynamic button의 개수
                             var result = ODsayData.json.getJSONObject("result")
+                            var min_time : Int = 999999999
                             Log.d("resultasdf", result.toString())
                             var resultBest = result.getJSONArray("path")
+                            for(i in 0 until resultBest.length()){
+                                var resultBestOBJ = resultBest.getJSONObject(i)
+                                var resultBestOBJINFO = resultBestOBJ.getJSONObject("info")
+                                if(resultBestOBJINFO.getInt("totalTime") < min_time) min_time = resultBestOBJINFO.getInt("totalTime")
+                            }
                             Log.d("resultBest", resultBest.toString())
                             var resultBestOBJ = resultBest.getJSONObject(0)
                             var resultBestOBJINFO = resultBestOBJ.getJSONObject("info")
-                            resultAdapter.addResult(ResultObject(names[loop_i], resultBestOBJINFO.getInt("totalTime")))
+                            resultAdapter.addResult(ResultObject(names[loop_i], min_time))
                             loop_i++
 
 
