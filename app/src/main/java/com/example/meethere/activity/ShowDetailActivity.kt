@@ -39,8 +39,14 @@ class ShowDetailActivity : AppCompatActivity() {
         }
 
 
-        total_walk_time.setText("도보 "+timewalkfee!!.totalWalk+"m * ")
-        total_fee.setText(""+timewalkfee!!.payment+"원")
+        if(timewalkfee!!.payment == 0){
+            total_walk_time.setText("도보 "+timewalkfee!!.totalWalk+"m")
+            total_fee.setText("")
+        }
+        else {
+            total_walk_time.setText("도보 " + timewalkfee!!.totalWalk + "m * ")
+            total_fee.setText("" + timewalkfee!!.payment + "원")
+        }
         val adapter = DetailRouteAdapter(detailRouteList)
         recycler_view.adapter = adapter
 
