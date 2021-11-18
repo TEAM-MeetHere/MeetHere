@@ -200,7 +200,7 @@ class ShowResultActivity : AppCompatActivity() {
                                             currentRouteObjectLane.getJSONObject(0)
                                         busNoORname =
                                             currentRouteObjectLaneFirstInfo.getString("busNo")
-                                        stationCount = currentRouteObject.getInt("stationCount")
+                                        Log.d("각 케이스에서의 역 개수가 알고 싶어용",currentRouteObject.getInt("stationCount").toString() )
 
                                         val currentRouteObjectPassStopList =
                                             currentRouteObject.getJSONObject("passStopList")
@@ -216,6 +216,7 @@ class ShowResultActivity : AppCompatActivity() {
                                                 currentRouteObjectPassStopListStationsObj.getString(
                                                     "isNonStop")))
                                         }
+                                        stationCount = currentRouteObjectPassStopListStations.length() - 1
                                     } else {
                                         // 현재 경로가 지하철일 경우, view type은 1,2번이지
                                         if (nextRouteObject.getInt("sectionTime") != 0) {
@@ -233,7 +234,6 @@ class ShowResultActivity : AppCompatActivity() {
                                             startName = currentRouteObject.getString("startName")
 
                                             way = currentRouteObject.getString("way")
-                                            stationCount = currentRouteObject.getInt("stationCount")
 
                                             val currentRouteObjectPassStopList =
                                                 currentRouteObject.getJSONObject("passStopList")
@@ -248,6 +248,7 @@ class ShowResultActivity : AppCompatActivity() {
                                                         "stationName"),
                                                     "N"))
                                             }
+                                            stationCount = currentRouteObjectPassStopListStations.length() - 1
                                         } else {
                                             // 환승에 대한 정보가 존재할 경우
                                             layoutType = 1
@@ -264,7 +265,6 @@ class ShowResultActivity : AppCompatActivity() {
 
                                             way = currentRouteObject.getString("way")
                                             door = currentRouteObject.getString("door")
-                                            stationCount = currentRouteObject.getInt("stationCount")
 
                                             val currentRouteObjectPassStopList =
                                                 currentRouteObject.getJSONObject("passStopList")
@@ -279,6 +279,8 @@ class ShowResultActivity : AppCompatActivity() {
                                                         "stationName"),
                                                     "N"))
                                             }
+
+                                            stationCount = currentRouteObjectPassStopListStations.length() - 1
                                         }
                                     }// 현재 수단이 지하철 인 case
 
