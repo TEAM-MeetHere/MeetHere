@@ -1,56 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginLeft = "20dp"
+    android:layout_marginRight="20dp"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="10"
-    tools:context=".activity.ShowDetailActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/textViewNameDetail"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_weight="1"
-        android:ems="10"
-        android:text="상세경로 - "
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="100dp">
 
-    <ScrollView
-        android:id="@+id/scrollView24"
+        <TextView
+            android:id="@+id/total_time"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1시간 30분"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/total_walk_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="도보 19분 * "/>
+
+            <TextView
+                android:id="@+id/total_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3150원"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:background ="#00ff00"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_weight="8"
-        android:background="@drawable/border"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNameDetail"></ScrollView>
+        android:layout_height="3px"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_marginTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnShowMap"
+        android:id="@+id/other_route"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="150dp"
-        android:layout_marginBottom="40dp"
         android:layout_weight="1"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_color_drawable"
-        android:text="지도 보기"
+        android:text="다른 경로"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView24" />
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
 
 </LinearLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    android:weightSum="10"-->
+<!--    tools:context=".activity.ShowDetailActivity">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewNameDetail"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="40dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_marginEnd="40dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:ems="10"-->
+<!--        android:text="상세경로 - "-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <ScrollView-->
+<!--        android:id="@+id/scrollView24"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="40dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_marginEnd="40dp"-->
+<!--        android:layout_weight="8"-->
+<!--        android:background="@drawable/border"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewNameDetail"></ScrollView>-->
+
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/btnShowMap"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="150dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginEnd="150dp"-->
+<!--        android:layout_marginBottom="40dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:background="@drawable/button_color_drawable"-->
+<!--        android:text="지도 보기"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/scrollView24" />-->
+
+<!--</LinearLayout>-->

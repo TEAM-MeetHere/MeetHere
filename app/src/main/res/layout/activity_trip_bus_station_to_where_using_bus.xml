@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/list_bus_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_transport_bus_20dp"/>
+
+        <TextView
+            android:id="@+id/bus_station_to_where_using_bus_time"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="55분"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:background ="#00ff00"
+        android:layout_width="4px"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/bus_station_to_where_using_bus_start_station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인하대 정문 승차"
+            android:textSize="23dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bus_station_to_where_using_bus_bus_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ff00"
+            android:text="9200"
+            android:textColor="#ffffff" />
+
+
+        <TextView
+            android:id="@+id/bus_station_to_where_using_bus_move_station_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="9개 정류장 이동"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/bus_station_to_where_using_bus_move_station_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="장미아파트\n학익시장\n법원.검찰청\n신동아3차아파트\n"
+            android:textSize="11dp" />
+
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/under" />
+
+    </LinearLayout>
+
+</LinearLayout>

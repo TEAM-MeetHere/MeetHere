@@ -13,14 +13,16 @@ import com.example.meethere.activity.OtherRouteActivity
 import com.example.meethere.objects.ResultObject
 import com.example.meethere.activity.ShowDetailActivity
 import com.example.meethere.objects.ItemComponent
+import com.example.meethere.objects.RouteItemComponent
+import com.example.meethere.objects.TimeWalkFee
 
 
 class ResultAdapter(
-    private val resultObjects: MutableList<ResultObject>, private var routelists : MutableList<MutableList<ItemComponent>> = arrayListOf()
+    private val resultObjects: MutableList<ResultObject>, private val detailRouteLists : MutableList<MutableList<RouteItemComponent>> = arrayListOf(),
+    private val timeWalkFees : MutableList<TimeWalkFee> = arrayListOf()
 ) : RecyclerView.Adapter<ResultAdapter.ResultViewHolder>() {
     class ResultViewHolder(val binding: ItemResultBinding) : RecyclerView.ViewHolder(binding.root) {
         val btn = binding.btnDetail
-        val btn_others = binding.btnOtherRoute
 
         init {
 /*            binding.btnDetail.setOnClickListener {
@@ -47,10 +49,23 @@ class ResultAdapter(
     /*   private fun toggleStrikeThrough(textViewAddress: TextView, textViewName: TextView) {
 
        }*/
-    fun addRouteList(routelist : MutableList<ItemComponent>){
-        routelists.add(routelist)
-        notifyItemInserted(routelists.size - 1)
+
+
+
+    fun addTimeWalkFee(timeWalkFee : TimeWalkFee){
+        Log.d("시간배열상황", timeWalkFee.totalTime.toString())
+        Log.d("거리상황", timeWalkFee.totalWalk.toString())
+        Log.d("요금상황", timeWalkFee.payment.toString())
+        timeWalkFees.add(timeWalkFee)
+        notifyItemInserted(timeWalkFees.size-1)
+
     }
+
+    fun addDetailList(detailRouteList : MutableList<RouteItemComponent>){
+        detailRouteLists.add(detailRouteList)
+        notifyItemInserted(detailRouteLists.size-1)
+    }
+
 
     fun addResult(resultObject: ResultObject) {
         resultObjects.add(resultObject)
@@ -59,7 +74,8 @@ class ResultAdapter(
 
     override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
         val curAddress = resultObjects[position]
-        val curPerson = routelists[position]
+        val curPerson = detailRouteLists[position]
+        val curWalkTimeFee = timeWalkFees[position]
         holder.itemView.apply {
             textViewName.text = curAddress.Name
             if(curAddress.Time >= 60) textViewTime.setText(""+(curAddress.Time / 60)+"시간 "+ (curAddress.Time % 60)+"분 소요 예정")
@@ -71,24 +87,26 @@ class ResultAdapter(
 /*                Log.d("sss","Test btn${results[position].Name}")
                 if(results.isNotEmpty())
                     results.remove(results[position])
-                notifyDataSetChanged()*/
+                notifyDataSetChanged()*
+ */
                 val context = holder.itemView.context
                 val intent = Intent(context, ShowDetailActivity::class.java)
-                intent.putExtra("Name", curAddress.Name)
+                intent.putExtra("routeDetail", ArrayList(curPerson))
+                intent.putExtra("twp", curWalkTimeFee)
                 context.startActivity(intent)
             }
         })
 
-        holder.btn_others.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0 :View?){
-                val context = holder.itemView.context
-                val intent = Intent(context, OtherRouteActivity::class.java)
-                Log.d("result adapter asdfasdf", "asdfasdf")
-                intent.putExtra("rlist", ArrayList(curPerson))
-                Log.d("result adapter curPerson", curPerson.toString())
-                context.startActivity(intent)
-            }
-        })
+//        holder.btn_others.setOnClickListener(object : View.OnClickListener{
+//            override fun onClick(p0 :View?){
+//                val context = holder.itemView.context
+//                val intent = Intent(context, OtherRouteActivity::class.java)
+//                Log.d("result adapter asdfasdf", "asdfasdf")
+//                intent.putExtra("rlist", ArrayList(curPerson))
+//                Log.d("result adapter curPerson", curPerson.toString())
+//                context.startActivity(intent)
+//            }
+//        })
     }
 
     override fun getItemCount(): Int {
