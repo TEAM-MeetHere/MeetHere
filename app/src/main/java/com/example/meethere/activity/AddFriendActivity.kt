@@ -71,8 +71,8 @@ class AddFriendActivity : AppCompatActivity() {
                                                 //{}->JSONObject, []->JSONArray
                                                 val jsonObject2 = JSONObject(responseBody)
                                                 val statusCode2 = jsonObjects.getInt("statusCode")
-
-                                                if (statusCode2 == 201) {
+                                                Log.d(TAG, statusCode2.toString())
+                                                if (statusCode2 == 200) {
                                                     val message2 = jsonObject2.getString("message")
                                                     Log.d(TAG, "message = $message2")
                                                     Toast.makeText(this@AddFriendActivity,
