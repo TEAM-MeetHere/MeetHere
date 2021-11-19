@@ -47,6 +47,15 @@ class ShowResultActivity : AppCompatActivity() {
         odsayService = ODsayService.init(this, "hQVkqz/l8aEPCdgn6JlDWk793L3D/rl5Cyko3JqKhcw") // api가져옴.
         Log.d("asdfr확인 ", "->확인")
 
+        //출발 주소 리스트
+        val addressObjects: Array<AddressObject> =
+            intent.getSerializableExtra("addressData") as Array<AddressObject>
+
+        //도착 주소
+        val addressObject: AddressObject =
+            intent.getSerializableExtra("addressObject") as AddressObject
+        val destinationName: String? = addressObject.place_name
+
 
         var onResultCallbackListener: OnResultCallbackListener =
             object : OnResultCallbackListener {
@@ -78,8 +87,6 @@ class ShowResultActivity : AppCompatActivity() {
                             Log.d("resultBest", resultBest.toString())
                             var resultBestOBJ = resultBest.getJSONObject(0)
                             var resultBestOBJINFO = resultBestOBJ.getJSONObject("info")
-                            resultAdapter.addResult(ResultObject(names[loop_i], min_time))
-                            loop_i++
                             Log.d("loop_i", loop_i.toString())
                             Log.d("최소 시간", min_time.toString())
 
@@ -88,13 +95,22 @@ class ShowResultActivity : AppCompatActivity() {
                             var minResultPathObjectInfo = minResultPathObject.getJSONObject("info")
                             var minResultPathObjectSubPath =
                                 minResultPathObject.getJSONArray("subPath")
+
+                            resultAdapter.addResult(ResultObject(names[loop_i], min_time))
                             resultAdapter.addTimeWalkFee(
                                 TimeWalkFee(
                                 minResultPathObjectInfo.getInt("totalWalk"),
                                 minResultPathObjectInfo.getInt("totalTime"),
-                                minResultPathObjectInfo.getInt("payment")
-                                )
+                                minResultPathObjectInfo.getInt("payment"),
+                                addressObjects[loop_i].lon.toString(),
+                                addressObjects[loop_i].lat.toString(),
+                                addressObject.lon.toString(),
+                                addressObject.lat.toString())
                             )
+
+                            loop_i++
+
+
                             var routeItemList: MutableList<RouteItemComponent> = arrayListOf()
                             var layoutType = -1
                             var trafficType = -1
@@ -346,90 +362,85 @@ class ShowResultActivity : AppCompatActivity() {
                             )
                             resultAdapter.addDetailList(one_person_detail_route_array)
                             Log.d("데이터가 다 들어갔을까?", "ㅇㅇ")
+                            // 여기까지 해서 하나의 경로에 대한 세부사항 처리를 다 했겠지. 이 때 전체 경로 요약 정보를 다 주는건 어떨까
+
+                            // 하나의 상세 경로에 대해서 처리했으니 이제 전체 경로에 대한 요약 정보를 보여주는 건 어떨까
+                            var one_person_route_array : MutableList<ItemComponent> = arrayListOf()
+                            var resultPathArray = result.getJSONArray("path")
+                            for(i in 0 until resultPathArray.length()){
+                                var result_index = i
+
+                                var resultPathArrayObj = resultPathArray.getJSONObject(i)
+                                var resultPathArrayInfoObj = resultPathArrayObj.getJSONObject("info")
+                                var pathType = resultPathArrayObj.getInt("pathType")
+                                var totalTime = resultPathArrayInfoObj.getInt("totalTime")
+                                var totalWalk = resultPathArrayInfoObj.getInt("totalWalk")
+                                var payment = resultPathArrayInfoObj.getInt("payment")
+                                var routesInfo: MutableList<String> = arrayListOf()
+                                var totalTimeTable: MutableList<Pair<Int, Int>> = arrayListOf()
+                                var resultPathArrayObjSubPath =
+                                    resultPathArrayObj.getJSONArray("subPath")
+                                for (j in 0 until resultPathArrayObjSubPath.length()) {
+                                    var resultPathArrayObjSubPathObj =
+                                        resultPathArrayObjSubPath.getJSONObject(j)
+                                    if (resultPathArrayObjSubPathObj.getInt("trafficType") == 1) {
+                                        var transportLaneInfo = resultPathArrayObjSubPathObj.getJSONArray("lane")
+                                        totalTimeTable.add(
+                                            Pair(1,
+                                            resultPathArrayObjSubPathObj.getInt("sectionTime")
+                                            )
+                                        )
+
+                                        var transportLaneInfoObj =
+                                            transportLaneInfo.getJSONObject(0)
+                                        routesInfo.add(transportLaneInfoObj.getString("name"))
+                                        routesInfo.add(resultPathArrayObjSubPathObj.getString("startName"))
+                                        routesInfo.add("탑승")
+                                        routesInfo.add(transportLaneInfoObj.getString("name"))
+                                        routesInfo.add(resultPathArrayObjSubPathObj.getString("endName"))
+                                        routesInfo.add("하차")
+                                    } else if(resultPathArrayObjSubPathObj.getInt("trafficType") == 2){
+                                        // 버스
+                                        var transportLaneInfo =
+                                            resultPathArrayObjSubPathObj.getJSONArray("lane")
+                                        totalTimeTable.add(
+                                            Pair(
+                                                2,
+                                                resultPathArrayObjSubPathObj.getInt("sectionTime")
+                                            )
+                                        )
+                                        var transportLaneInfoObj =
+                                            transportLaneInfo.getJSONObject(0)
+                                        routesInfo.add(transportLaneInfoObj.getString("busNo"))
+                                        routesInfo.add(resultPathArrayObjSubPathObj.getString("startName"))
+                                        routesInfo.add("탑승")
+                                        routesInfo.add(transportLaneInfoObj.getString("busNo"))
+                                        routesInfo.add(resultPathArrayObjSubPathObj.getString("endName"))
+                                        routesInfo.add("하차")
+                                    }else{
+                                        totalTimeTable.add(
+                                            Pair(
+                                                3,
+                                                resultPathArrayObjSubPathObj.getInt("sectionTime")
+                                            )
+                                        )
+                                    }
+                                }
+                                one_person_route_array.add(
+                                    ItemComponent(
+                                        result_index,
+                                        pathType,
+                                        totalTime,
+                                        totalWalk,
+                                        payment,
+                                        routesInfo,
+                                        totalTimeTable
+                                    )
+                                )
+                            } // 모든 path array안에 있는 각 object들을 보고 item component생성
+
+                            resultAdapter.addWholeRouteList(one_person_route_array)
                         }
-
-
-//                            var one_person_route_array : MutableList<ItemComponent> = arrayListOf()
-//                            var resultPathArray = result.getJSONArray("path")
-//                            for (i in 0 until resultPathArray.length()) {
-//                                var resultPathArrayObj = resultPathArray.getJSONObject(i)
-//                                var resultPathArrayInfoObj =
-//                                    resultPathArrayObj.getJSONObject("info")
-//                                var pathType = resultPathArrayObj.getInt("pathType")
-//                                var totalTime = resultPathArrayInfoObj.getInt("totalTime")
-//                                var totalWalk = resultPathArrayInfoObj.getInt("totalWalk")
-//                                var payment = resultPathArrayInfoObj.getInt("payment")
-//                                var routesInfo: MutableList<String> = arrayListOf()
-//                                var totalTimeTable: MutableList<Pair<Int, Int>> = arrayListOf()
-//                                var resultPathArrayObjSubPath =
-//                                    resultPathArrayObj.getJSONArray("subPath")
-//                                for (j in 0 until resultPathArrayObjSubPath.length()) {
-//                                    var resultPathArrayObjSubPathObj =
-//                                        resultPathArrayObjSubPath.getJSONObject(j)
-//                                    if (resultPathArrayObjSubPathObj.getInt("trafficType") == 1) {
-//                                        // 지하철
-//                                        var transportLaneInfo =
-//                                            resultPathArrayObjSubPathObj.getJSONArray("lane")
-//                                        totalTimeTable.add(
-//                                            Pair(
-//                                                3,
-//                                                resultPathArrayObjSubPathObj.getInt("sectionTime")
-//                                            )
-//                                        )
-//                                        var transportLaneInfoObj =
-//                                            transportLaneInfo.getJSONObject(0)
-//                                        routesInfo.add(transportLaneInfoObj.getString("name"))
-//                                        routesInfo.add(resultPathArrayObjSubPathObj.getString("startName"))
-//                                        routesInfo.add("탑승")
-//                                        routesInfo.add(transportLaneInfoObj.getString("name"))
-//                                        routesInfo.add(resultPathArrayObjSubPathObj.getString("endName"))
-//                                        routesInfo.add("하차")
-//
-//                                    } else if (resultPathArrayObjSubPathObj.getInt("trafficType") == 2) {
-//                                        // 버스
-//                                        var transportLaneInfo =
-//                                            resultPathArrayObjSubPathObj.getJSONArray("lane")
-//                                        totalTimeTable.add(
-//                                            Pair(
-//                                                2,
-//                                                resultPathArrayObjSubPathObj.getInt("sectionTime")
-//                                            )
-//                                        )
-//                                        var transportLaneInfoObj =
-//                                            transportLaneInfo.getJSONObject(0)
-//                                        routesInfo.add(transportLaneInfoObj.getString("busNo"))
-//                                        routesInfo.add(resultPathArrayObjSubPathObj.getString("startName"))
-//                                        routesInfo.add("탑승")
-//                                        routesInfo.add(transportLaneInfoObj.getString("busNo"))
-//                                        routesInfo.add(resultPathArrayObjSubPathObj.getString("endName"))
-//                                        routesInfo.add("하차")
-//                                    } else {
-//                                        // 도보
-//                                        if (resultPathArrayObjSubPathObj.getInt("sectionTime") != 0) {
-//                                            totalTimeTable.add(
-//                                                Pair(
-//                                                    1,
-//                                                    resultPathArrayObjSubPathObj.getInt("sectionTime")
-//                                                )
-//                                            )
-//                                        }
-//                                    }
-//                                }
-//                                //여기까지 하면 하나의 result에 대한 정보를 다 받아옴.
-//                                one_person_route_array.add(
-//                                    ItemComponent(
-//                                        pathType,
-//                                        totalTime,
-//                                        totalWalk,
-//                                        payment,
-//                                        routesInfo,
-//                                        totalTimeTable
-//                                    )
-//                                )
-//                            }
-//                            resultAdapter.addRouteList(one_person_route_array)
-//                            Log.d("데이터가 다 들어갔을까?", "ㅇㅇ")
-//                        }
                     }catch (e: JSONException){
                         e.printStackTrace()
                     }
@@ -440,19 +451,11 @@ class ShowResultActivity : AppCompatActivity() {
                 }
             }
 
-        resultAdapter = ResultAdapter(mutableListOf(), mutableListOf())
+        resultAdapter = ResultAdapter(mutableListOf(), mutableListOf(), mutableListOf())
 
         recyclerViewResult.adapter = resultAdapter
         recyclerViewResult.layoutManager = LinearLayoutManager(this)
 
-        //출발 주소 리스트
-        val addressObjects: Array<AddressObject> =
-            intent.getSerializableExtra("addressData") as Array<AddressObject>
-
-        //도착 주소
-        val addressObject: AddressObject =
-            intent.getSerializableExtra("addressObject") as AddressObject
-        val destinationName: String? = addressObject.place_name
 
 
         for(i in 0 until addressObjects.size)names.add(addressObjects[i].user_name)

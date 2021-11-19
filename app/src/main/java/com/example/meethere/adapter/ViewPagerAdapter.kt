@@ -1,5 +1,6 @@
 package com.example.meethere.adapter
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -8,13 +9,18 @@ import com.example.meethere.fragment.ViewPagerFragmentBusSubway
 import com.example.meethere.fragment.ViewPagerFragmentSubway
 import com.example.meethere.objects.ItemComponent
 
-class ViewPagerAdapter(fragmentActivity: FragmentActivity, routelist : MutableList<ItemComponent>)
+class ViewPagerAdapter(fragmentActivity: FragmentActivity, routelist : MutableList<ItemComponent>, sx : String, sy : String, dx: String, dy : String)
     : FragmentStateAdapter(fragmentActivity){
     private val routelist = routelist
     private val TYPE_BUS = 0
     private val TYPE_SUBWAY = 1
     private val TYPE_BUS_SUBWAY = 2
     private var listPager:List<Int> = listOf(TYPE_BUS, TYPE_SUBWAY, TYPE_BUS_SUBWAY)
+
+    private val sourceX = sx
+    private val sourceY = sy
+    private val desX = dx
+    private val desY = dy
 
     private var bus_route : MutableList<ItemComponent> = arrayListOf()
     private var subway_route : MutableList<ItemComponent> = arrayListOf()
@@ -24,9 +30,22 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity, routelist : MutableLi
         return listPager.size
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+
     override fun createFragment(position: Int): Fragment {
         //fragment 생성 시 일단은 그대로 하는데 출발지에서 목적지로 가는 정보에서 버스만에 대한 경로
         // 지하철에 대한 경로 , 지하철+버스 경로를 가공해서 넘길 때 인자로 넘기면 되지 않나? 해서 파라미터로 받고.
+
+        bus_route.clear()
+        subway_route.clear()
+        bus_subway_route.clear()
 
         for(i in 0 until routelist.size){
             if(routelist[i].pathType == 1) subway_route.add(routelist[i])
@@ -36,9 +55,9 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity, routelist : MutableLi
         }
 
         return when(position){
-            TYPE_BUS -> ViewPagerFragmentBus(bus_route)
-            TYPE_SUBWAY -> ViewPagerFragmentSubway(subway_route)
-            else -> ViewPagerFragmentBusSubway(bus_subway_route)
+            TYPE_BUS -> ViewPagerFragmentBus(bus_route, sourceX, sourceY, desX, desY)
+            TYPE_SUBWAY -> ViewPagerFragmentSubway(subway_route, sourceX, sourceY, desX, desY)
+            else -> ViewPagerFragmentBusSubway(bus_subway_route, sourceX, sourceY, desX, desY)
         }
     }
 }

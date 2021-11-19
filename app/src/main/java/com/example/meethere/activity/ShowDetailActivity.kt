@@ -17,6 +17,7 @@ class ShowDetailActivity : AppCompatActivity() {
     * se
     *
     * */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_detail)
@@ -25,6 +26,7 @@ class ShowDetailActivity : AppCompatActivity() {
         val Name = intent.getStringExtra("Name")
 
         var detailRouteList = intent.getParcelableArrayListExtra<RouteItemComponent>("routeDetail") as ArrayList<RouteItemComponent>
+        var wholeRouteList = intent.getParcelableArrayListExtra<ItemComponent>("wholeRoute") as ArrayList<ItemComponent>
         var timewalkfee = intent.getParcelableExtra<TimeWalkFee>("twp")
 
         Log.d("디테일에서 받아온 시간 정보", timewalkfee!!.totalTime.toString())
@@ -50,10 +52,20 @@ class ShowDetailActivity : AppCompatActivity() {
         val adapter = DetailRouteAdapter(detailRouteList)
         recycler_view.adapter = adapter
 
+        // 요기까지는 어뎁터를 호출해서 한다고 치고 여기서 다시 api호출이 되는지 봐야함
+
+
+
+
+
         other_route.setOnClickListener {
+            // 현재 화면은 상세 보기 화면이고 다른 경로를 눌렀을 때 다른 경로에 대한 정보가 나와야함.
             // API 다시 호출.
             //val intent = Intent(applicationContext, selectDestination_2_6::class.java)
-            val intent = Intent(applicationContext, ShowDetailMapActivity::class.java)
+            val intent = Intent(this@ShowDetailActivity, OtherRouteActivity::class.java)
+            intent.putExtra("detail", detailRouteList)
+            intent.putExtra("whole", wholeRouteList)
+            intent.putExtra("sourceDestinationInfo", timewalkfee)
             startActivity(intent)
         }
     }

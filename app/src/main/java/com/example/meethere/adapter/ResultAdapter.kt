@@ -19,6 +19,7 @@ import com.example.meethere.objects.TimeWalkFee
 
 class ResultAdapter(
     private val resultObjects: MutableList<ResultObject>, private val detailRouteLists : MutableList<MutableList<RouteItemComponent>> = arrayListOf(),
+    private val wholeRouteLists : MutableList<MutableList<ItemComponent>>,
     private val timeWalkFees : MutableList<TimeWalkFee> = arrayListOf()
 ) : RecyclerView.Adapter<ResultAdapter.ResultViewHolder>() {
     class ResultViewHolder(val binding: ItemResultBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -56,10 +57,19 @@ class ResultAdapter(
         Log.d("시간배열상황", timeWalkFee.totalTime.toString())
         Log.d("거리상황", timeWalkFee.totalWalk.toString())
         Log.d("요금상황", timeWalkFee.payment.toString())
+        Log.d("출발지 경도", timeWalkFee.sx.toString())
+        Log.d("출발지 위도", timeWalkFee.sy.toString())
+        Log.d("목적지 경도", timeWalkFee.dx.toString())
+        Log.d("목적지 위도", timeWalkFee.dy.toString())
         timeWalkFees.add(timeWalkFee)
         notifyItemInserted(timeWalkFees.size-1)
-
     }
+
+    fun addWholeRouteList(wholeRouteList : MutableList<ItemComponent>){
+        wholeRouteLists.add(wholeRouteList)
+        notifyItemInserted(wholeRouteLists.size-1)
+    }
+
 
     fun addDetailList(detailRouteList : MutableList<RouteItemComponent>){
         detailRouteLists.add(detailRouteList)
@@ -75,6 +85,7 @@ class ResultAdapter(
     override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
         val curAddress = resultObjects[position]
         val curPerson = detailRouteLists[position]
+        val curPersonWholeRoute = wholeRouteLists[position]
         val curWalkTimeFee = timeWalkFees[position]
         holder.itemView.apply {
             textViewName.text = curAddress.Name
@@ -91,6 +102,7 @@ class ResultAdapter(
  */
                 val context = holder.itemView.context
                 val intent = Intent(context, ShowDetailActivity::class.java)
+                intent.putExtra("wholeRoute", ArrayList(curPersonWholeRoute))
                 intent.putExtra("routeDetail", ArrayList(curPerson))
                 intent.putExtra("twp", curWalkTimeFee)
                 context.startActivity(intent)
@@ -113,5 +125,9 @@ class ResultAdapter(
         return resultObjects.size
     }
 
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
 
 }
