@@ -3,6 +3,7 @@ package com.example.meethere.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -141,6 +142,14 @@ class SetLocationActivity : AppCompatActivity() {
     override fun onBackPressed() {
         flag--
         changeFragment(flag)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val fragment1: SetLocation1Keyword =
+            supportFragmentManager.findFragmentByTag("TAG1") as SetLocation1Keyword
+        Log.d("테스트",fragment1.toString())
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

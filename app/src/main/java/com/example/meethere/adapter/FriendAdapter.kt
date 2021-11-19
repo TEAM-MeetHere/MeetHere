@@ -120,7 +120,6 @@ class FriendAdapter(
                 // 친구 정보 불러오기 (인원 더 추가하기에서 사용)
                 itemClickListener4.onClick(friendObject, holder.adapterPosition)
             }
-
         })
     }
 

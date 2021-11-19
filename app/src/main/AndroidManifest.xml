@@ -24,7 +24,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetHere"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".activity.ShowBookmarkActivity"
+            android:exported="true"
+            android:label="약속 목록"
+            android:parentActivityName=".activity.MainNewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkActionBarStyle"/>
         <activity
             android:name=".activity.CalculateSpotActivity"
             android:exported="true" />
@@ -93,7 +101,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.ShowBookmarkActivity"
+            android:name=".activity.ShowBookmarkResultActivity"
             android:exported="true"
             android:label="약속 상세"
             android:parentActivityName=".activity.BookmarkActivity"

@@ -44,7 +44,7 @@ class BookmarkActivity : AppCompatActivity() {
                 promise_date: String,
                 position: Int,
             ) {
-                val intent = Intent(this@BookmarkActivity, ShowBookmarkActivity::class.java)
+                val intent = Intent(this@BookmarkActivity, ShowBookmarkResultActivity::class.java)
                 intent.putExtra("bookmarkId", promise_id.toString())
                 intent.putExtra("addressObject", addressObject)
                 intent.putExtra("promise_name", promise_name)

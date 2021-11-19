@@ -88,6 +88,34 @@ class MainFriendFragment : Fragment() {
             }
         })
 
+        friendAdapter.setItemClickListener3(object : FriendAdapter.OnItemClickListener {
+            override fun onClick(friendObject: FriendObject, position: Int) {
+                val intent = Intent(requireContext(), SendShareCodeActivity::class.java)
+                val friendEmail = friendObject.friend_email
+                val friendName = friendObject.friend_name
+                val friendPhone = friendObject.friend_phone
+
+                intent.putExtra("email", friendEmail)
+                intent.putExtra("name", friendName)
+                intent.putExtra("phone", friendPhone)
+                startActivity(intent)
+            }
+        })
+
+        friendAdapter.setItemClickListener4(object : FriendAdapter.OnItemClickListener {
+            override fun onClick(friendObject: FriendObject, position: Int) {
+                val intent = Intent(requireContext(), SendShareCodeActivity::class.java)
+                val friendEmail = friendObject.friend_email
+                val friendName = friendObject.friend_name
+                val friendPhone = friendObject.friend_phone
+
+                intent.putExtra("email", friendEmail)
+                intent.putExtra("name", friendName)
+                intent.putExtra("phone", friendPhone)
+                startActivity(intent)
+            }
+        })
+
         RetrofitManager.instance.friendListService(
             memberId = App.prefs.memberId!!,
             completion = { responseState, responseBody ->

@@ -9,8 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.R
-import com.example.meethere.activity.ShowBookmarkActivity
+import com.example.meethere.activity.ShowBookmarkResultActivity
 import com.example.meethere.adapter.BookmarkAdapter
 import com.example.meethere.databinding.FragmentMainPromiseListBinding
 import com.example.meethere.objects.AddressObject
@@ -36,8 +35,7 @@ class MainPromiseListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private val bookmarkObjects = arrayListOf<BookmarkObject>()
-    private val bookmarkAdapter = BookmarkAdapter(bookmarkObjects)
+    lateinit var bookmarkAdapter : BookmarkAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +51,8 @@ class MainPromiseListFragment : Fragment() {
     ): View? {
         val binding = FragmentMainPromiseListBinding.inflate(inflater,container,false)
 
+        bookmarkAdapter = BookmarkAdapter(((parentFragment as MainPromiseFragment).bookmarkObjects))
+
         binding.rvBookmarkList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvBookmarkList.adapter = bookmarkAdapter
@@ -65,7 +65,7 @@ class MainPromiseListFragment : Fragment() {
                 promise_date: String,
                 position: Int,
             ) {
-                val intent = Intent(requireContext(), ShowBookmarkActivity::class.java)
+                val intent = Intent(requireContext(), ShowBookmarkResultActivity::class.java)
                 intent.putExtra("bookmarkId", promise_id.toString())
                 intent.putExtra("addressObject", addressObject)
                 intent.putExtra("promise_name", promise_name)
@@ -81,7 +81,7 @@ class MainPromiseListFragment : Fragment() {
     }
 
     fun refresh() {
-        bookmarkObjects.clear()
+        ((parentFragment as MainPromiseFragment).bookmarkObjects).clear()
         bookmarkAdapter.notifyDataSetChanged()
         RetrofitManager.instance.bookmarkListService(
             memberId = App.prefs.memberId,
@@ -113,7 +113,7 @@ class MainPromiseListFragment : Fragment() {
                                 val lat = iObject.getString("lat")
                                 val lon = iObject.getString("lon")
 
-                                bookmarkObjects.add(
+                                ((parentFragment as MainPromiseFragment).bookmarkObjects).add(
                                     BookmarkObject(
                                         id,
                                         dateName,

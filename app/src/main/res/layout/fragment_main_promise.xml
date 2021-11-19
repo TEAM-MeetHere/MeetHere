@@ -12,33 +12,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayoutPromise"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/buttonList"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="리스트로 보기"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--        <com.applikeysolutions.cosmocalendar.view.CalendarView
+                    android:id="@+id/calendar_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:currentDayTextColor="#f79256"
+                    app:firstDayOfTheWeek="sunday"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonList"
+                    app:orientation="horizontal"
+                    app:weekendDayTextColor="#ef4550" />-->
+        <!--            app:currentDayIconRes="@drawable/ic_select"
+            app:currentDaySelectedIconRes="@drawable/ic_select"-->
+
+        <!--        <sun.bob.mcalendarview.MCalendarView
+                    android:id="@+id/calenarPromiseView"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_margin="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonList"
+                    tools:context=".MainActivity" />-->
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/materialCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="리스트로 보기" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="달력으로 보기" />
-        </com.google.android.material.tabs.TabLayout>
-
-        <FrameLayout
-            android:id="@+id/FrameLayoutPromise"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayoutPromise" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonList"
+            app:mcv_selectionColor="#d2d2d2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
