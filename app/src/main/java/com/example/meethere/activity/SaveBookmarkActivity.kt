@@ -19,7 +19,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class SaveBookmarkActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivitySaveBookmarkBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySaveBookmarkBinding.inflate(layoutInflater)

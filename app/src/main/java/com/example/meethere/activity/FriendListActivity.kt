@@ -1,16 +1,14 @@
 package com.example.meethere.activity
 
 import android.app.Activity
-import android.content.Intent
-import android.location.Address
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.adapter.FriendAdapter
+import com.example.meethere.adapter.FriendListAdapter
 import com.example.meethere.databinding.ActivityFriendListBinding
-import com.example.meethere.fragment.SetLocation3InputAddress
 import com.example.meethere.objects.AddressObject
 import com.example.meethere.objects.FriendObject
 import com.example.meethere.retrofit.RetrofitManager
@@ -21,9 +19,11 @@ import com.example.meethere.utils.RESPONSE_STATE
 import org.json.JSONObject
 
 class FriendListActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityFriendListBinding
+
     private val listItems = arrayListOf<FriendObject>()
-    private val friendAdapter = FriendAdapter(listItems)
+    private val friendListAdapter = FriendListAdapter(listItems)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +32,9 @@ class FriendListActivity : AppCompatActivity() {
 
         binding.rvFriendList.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvFriendList.adapter = friendAdapter
+        binding.rvFriendList.adapter = friendListAdapter
 
-        friendAdapter.setItemClickListener4(object : FriendAdapter.OnItemClickListener {
+        friendListAdapter.setItemClickListener(object : FriendListAdapter.OnItemClickListener {
             override fun onClick(friendObject: FriendObject, position: Int) {
 
                 val friendEmail = friendObject.friend_email
@@ -162,7 +162,8 @@ class FriendListActivity : AppCompatActivity() {
                                 val friend = FriendObject(friendId, name, email, phone)
                                 listItems.add(friend)
                             }
-                            friendAdapter.notifyDataSetChanged()
+
+                            friendListAdapter.notifyDataSetChanged()
 
                         } else {
                             val errorMessage = jsonObjects.getString("message")
@@ -178,5 +179,15 @@ class FriendListActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

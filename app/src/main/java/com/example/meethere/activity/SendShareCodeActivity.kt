@@ -12,17 +12,15 @@ import android.os.Bundle
 import android.provider.Telephony
 import android.telephony.SmsManager
 import android.telephony.SmsMessage
-import android.util.Log
 import android.view.MenuItem
-import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.meethere.databinding.ActivitySendShareCodeBinding
-import com.example.meethere.utils.Constants.TAG
 
 class SendShareCodeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySendShareCodeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySendShareCodeBinding.inflate(layoutInflater)
@@ -46,7 +44,6 @@ class SendShareCodeActivity : AppCompatActivity() {
         val phone = intent.getStringExtra("phone")
 
         val tempPhone = phone!!.replace("-", "")
-
 
         binding.tvName.setText(name)
         binding.tvPhone.setText(phone)

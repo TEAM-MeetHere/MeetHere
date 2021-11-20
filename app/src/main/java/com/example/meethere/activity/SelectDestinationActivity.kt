@@ -21,9 +21,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 
-
 class SelectDestinationActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivitySelectDestinationBinding
+
     private val listItems = arrayListOf<SearchResultObject>()   // 리사이클러 뷰 아이템
     private val searchResultAdapter = SearchResultAdapter(listItems)    // 리사이클러 뷰 어댑터
     private var pageNumber = 1      // 검색 페이지 번호
@@ -106,6 +107,7 @@ class SelectDestinationActivity : AppCompatActivity() {
         // 최종 목적지를 터치하면 해당 데이터와 입력받은 주소 데이터들을 ShowResult로 넘겨줌
         searchResultAdapter.setItemClickListener2(object : SearchResultAdapter.OnItemClickListener {
             override fun onClick(addressObject: AddressObject, position:Int) {
+                // addressData -> 시작 지점 정보
                 val intent = Intent(applicationContext, ShowResultActivity::class.java)
                 intent.putExtra("addressData", addressObjects)
                 intent.putExtra("addressObject", addressObject)

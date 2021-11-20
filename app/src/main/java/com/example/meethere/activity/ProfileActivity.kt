@@ -3,6 +3,7 @@ package com.example.meethere.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import com.example.meethere.databinding.ActivityProfileBinding
 import com.example.meethere.sharedpreferences.App
@@ -39,5 +40,15 @@ class ProfileActivity : AppCompatActivity() {
         binding.profileName.setText(App.prefs.username)
         binding.profileAddress.setText(App.prefs.road_address_name)
         binding.profilePhone.setText(App.prefs.phone)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

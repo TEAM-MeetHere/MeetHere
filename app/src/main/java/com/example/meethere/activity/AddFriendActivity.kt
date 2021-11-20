@@ -1,12 +1,11 @@
 package com.example.meethere.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
-import com.example.meethere.R
 import com.example.meethere.databinding.ActivityAddFriendBinding
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.sharedpreferences.App
@@ -16,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_add_friend.*
 import org.json.JSONObject
 
 class AddFriendActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityAddFriendBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,8 +71,8 @@ class AddFriendActivity : AppCompatActivity() {
                                                 //{}->JSONObject, []->JSONArray
                                                 val jsonObject2 = JSONObject(responseBody)
                                                 val statusCode2 = jsonObjects.getInt("statusCode")
-
-                                                if (statusCode2 == 201) {
+                                                Log.d(TAG, statusCode2.toString())
+                                                if (statusCode2 == 200) {
                                                     val message2 = jsonObject2.getString("message")
                                                     Log.d(TAG, "message = $message2")
                                                     Toast.makeText(this@AddFriendActivity,
@@ -115,5 +115,15 @@ class AddFriendActivity : AppCompatActivity() {
                 }
             )
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
