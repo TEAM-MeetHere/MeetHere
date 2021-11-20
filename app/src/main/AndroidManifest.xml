@@ -27,12 +27,19 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".activity.ShowFriendActivity"
+            android:exported="true"
+            android:label="친구 상세"
+            android:parentActivityName=".activity.MainNewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkActionBarStyle" />
+        <activity
             android:name=".activity.ShowBookmarkActivity"
             android:exported="true"
             android:label="약속 목록"
             android:parentActivityName=".activity.MainNewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/DarkActionBarStyle"/>
+            android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.CalculateSpotActivity"
             android:exported="true" />
@@ -59,7 +66,7 @@
             android:name=".activity.SendMyLocationActivity"
             android:exported="true"
             android:label="현재 위치 전송하기"
-            android:parentActivityName=".activity.FriendActivity"
+            android:parentActivityName=".activity.ShowFriendActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
@@ -72,14 +79,14 @@
             android:name=".activity.SendShareCodeActivity"
             android:exported="true"
             android:label="공유 코드 전송하기"
-            android:parentActivityName=".activity.FriendActivity"
+            android:parentActivityName=".activity.ShowFriendActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.SendRequestLocationActivity"
             android:exported="true"
             android:label="위치 요청 전송하기"
-            android:parentActivityName=".activity.FriendActivity"
+            android:parentActivityName=".activity.ShowFriendActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
@@ -87,6 +94,7 @@
             android:exported="true"
             android:label="친구 추가"
             android:screenOrientation="portrait"
+            android:parentActivityName=".activity.MainNewActivity"
             android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.FriendActivity"
@@ -104,7 +112,6 @@
             android:name=".activity.ShowBookmarkResultActivity"
             android:exported="true"
             android:label="약속 상세"
-            android:parentActivityName=".activity.BookmarkActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
@@ -182,12 +189,6 @@
         <activity
             android:name=".activity.EditActivity"
             android:label="정보 수정"
-            android:parentActivityName=".activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/DarkActionBarStyle" />
-        <activity
-            android:name=".activity.BookmarkActivity"
-            android:label="약속 목록"
             android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />

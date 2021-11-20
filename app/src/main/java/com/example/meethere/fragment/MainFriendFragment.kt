@@ -9,11 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.R
-import com.example.meethere.activity.AddFriendActivity
+import com.example.meethere.activity.SendMyLocationActivity
 import com.example.meethere.activity.SendRequestLocationActivity
 import com.example.meethere.activity.SendShareCodeActivity
+import com.example.meethere.activity.ShowFriendActivity
 import com.example.meethere.adapter.FriendAdapter
+import com.example.meethere.adapter.FriendListAdapter
 import com.example.meethere.databinding.FragmentMainFriendBinding
 import com.example.meethere.objects.FriendObject
 import com.example.meethere.retrofit.RetrofitManager
@@ -38,7 +39,7 @@ class MainFriendFragment : Fragment() {
     private var param2: String? = null
 
     private val listItems = arrayListOf<FriendObject>()
-    private val friendAdapter = FriendAdapter(listItems)
+    private val friendListAdapter = FriendListAdapter(listItems)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,62 +57,20 @@ class MainFriendFragment : Fragment() {
 
         binding.rvFriendList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvFriendList.adapter = friendAdapter
+        binding.rvFriendList.adapter = friendListAdapter
 
-        //sms 실시간 위치 요청
-        friendAdapter.setItemClickListener(object : FriendAdapter.OnItemClickListener {
+        friendListAdapter.setItemClickListener(object : FriendListAdapter.OnItemClickListener {
             override fun onClick(friendObject: FriendObject, position: Int) {
-                val intent = Intent(requireContext(), SendRequestLocationActivity::class.java)
+                val intent = Intent(requireContext(), ShowFriendActivity::class.java)
                 val friendEmail = friendObject.friend_email
                 val friendName = friendObject.friend_name
                 val friendPhone = friendObject.friend_phone
+                val friendId = friendObject.friend_id
 
                 intent.putExtra("email", friendEmail)
                 intent.putExtra("name", friendName)
                 intent.putExtra("phone", friendPhone)
-                startActivity(intent)
-            }
-        })
-
-        //sms 공유코드 전송
-        friendAdapter.setItemClickListener2(object : FriendAdapter.OnItemClickListener {
-            override fun onClick(friendObject: FriendObject, position: Int) {
-                val intent = Intent(requireContext(), SendShareCodeActivity::class.java)
-                val friendEmail = friendObject.friend_email
-                val friendName = friendObject.friend_name
-                val friendPhone = friendObject.friend_phone
-
-                intent.putExtra("email", friendEmail)
-                intent.putExtra("name", friendName)
-                intent.putExtra("phone", friendPhone)
-                startActivity(intent)
-            }
-        })
-
-        friendAdapter.setItemClickListener3(object : FriendAdapter.OnItemClickListener {
-            override fun onClick(friendObject: FriendObject, position: Int) {
-                val intent = Intent(requireContext(), SendShareCodeActivity::class.java)
-                val friendEmail = friendObject.friend_email
-                val friendName = friendObject.friend_name
-                val friendPhone = friendObject.friend_phone
-
-                intent.putExtra("email", friendEmail)
-                intent.putExtra("name", friendName)
-                intent.putExtra("phone", friendPhone)
-                startActivity(intent)
-            }
-        })
-
-        friendAdapter.setItemClickListener4(object : FriendAdapter.OnItemClickListener {
-            override fun onClick(friendObject: FriendObject, position: Int) {
-                val intent = Intent(requireContext(), SendShareCodeActivity::class.java)
-                val friendEmail = friendObject.friend_email
-                val friendName = friendObject.friend_name
-                val friendPhone = friendObject.friend_phone
-
-                intent.putExtra("email", friendEmail)
-                intent.putExtra("name", friendName)
-                intent.putExtra("phone", friendPhone)
+                intent.putExtra("friend_id", friendId)
                 startActivity(intent)
             }
         })
@@ -133,6 +92,7 @@ class MainFriendFragment : Fragment() {
                         if (statusCode == 200) {
                             val message = jsonObjects.getString("message")
                             Log.d(Constants.TAG, "message = $message")
+                            Log.d(Constants.TAG, "친구 = $message")
 
                             val dataArray = jsonObjects.getJSONArray("data")
 
@@ -147,7 +107,7 @@ class MainFriendFragment : Fragment() {
                                 val friend = FriendObject(friendId, name, email, phone)
                                 listItems.add(friend)
                             }
-                            friendAdapter.notifyDataSetChanged()
+                            friendListAdapter.notifyDataSetChanged()
 
                         } else {
                             val errorMessage = jsonObjects.getString("message")

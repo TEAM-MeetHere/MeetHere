@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
 
-    <TextView
+    <EditText
         android:id="@+id/et_share_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -90,11 +90,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:padding="20dp"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:text="공유코드 전송"
         android:background="@drawable/button_color_drawable"
+        android:padding="20dp"
+        android:text="공유코드 전송"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_share_code" />

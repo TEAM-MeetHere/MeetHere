@@ -148,7 +148,7 @@ class FriendAdapter(
         this.itemClickListener2 = onItemClickListener
     }
 
-    fun setItemClickListener3(onItemClickListener: OnItemClickListener){
+    fun setItemClickListener3(onItemClickListener: OnItemClickListener) {
         this.itemClickListener3 = onItemClickListener
     }
 

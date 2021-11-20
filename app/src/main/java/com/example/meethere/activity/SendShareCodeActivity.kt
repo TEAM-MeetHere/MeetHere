@@ -47,7 +47,6 @@ class SendShareCodeActivity : AppCompatActivity() {
 
         val tempPhone = phone!!.replace("-", "")
 
-
         binding.tvName.setText(name)
         binding.tvPhone.setText(phone)
 

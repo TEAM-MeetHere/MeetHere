@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import com.example.meethere.R
 import com.example.meethere.databinding.ActivityAddFriendBinding
@@ -115,5 +116,15 @@ class AddFriendActivity : AppCompatActivity() {
                 }
             )
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
