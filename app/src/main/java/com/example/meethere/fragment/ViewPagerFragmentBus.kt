@@ -11,14 +11,13 @@ import com.example.meethere.R
 import com.example.meethere.activity.OtherRouteItemDecoration
 import com.example.meethere.adapter.ViewPagerRecyclerViewAdapter
 import com.example.meethere.objects.ItemComponent
+import com.example.meethere.objects.RouteItemComponent
 
-class ViewPagerFragmentBus(var routelist : MutableList<ItemComponent>, sx : String, sy : String, dx: String, dy : String) : Fragment() {
+class ViewPagerFragmentBus(var routelist : MutableList<ItemComponent>, wholedetailroutelist : List<List<RouteItemComponent>>) : Fragment() {
+
 
     private lateinit var recyclerView : RecyclerView
-    private val sourceX = sx
-    private val sourceY = sy
-    private val desX = dx
-    private val desY = dy
+    val detailroutelist = wholedetailroutelist
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,7 +32,7 @@ class ViewPagerFragmentBus(var routelist : MutableList<ItemComponent>, sx : Stri
         Log.d("버스프래그먼트 onviewcreated호출", "호출")
         if(routelist.size != 0) {
             recyclerView = view.findViewById(R.id.rv)
-            recyclerView.adapter = ViewPagerRecyclerViewAdapter(routelist, sourceX, sourceY, desX, desY, requireActivity())
+            recyclerView.adapter = ViewPagerRecyclerViewAdapter(routelist, detailroutelist , requireActivity())
             recyclerView.addItemDecoration(OtherRouteItemDecoration(70))
         }
     }

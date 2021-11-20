@@ -18,9 +18,8 @@ import com.example.meethere.objects.TimeWalkFee
 
 
 class ResultAdapter(
-    private val resultObjects: MutableList<ResultObject>, private val detailRouteLists : MutableList<MutableList<RouteItemComponent>> = arrayListOf(),
-    private val wholeRouteLists : MutableList<MutableList<ItemComponent>>,
-    private val timeWalkFees : MutableList<TimeWalkFee> = arrayListOf()
+    private val resultObjects: MutableList<ResultObject>, private val everyDetailRouteLists : MutableList<MutableList<MutableList<RouteItemComponent>>> = arrayListOf(),
+    private val wholeRouteLists : MutableList<MutableList<ItemComponent>>, private val min_array : MutableList<Int>
 ) : RecyclerView.Adapter<ResultAdapter.ResultViewHolder>() {
     class ResultViewHolder(val binding: ItemResultBinding) : RecyclerView.ViewHolder(binding.root) {
         val btn = binding.btnDetail
@@ -52,17 +51,9 @@ class ResultAdapter(
        }*/
 
 
-
-    fun addTimeWalkFee(timeWalkFee : TimeWalkFee){
-        Log.d("시간배열상황", timeWalkFee.totalTime.toString())
-        Log.d("거리상황", timeWalkFee.totalWalk.toString())
-        Log.d("요금상황", timeWalkFee.payment.toString())
-        Log.d("출발지 경도", timeWalkFee.sx.toString())
-        Log.d("출발지 위도", timeWalkFee.sy.toString())
-        Log.d("목적지 경도", timeWalkFee.dx.toString())
-        Log.d("목적지 위도", timeWalkFee.dy.toString())
-        timeWalkFees.add(timeWalkFee)
-        notifyItemInserted(timeWalkFees.size-1)
+    fun addMin(minelem : Int){
+        min_array.add(minelem)
+        notifyItemInserted(min_array.size-1)
     }
 
     fun addWholeRouteList(wholeRouteList : MutableList<ItemComponent>){
@@ -70,10 +61,9 @@ class ResultAdapter(
         notifyItemInserted(wholeRouteLists.size-1)
     }
 
-
-    fun addDetailList(detailRouteList : MutableList<RouteItemComponent>){
-        detailRouteLists.add(detailRouteList)
-        notifyItemInserted(detailRouteLists.size-1)
+    fun addDetailList(detailRouteList : MutableList<MutableList<RouteItemComponent>>){
+        everyDetailRouteLists.add(detailRouteList)
+        notifyItemInserted(everyDetailRouteLists.size-1)
     }
 
 
@@ -83,10 +73,10 @@ class ResultAdapter(
     }
 
     override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
+        val curMin = min_array[position]
         val curAddress = resultObjects[position]
-        val curPerson = detailRouteLists[position]
+        val curPerson = everyDetailRouteLists[position]
         val curPersonWholeRoute = wholeRouteLists[position]
-        val curWalkTimeFee = timeWalkFees[position]
         holder.itemView.apply {
             textViewName.text = curAddress.Name
             if(curAddress.Time >= 60) textViewTime.setText(""+(curAddress.Time / 60)+"시간 "+ (curAddress.Time % 60)+"분 소요 예정")
@@ -102,9 +92,10 @@ class ResultAdapter(
  */
                 val context = holder.itemView.context
                 val intent = Intent(context, ShowDetailActivity::class.java)
-                intent.putExtra("wholeRoute", ArrayList(curPersonWholeRoute))
-                intent.putExtra("routeDetail", ArrayList(curPerson))
-                intent.putExtra("twp", curWalkTimeFee)
+                Log.d("이 새끼의 최소 인덱스", curMin.toString())
+                intent.putExtra("resultToDetailWholeRoute", ArrayList(curPersonWholeRoute))
+                intent.putExtra("resultToDetailDetailRoute", ArrayList(curPerson))
+                intent.putExtra("resultToDetailMinIndex", curMin)
                 context.startActivity(intent)
             }
         })

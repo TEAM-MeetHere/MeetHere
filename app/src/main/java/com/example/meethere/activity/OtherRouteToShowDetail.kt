@@ -28,11 +28,12 @@ class OtherRouteToShowDetail : AppCompatActivity() {
 
         val intent = intent
 
-        var t = intent.getIntExtra("totalt", 0)
-        var w = intent.getIntExtra("totalw", 0)
-        var p = intent.getIntExtra("totalp", 0)
-        var detail = intent.getParcelableArrayListExtra<RouteItemComponent>("totalr") as ArrayList<RouteItemComponent>
-
+        var t = intent.getIntExtra("ClickToEachDetailTime", 0)
+        var w = intent.getIntExtra("ClickToEachDetailWalk", 0)
+        var p = intent.getIntExtra("ClickToEachDetailFee", 0)
+        var item_index = intent.getIntExtra("ClickToEachDetailIndex", 0)
+        var wholeroute = intent.getParcelableArrayListExtra<ItemComponent>("ClickToEachDetailWholeRoute") as ArrayList<ItemComponent>
+        var wholedetailroute = intent.getParcelableArrayListExtra<RouteItemComponent>("ClickToEachDetailWholeDetailRoute") as ArrayList<ArrayList<RouteItemComponent>>
 
         if(t > 60){
             total_time_except_button.setText(""+(t / 60)+"시간 "+(t % 60)+"분")
@@ -43,14 +44,14 @@ class OtherRouteToShowDetail : AppCompatActivity() {
 
 
         if(p == 0){
-            total_walk_time_except_button.setText("도보 "+w+"m")
+            total_walk_time_except_button.setText("도보 "+w+"분")
             total_fee_except_button.setText("")
         }
         else {
-            total_walk_time_except_button.setText("도보 " + w + "m * ")
+            total_walk_time_except_button.setText("도보 " + w + "분 * ")
             total_fee_except_button.setText("" + p + "원")
         }
-        val adapter = DetailRouteAdapter(detail)
+        val adapter = DetailRouteAdapter(wholedetailroute, wholeroute, item_index)
         recycler_view_except_button.adapter = adapter
 
         val toolbar = supportActionBar

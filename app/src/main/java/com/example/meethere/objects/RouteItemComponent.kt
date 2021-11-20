@@ -5,6 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class RouteItemComponent (
+    val resultIndex : Int,
     val layoutType : Int,
     val trafficType:Int, val distance:Int, val sectionTime:Int,
     val stationCount:Int, val busNoORname : String, val startName : String, val endName:String,

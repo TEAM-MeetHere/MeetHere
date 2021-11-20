@@ -8,19 +8,16 @@ import com.example.meethere.fragment.ViewPagerFragmentBus
 import com.example.meethere.fragment.ViewPagerFragmentBusSubway
 import com.example.meethere.fragment.ViewPagerFragmentSubway
 import com.example.meethere.objects.ItemComponent
+import com.example.meethere.objects.RouteItemComponent
 
-class ViewPagerAdapter(fragmentActivity: FragmentActivity, routelist : MutableList<ItemComponent>, sx : String, sy : String, dx: String, dy : String)
+class ViewPagerAdapter(fragmentActivity: FragmentActivity, wholedetailroutelist : List<List<RouteItemComponent>>, wholeroutelist : List<ItemComponent>)
     : FragmentStateAdapter(fragmentActivity){
-    private val routelist = routelist
+    private val routelist = wholeroutelist
+    private val detailroutelist = wholedetailroutelist
     private val TYPE_BUS = 0
     private val TYPE_SUBWAY = 1
     private val TYPE_BUS_SUBWAY = 2
     private var listPager:List<Int> = listOf(TYPE_BUS, TYPE_SUBWAY, TYPE_BUS_SUBWAY)
-
-    private val sourceX = sx
-    private val sourceY = sy
-    private val desX = dx
-    private val desY = dy
 
     private var bus_route : MutableList<ItemComponent> = arrayListOf()
     private var subway_route : MutableList<ItemComponent> = arrayListOf()
@@ -55,9 +52,9 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity, routelist : MutableLi
         }
 
         return when(position){
-            TYPE_BUS -> ViewPagerFragmentBus(bus_route, sourceX, sourceY, desX, desY)
-            TYPE_SUBWAY -> ViewPagerFragmentSubway(subway_route, sourceX, sourceY, desX, desY)
-            else -> ViewPagerFragmentBusSubway(bus_subway_route, sourceX, sourceY, desX, desY)
+            TYPE_BUS -> ViewPagerFragmentBus(bus_route, detailroutelist)
+            TYPE_SUBWAY -> ViewPagerFragmentSubway(subway_route, detailroutelist)
+            else -> ViewPagerFragmentBusSubway(bus_subway_route, detailroutelist)
         }
     }
 }

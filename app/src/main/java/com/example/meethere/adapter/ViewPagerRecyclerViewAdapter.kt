@@ -28,26 +28,16 @@ import com.odsay.odsayandroidsdk.OnResultCallbackListener
 import org.json.JSONException
 import org.json.JSONObject
 
-class ViewPagerRecyclerViewAdapter (var dataSet: List<ItemComponent>, sx : String, sy : String, dx: String, dy : String, context : Context):
+class ViewPagerRecyclerViewAdapter (var dataSet: List<ItemComponent>, var wholeDataSet : List<List<RouteItemComponent>>, context : Context):
     RecyclerView.Adapter<ViewPagerRecyclerViewAdapter.MyViewHolder>() {
-    private var odsayService: ODsayService? = null
-    private var jsonObject: JSONObject? = null
 
     private var context = context
-    private val sourceX = sx
-    private val sourceY = sy
-    private val desX = dx
-    private val desY = dy
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerRecyclerViewAdapter.MyViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_route, parent, false)
         return ViewPagerRecyclerViewAdapter.MyViewHolder(view)
-//        val context =parent.context
-//        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//        val view = inflater.inflate(R.layout.item_route, parent, false)
-//        Log.d("create view holder", "Dd")
-//        return MyViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -82,12 +72,7 @@ class ViewPagerRecyclerViewAdapter (var dataSet: List<ItemComponent>, sx : Strin
         }
 
         // 오류 해결 1. 요금이 0원일 떄 요금 출력 안하는게 좋음
-        if(rvSingleItem.totalFee == 0){
-            holder.rvItemWalkAndFee.setText("도보 " + rvSingleItem.walkTime + "m")
-        }
-        else {
-            holder.rvItemWalkAndFee.setText("도보 " + rvSingleItem.walkTime + "m | " + rvSingleItem.totalFee)
-        }
+        holder.rvItemWalkAndFee.setText("도보 " + rvSingleItem.walkTime + "분")
 
 
 
@@ -180,308 +165,15 @@ class ViewPagerRecyclerViewAdapter (var dataSet: List<ItemComponent>, sx : Strin
 
         holder.itemView.setOnClickListener(){
             Log.d("클릭당했을 때", "result상에서의 해당 객체의 인덱스는 "+rvSingleItem.resultIndex.toString())
-            Log.d("클릭당했을 때", "출발지 위도 경도 "+sourceX+", "+sourceY+"목적지 위도 경도"+desX +", "+desY)
 
-            odsayService = ODsayService.init(context, "hQVkqz/l8aEPCdgn6JlDWk793L3D/rl5Cyko3JqKhcw") // api가져옴.
-
-            var onResultCallbackListener: OnResultCallbackListener =
-                object : OnResultCallbackListener {
-                    override fun onSuccess(ODsayData: ODsayData?, api: API?) {
-                        Log.d("API호출 성공", "성공")
-                        jsonObject = ODsayData!!.json
-                        try {
-                            if(api == API.SEARCH_PUB_TRANS_PATH){
-                                var one_person_detail_route_array: MutableList<RouteItemComponent> =
-                                    arrayListOf()
-                                var result = ODsayData.json.getJSONObject("result")
-                                var resultBest = result.getJSONArray("path")
-                                var targetOBJ = resultBest.getJSONObject(rvSingleItem.resultIndex)
-                                var targetOBJInfo = targetOBJ.getJSONObject("info")
-
-                                var min_time = targetOBJInfo.getInt("totalTime")
-                                var min_distance = targetOBJInfo.getInt("totalWalk")
-                                var min_payment = targetOBJInfo.getInt("payment")
-
-                                var minResultPathObjectSubPath =
-                                    targetOBJ.getJSONArray("subPath")
-
-                                var layoutType = -1
-                                var trafficType = -1
-                                var distance = -1
-                                var sectionTime = -1
-                                var stationCount = -1
-                                var busNoORname = "NoData"
-                                var startName = "NoData"
-                                var endName = "NoData"
-                                var passStopList: MutableList<Pair<String, String>> = arrayListOf()
-                                var door = "NoData"
-                                var startExitnoORendExitno = "NoData"
-                                var way = "NoData"
-
-                                for (i in 0 until minResultPathObjectSubPath.length()) {
-                                    if (i == 0) {
-                                        //첫 번째 인덱스에 대한 case
-                                        var currentRouteObject =
-                                            minResultPathObjectSubPath.getJSONObject(0)
-                                        var tempNextRouteObject =
-                                            minResultPathObjectSubPath.getJSONObject(1)
-                                        if (tempNextRouteObject.getInt("trafficType") == 2) {
-                                            // 도보 -> 버스 탈 경우
-                                            layoutType = 6
-                                            sectionTime = currentRouteObject.getInt("sectionTime")
-                                            distance = currentRouteObject.getInt("distance")
-                                        } else {
-                                            // 도보 -> 지하철 탈 경우
-                                            layoutType = 6
-                                            sectionTime = currentRouteObject.getInt("sectionTime")
-                                            distance = currentRouteObject.getInt("distance")
-                                            startName = tempNextRouteObject.getString("startName")
-                                            startExitnoORendExitno =
-                                                tempNextRouteObject.getString("startExitNo")
-                                        }
-                                    } else if (i < minResultPathObjectSubPath.length() - 1) {
-                                        // 나머지 인덱스에 대한 case(마지막 인덱스에 대한 case는 도보이므로 제외)
-
-                                        var prevRouteObject =
-                                            minResultPathObjectSubPath.getJSONObject(i - 1)
-                                        var currentRouteObject =
-                                            minResultPathObjectSubPath.getJSONObject(i)
-                                        var nextRouteObject =
-                                            minResultPathObjectSubPath.getJSONObject(i + 1)
-                                        if (currentRouteObject.getInt("trafficType") == 3) {
-                                            // 현재가 도보일 경우.
-                                            if (prevRouteObject.getInt("trafficType") == 2) {
-                                                if (currentRouteObject.getInt("sectionTime") == 0) {
-                                                    //이전에 버스타고 이번에 도보인데 0분이라면 해당 정류장에서 버스를 갈아타는 것
-                                                    layoutType = 8
-                                                    endName = prevRouteObject.getString("endName")
-                                                } else {
-                                                    // 이전에 버스타고 이번에 도보인데 0분이 아닐 경우 일단은 걷겠지.
-                                                    if (nextRouteObject.getInt("trafficType") == 1) {
-                                                        // 다음 수단이 지하철이라면? 어디역 몇 번 출구까지 몇 m에 대한 정보가 필요
-                                                        layoutType = 7
-                                                        sectionTime =
-                                                            currentRouteObject.getInt("sectionTime")
-                                                        endName = prevRouteObject.getString("endName")
-                                                        startName =
-                                                            nextRouteObject.getString("startName")
-                                                        startExitnoORendExitno =
-                                                            nextRouteObject.getString("startExitNo")
-                                                        distance = currentRouteObject.getInt("distance")
-                                                    } else {
-                                                        // 다음 수단이 버스다. 그럼 그냥 기본 7번 레이아웃을 사용
-                                                        layoutType = 7
-                                                        sectionTime =
-                                                            currentRouteObject.getInt("sectionTime")
-                                                        endName = prevRouteObject.getString("endName")
-                                                        distance = currentRouteObject.getInt("distance")
-
-                                                    }
-                                                }
-                                            } else {
-                                                // 이전 경로가 지하철일 경우.
-                                                if (prevRouteObject.getString("door") == "null") {
-                                                    // 이전에 지하철 타고 왔는데 환승이 아니라 그냥 내릴 경우.
-                                                    layoutType = 5
-                                                    sectionTime =
-                                                        currentRouteObject.getInt("sectionTime")
-                                                    endName = prevRouteObject.getString("endName")
-                                                    startExitnoORendExitno =
-                                                        prevRouteObject.getString("endExitNo")
-                                                    distance = currentRouteObject.getInt("distance")
-                                                } else {
-                                                    // 이전에 지하철 탔는데 이번에 환승할 경우
-                                                    layoutType = 4
-                                                    endName = prevRouteObject.getString("endName")
-                                                }
-                                            }
-                                        } else if (currentRouteObject.getInt("trafficType") == 2) {
-                                            // 현재가 버스일 경우
-                                            // 무조건 layout이 3번임 예외 없음
-                                            layoutType = 3
-                                            sectionTime = currentRouteObject.getInt("sectionTime")
-                                            startName = currentRouteObject.getString("startName")
-
-                                            val currentRouteObjectLane =
-                                                currentRouteObject.getJSONArray("lane")
-                                            val currentRouteObjectLaneFirstInfo =
-                                                currentRouteObjectLane.getJSONObject(0)
-                                            busNoORname =
-                                                currentRouteObjectLaneFirstInfo.getString("busNo")
-                                            Log.d("각 케이스에서의 역 개수가 알고 싶어용",currentRouteObject.getInt("stationCount").toString() )
-
-                                            val currentRouteObjectPassStopList =
-                                                currentRouteObject.getJSONObject("passStopList")
-                                            val currentRouteObjectPassStopListStations =
-                                                currentRouteObjectPassStopList.getJSONArray("stations")
-                                            for (j in 0 until currentRouteObjectPassStopListStations.length()) {
-                                                // 일단 station list에 다 넣자. 출발지 목적지 다 포함해서 싹 다 넣자.
-                                                val currentRouteObjectPassStopListStationsObj =
-                                                    currentRouteObjectPassStopListStations.getJSONObject(j)
-                                                passStopList.add(Pair(
-                                                    currentRouteObjectPassStopListStationsObj.getString(
-                                                        "stationName"),
-                                                    currentRouteObjectPassStopListStationsObj.getString(
-                                                        "isNonStop")))
-                                            }
-                                            stationCount = currentRouteObjectPassStopListStations.length() - 1
-                                        } else {
-                                            // 현재 경로가 지하철일 경우, view type은 1,2번이지
-                                            if (nextRouteObject.getInt("sectionTime") != 0) {
-                                                // 환승에 대한 정보가 없을 경우 -> null 이 때는 layout type이 2번
-                                                layoutType = 2
-                                                sectionTime = currentRouteObject.getInt("sectionTime")
-
-                                                val currentRouteObjectLane =
-                                                    currentRouteObject.getJSONArray("lane")
-                                                val currentRouteObjectLaneFirstInfo =
-                                                    currentRouteObjectLane.getJSONObject(0)
-                                                busNoORname =
-                                                    currentRouteObjectLaneFirstInfo.getString("name")
-
-                                                startName = currentRouteObject.getString("startName")
-
-                                                way = currentRouteObject.getString("way")
-
-                                                val currentRouteObjectPassStopList =
-                                                    currentRouteObject.getJSONObject("passStopList")
-                                                val currentRouteObjectPassStopListStations =
-                                                    currentRouteObjectPassStopList.getJSONArray("stations")
-                                                for (j in 0 until currentRouteObjectPassStopListStations.length()) {
-                                                    // 일단 station list에 다 넣자. 출발지 목적지 다 포함해서 싹 다 넣자. 하지만 유의할 건 지하철이므로 미정차 여부는 N으로 채움,
-                                                    val currentRouteObjectPassStopListStationsObj =
-                                                        currentRouteObjectPassStopListStations.getJSONObject(j)
-                                                    passStopList.add(Pair(
-                                                        currentRouteObjectPassStopListStationsObj.getString(
-                                                            "stationName"),
-                                                        "N"))
-                                                }
-                                                stationCount = currentRouteObjectPassStopListStations.length() - 1
-                                            } else {
-                                                // 환승에 대한 정보가 존재할 경우
-                                                layoutType = 1
-                                                sectionTime = currentRouteObject.getInt("sectionTime")
-
-                                                val currentRouteObjectLane =
-                                                    currentRouteObject.getJSONArray("lane")
-                                                val currentRouteObjectLaneFirstInfo =
-                                                    currentRouteObjectLane.getJSONObject(0)
-                                                busNoORname =
-                                                    currentRouteObjectLaneFirstInfo.getString("name")
-
-                                                startName = currentRouteObject.getString("startName")
-
-                                                way = currentRouteObject.getString("way")
-                                                door = currentRouteObject.getString("door")
-
-                                                val currentRouteObjectPassStopList =
-                                                    currentRouteObject.getJSONObject("passStopList")
-                                                val currentRouteObjectPassStopListStations =
-                                                    currentRouteObjectPassStopList.getJSONArray("stations")
-                                                for (j in 0 until currentRouteObjectPassStopListStations.length()) {
-                                                    // 일단 station list에 다 넣자. 출발지 목적지 다 포함해서 싹 다 넣자. 하지만 유의할 건 지하철이므로 미정차 여부는 N으로 채움,
-                                                    val currentRouteObjectPassStopListStationsObj =
-                                                        currentRouteObjectPassStopListStations.getJSONObject(j)
-                                                    passStopList.add(Pair(
-                                                        currentRouteObjectPassStopListStationsObj.getString(
-                                                            "stationName"),
-                                                        "N"))
-                                                }
-
-                                                stationCount = currentRouteObjectPassStopListStations.length() - 1
-                                            }
-                                        }// 현재 수단이 지하철 인 case
-
-                                    } // 마지막 수단 이전까지의 경로 수단을 다룸.
-
-                                    // 마지막으로 해야 할일 -> 마지막 인덱스에 대한 일을 해야함 -> 무조건 목적지 까지 가기 위해서는 걸어야 하니까 그에 대한 걸 해야함
-                                    else {
-                                        // 마지막 인덱스
-                                        var prevRouteObject =
-                                            minResultPathObjectSubPath.getJSONObject(i - 1)
-                                        var currentRouteObject =
-                                            minResultPathObjectSubPath.getJSONObject(i)
-                                        if (prevRouteObject.getInt("trafficType") == 1) {
-                                            // 이전 경로가 지하철일 경우. layout type은 5번
-                                            layoutType = 5
-                                            sectionTime = currentRouteObject.getInt("sectionTime")
-                                            endName = prevRouteObject.getString("endName")
-                                            startExitnoORendExitno =
-                                                prevRouteObject.getString("endExitNo")
-                                            distance = currentRouteObject.getInt("distance")
-                                        } else {
-                                            // 이전 경로가 버스일 경우
-                                            layoutType = 7
-                                            sectionTime = currentRouteObject.getInt("sectionTime")
-                                            endName = prevRouteObject.getString("endName")
-                                            distance = currentRouteObject.getInt("distance")
-                                        }
-                                    }
-                                    // 이게 다음 반복문을 돌기 전에 list에 저장한거 넣어주고 모든 변수를 초기화해주는게 좋음.
-                                    one_person_detail_route_array.add(
-                                        RouteItemComponent(
-                                            layoutType,
-                                            trafficType,
-                                            distance,
-                                            sectionTime,
-                                            stationCount,
-                                            busNoORname,
-                                            startName,
-                                            endName,
-                                            passStopList,
-                                            door,
-                                            startExitnoORendExitno,
-                                            way
-                                        )
-                                    )
-
-                                    layoutType = -1
-                                    trafficType = -1
-                                    distance = -1
-                                    sectionTime = -1
-                                    stationCount = -1
-                                    busNoORname = "NoData"
-                                    startName = "NoData"
-                                    endName = "NoData"
-                                    passStopList = arrayListOf()
-                                    door = "NoData"
-                                    startExitnoORendExitno = "NoData"
-                                    way = "NoData"
-                                } // 여기 까지 해서 모든 레이아웃 타입 완성.
-                                //여기까지 하면 상세 보기에 들어갈 시간 요금 m 및 상세 경로 정보까지 다 들어감
-                                //그럼 이제 할 일은 activity 실행 및 정보 넘기기를 해야함
-                                one_person_detail_route_array.add(
-                                    RouteItemComponent(9, trafficType, distance, sectionTime, stationCount, busNoORname, startName,endName,
-                                        passStopList, door, startExitnoORendExitno, way)
-                                )
-
-                                Intent(context, OtherRouteToShowDetail::class.java).apply{
-                                    putExtra("totalt", min_time)
-                                    putExtra("totalw", min_distance)
-                                    putExtra("totalp", min_payment)
-                                    putParcelableArrayListExtra("totalr", ArrayList(one_person_detail_route_array))
-                                }.run {context.startActivity(this)}
-                            }
-                        }catch(e: JSONException){
-                          e.printStackTrace()
-                        }
-                    }
-
-                    override fun onError(i: Int, errorMessage: String, api: API) {
-                        Log.d("API 호출 실패","실패 했습니다.")
-                    }
-                }
-
-            odsayService!!.requestSearchPubTransPath(
-                sourceX,
-                sourceY,
-                desX,
-                desY,
-                0.toString(),
-                0.toString(),
-                0.toString(),
-                onResultCallbackListener
-            )
+            Intent(context, OtherRouteToShowDetail::class.java).apply{
+                putExtra("ClickToEachDetailTime", rvSingleItem.totalTime)
+                putExtra("ClickToEachDetailWalk", rvSingleItem.walkTime)
+                putExtra("ClickToEachDetailFee", rvSingleItem.totalFee)
+                putExtra("ClickToEachDetailIndex", rvSingleItem.resultIndex)
+                putExtra("ClickToEachDetailWholeRoute", ArrayList(dataSet))
+                putExtra("ClickToEachDetailWholeDetailRoute", ArrayList(wholeDataSet))
+            }.run {context.startActivity(this)}
         }
 
         Log.d("bind함수 끝", "bind끝")

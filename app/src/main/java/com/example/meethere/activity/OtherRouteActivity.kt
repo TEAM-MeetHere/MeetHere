@@ -32,13 +32,11 @@ class OtherRouteActivity : AppCompatActivity() {
         tabLayout = findViewById(R.id.transport_tab)
         viewPager2 = findViewById(R.id.viewpager2_layout)
 
-        // 전체 경로 요약 정보랑 출발지 목적지 위도 경도 받아옴.
-         var detailroutelist = intent.getParcelableArrayListExtra<RouteItemComponent>("detail") as ArrayList<RouteItemComponent>
-         var routelist = intent.getParcelableArrayListExtra<ItemComponent>("whole") as ArrayList<ItemComponent>
-         var sourceDestinationInfo = intent.getParcelableExtra<TimeWalkFee>("sourceDestinationInfo")
+        // 전체 경로 요약 정보, 모든 경로의 상세 경로 정보  다 받아옴.
+        var wholeDetailRouteList = intent.getParcelableArrayListExtra<RouteItemComponent>("detailToOtherDetailRoute") as ArrayList<ArrayList<RouteItemComponent>>
+        var wholeRouteList = intent.getParcelableArrayListExtra<ItemComponent>("detailToOtherWholeRoute") as ArrayList<ItemComponent>
 
-
-        viewPager2.adapter = ViewPagerAdapter(this, routelist, sourceDestinationInfo!!.sx, sourceDestinationInfo!!.sy, sourceDestinationInfo!!.dx, sourceDestinationInfo!!.dy)
+        viewPager2.adapter = ViewPagerAdapter(this, wholeDetailRouteList, wholeRouteList)
         Log.d("메인에서 view pager어뎁터 확인", "->확인")
         viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 

@@ -25,47 +25,56 @@ class ShowDetailActivity : AppCompatActivity() {
         val intent = intent
         val Name = intent.getStringExtra("Name")
 
-        var detailRouteList = intent.getParcelableArrayListExtra<RouteItemComponent>("routeDetail") as ArrayList<RouteItemComponent>
-        var wholeRouteList = intent.getParcelableArrayListExtra<ItemComponent>("wholeRoute") as ArrayList<ItemComponent>
-        var timewalkfee = intent.getParcelableExtra<TimeWalkFee>("twp")
+        var wholeDetailRouteList = intent.getParcelableArrayListExtra<RouteItemComponent>("resultToDetailDetailRoute") as ArrayList<ArrayList<RouteItemComponent>>
+        var wholeRouteList = intent.getParcelableArrayListExtra<ItemComponent>("resultToDetailWholeRoute") as ArrayList<ItemComponent>
+        var min_index = intent.getIntExtra("resultToDetailMinIndex", 0)
 
-        Log.d("디테일에서 받아온 시간 정보", timewalkfee!!.totalTime.toString())
-        Log.d("디테일에서 받은 거리 정보", timewalkfee!!.totalWalk.toString())
-        Log.d("디테일에서 받은 요금 정보", timewalkfee!!.payment.toString())
 
-        if(timewalkfee!!.totalTime > 60){
-            total_time.setText(""+(timewalkfee!!.totalTime / 60)+"시간 "+(timewalkfee!!.totalTime % 60)+"분")
+        Log.d("상세 정보 확인", wholeDetailRouteList!![0].toString())
+        Log.d("상세 정보 확인", wholeDetailRouteList[1].toString())
+        Log.d("상세 정보 확인", wholeDetailRouteList[2].toString())
+        Log.d("상세 정보 확인", wholeDetailRouteList[3].toString())
+
+        Log.d("최소값가지는 인덱스", min_index.toString())
+
+        Log.d("최소 시간", wholeRouteList[min_index].totalTime.toString())
+        Log.d("최소 거리", wholeRouteList[min_index].walkTime.toString())
+        Log.d("최소 시간", wholeRouteList[min_index].totalFee.toString())
+
+        if(wholeRouteList!![min_index].totalTime > 60){
+            total_time.setText(""+(wholeRouteList!![min_index].totalTime / 60)+"시간 "+(wholeRouteList!![min_index].totalTime % 60)+"분")
         }
         else{
-            total_time.setText(""+timewalkfee!!.totalTime+"분")
+            total_time.setText(""+wholeRouteList!![min_index].totalTime+"분")
         }
 
 
-        if(timewalkfee!!.payment == 0){
-            total_walk_time.setText("도보 "+timewalkfee!!.totalWalk+"m")
+        if(wholeRouteList!![min_index].totalFee == 0){
+            total_walk_time.setText("도보 "+wholeRouteList!![min_index].walkTime+"분")
             total_fee.setText("")
         }
         else {
-            total_walk_time.setText("도보 " + timewalkfee!!.totalWalk + "m * ")
-            total_fee.setText("" + timewalkfee!!.payment + "원")
+            total_walk_time.setText("도보 " + wholeRouteList!![min_index].walkTime + "분 * ")
+            total_fee.setText("" + wholeRouteList!![min_index].totalFee + "원")
         }
-        val adapter = DetailRouteAdapter(detailRouteList)
+        val adapter = DetailRouteAdapter(wholeDetailRouteList, wholeRouteList, min_index)
         recycler_view.adapter = adapter
 
-        // 요기까지는 어뎁터를 호출해서 한다고 치고 여기서 다시 api호출이 되는지 봐야함
 
+        val toolbar = supportActionBar
+        toolbar!!.title="상세보기"
 
-
+        toolbar.setDisplayHomeAsUpEnabled(true)
+        toolbar.setDisplayHomeAsUpEnabled(true)
 
 
         other_route.setOnClickListener {
-            // 현재 화면은 상세 보기 화면이고 다른 경로를 눌렀을 때 다른 경로에 대한 정보가 나와야함.
             // API 다시 호출.
             //val intent = Intent(applicationContext, selectDestination_2_6::class.java)
+            // 여기서는 이제 최소 시간을 줄 필요는 없음 이제부터는
             val intent = Intent(this@ShowDetailActivity, OtherRouteActivity::class.java)
-            intent.putExtra("detail", detailRouteList)
-            intent.putExtra("whole", wholeRouteList)
-            intent.putExtra("sourceDestinationInfo", timewalkfee)
+            intent.putExtra("detailToOtherWholeRoute", wholeRouteList)
+            intent.putExtra("detailToOtherDetailRoute", wholeDetailRouteList)
             startActivity(intent)
         }
     }

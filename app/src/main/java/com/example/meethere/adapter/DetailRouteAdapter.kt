@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meethere.R
+import com.example.meethere.objects.ItemComponent
 import com.example.meethere.objects.RouteItemComponent
 import kotlinx.android.synthetic.main.activity_show_detail.*
 
-class DetailRouteAdapter (var dataSet: List<RouteItemComponent>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DetailRouteAdapter (var dataSet: List<List<RouteItemComponent>>, var wholeDataSet : List<ItemComponent>, var min_idx : Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): RecyclerView.ViewHolder {
-        Log.d("뷰타입", dataSet[0].layoutType.toString())
+//        Log.d("뷰타입", dataSet[min_idx]..layoutType.toString())
         val view : View?
         Log.d("뷰타입", viewType.toString())
 
@@ -70,7 +71,7 @@ class DetailRouteAdapter (var dataSet: List<RouteItemComponent>): RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val obj = dataSet[position]
+        val obj = dataSet[min_idx].get(position)
         when (obj.layoutType) {
             1 -> {
                 (holder as ViewHolder_1).txtTime.setText(""+obj.sectionTime+"분")
@@ -163,11 +164,11 @@ class DetailRouteAdapter (var dataSet: List<RouteItemComponent>): RecyclerView.A
     }
 
     override fun getItemCount(): Int {
-        return dataSet.size
+        return dataSet[min_idx].size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return dataSet[position].layoutType
+        return dataSet[min_idx].get(position).layoutType
     }
 
     inner class ViewHolder_1(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -195,11 +195,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.ShowDetailActivity"
-            android:label="상세보기"
-            android:parentActivityName=".activity.ShowResultActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/DarkActionBarStyle" />
+            android:name=".activity.ShowDetailActivity"/>
+<!--            android:label="상세보기"-->
+<!--            android:parentActivityName=".activity.ShowResultActivity"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:theme="@style/DarkActionBarStyle" />-->
         <activity
             android:name=".activity.OtherRouteActivity"/>
         <activity
