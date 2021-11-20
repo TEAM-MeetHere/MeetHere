@@ -4,9 +4,9 @@ import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.adapter.FriendAdapter
 import com.example.meethere.adapter.FriendListAdapter
 import com.example.meethere.databinding.ActivityFriendListBinding
 import com.example.meethere.objects.AddressObject
@@ -19,7 +19,9 @@ import com.example.meethere.utils.RESPONSE_STATE
 import org.json.JSONObject
 
 class FriendListActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityFriendListBinding
+
     private val listItems = arrayListOf<FriendObject>()
     private val friendListAdapter = FriendListAdapter(listItems)
 
@@ -177,5 +179,15 @@ class FriendListActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

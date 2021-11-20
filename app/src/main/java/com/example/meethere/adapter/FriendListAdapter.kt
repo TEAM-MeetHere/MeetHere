@@ -1,23 +1,12 @@
 package com.example.meethere.adapter
 
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.meethere.activity.SendRequestLocationActivity
-import com.example.meethere.databinding.ItemFriendBinding
 import com.example.meethere.databinding.ItemFriendListBinding
 import com.example.meethere.objects.FriendObject
-import com.example.meethere.retrofit.RetrofitManager
-import com.example.meethere.utils.Constants.TAG
-import com.example.meethere.utils.RESPONSE_STATE
-import kotlinx.android.synthetic.main.item_friend.view.*
-import org.json.JSONObject
-
+import kotlinx.android.synthetic.main.item_friend_list.view.*
 
 class FriendListAdapter(
     private val friendObjects: MutableList<FriendObject>,     // public

@@ -9,11 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meethere.activity.SendMyLocationActivity
-import com.example.meethere.activity.SendRequestLocationActivity
-import com.example.meethere.activity.SendShareCodeActivity
 import com.example.meethere.activity.ShowFriendActivity
-import com.example.meethere.adapter.FriendAdapter
 import com.example.meethere.adapter.FriendListAdapter
 import com.example.meethere.databinding.FragmentMainFriendBinding
 import com.example.meethere.objects.FriendObject

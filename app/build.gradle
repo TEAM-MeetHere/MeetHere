@@ -77,6 +77,9 @@ dependencies {
     implementation files('libs/ODsayAndroidSDK')
     implementation files('libs/ODsayAndroidSDK.aar')
 
-    implementation 'sun.bob:mcalendarview:1.0.0'
+    //calendar
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+
+    //json
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+"
 }

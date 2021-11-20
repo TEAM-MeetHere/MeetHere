@@ -1,15 +1,13 @@
 package com.example.meethere.activity
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
-import com.example.meethere.R
 import com.example.meethere.databinding.ActivityEditBookmarkBinding
 import com.example.meethere.retrofit.RetrofitManager
-import com.example.meethere.retrofit.request.Bookmark
 import com.example.meethere.retrofit.request.UpdateBookmark
 import com.example.meethere.utils.Constants
 import com.example.meethere.utils.Constants.TAG
@@ -19,7 +17,9 @@ import org.json.JSONObject
 import java.util.*
 
 class EditBookmarkActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityEditBookmarkBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditBookmarkBinding.inflate(layoutInflater)
@@ -110,5 +110,15 @@ class EditBookmarkActivity : AppCompatActivity() {
                 }
             )
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

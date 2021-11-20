@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
-import com.example.meethere.databinding.ActivityMainBinding
 import com.example.meethere.databinding.ActivityShowFriendBinding
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.utils.Constants

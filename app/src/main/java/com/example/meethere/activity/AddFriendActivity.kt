@@ -1,13 +1,11 @@
 package com.example.meethere.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
-import com.example.meethere.R
 import com.example.meethere.databinding.ActivityAddFriendBinding
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.sharedpreferences.App
@@ -17,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_add_friend.*
 import org.json.JSONObject
 
 class AddFriendActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityAddFriendBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

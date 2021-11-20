@@ -15,7 +15,6 @@ import com.example.meethere.fragment.SetLocation3InputAddress
 import kotlinx.android.synthetic.main.activity_set_location.*
 import kotlinx.android.synthetic.main.fragment_set_location1_keyword.*
 
-
 class SetLocationActivity : AppCompatActivity() {
     private var flag: Int = 1
 
@@ -112,7 +111,7 @@ class SetLocationActivity : AppCompatActivity() {
                 replaceFragment(f3)
             }
             else -> {
-                val intent = Intent(applicationContext, MainActivity::class.java)
+                val intent = Intent(applicationContext, MainNewActivity::class.java)
                 startActivity(intent)
             }
         }

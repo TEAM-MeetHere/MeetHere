@@ -21,9 +21,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 
-
 class SelectDestinationActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivitySelectDestinationBinding
+
     private val listItems = arrayListOf<SearchResultObject>()   // 리사이클러 뷰 아이템
     private val searchResultAdapter = SearchResultAdapter(listItems)    // 리사이클러 뷰 어댑터
     private var pageNumber = 1      // 검색 페이지 번호

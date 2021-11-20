@@ -7,12 +7,13 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.adapter.BookmarkAdapter
 import com.example.meethere.databinding.ActivityShowBookmarkBinding
-import com.example.meethere.fragment.MainPromiseFragment
 import com.example.meethere.objects.AddressObject
 import com.example.meethere.objects.BookmarkObject
 
 class ShowBookmarkActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityShowBookmarkBinding
+
     lateinit var bookmarkObjects: MutableList<BookmarkObject>
     lateinit var bookmarkAdapter: BookmarkAdapter
 

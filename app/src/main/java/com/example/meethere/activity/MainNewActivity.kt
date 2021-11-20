@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import com.example.meethere.R
 import com.example.meethere.databinding.ActivityMainNewBinding
 import com.example.meethere.fragment.*
-import kotlinx.android.synthetic.main.activity_main_new.*
 
 class MainNewActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainNewBinding
 
     private var flag: Int = 1
@@ -30,14 +30,6 @@ class MainNewActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(binding.frameLayoutMain.id, f3, "TAG3")
 
         changeFragment("홈")
-/*        replaceFragment(f1)
-        replaceFragment(f2)
-        replaceFragment(f3)
-
-        flag = 1
-        binding.tvMain.setText("메인")
-        binding.ivMain.visibility = View.VISIBLE
-        binding.ivMain.setImageResource(R.drawable.image_button_setting)*/
 
         binding.bnvMain.setOnItemSelectedListener {
             Log.d("메인", it.title.toString())

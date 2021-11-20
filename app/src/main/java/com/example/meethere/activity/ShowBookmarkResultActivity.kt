@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.adapter.ResultAdapter
-import com.example.meethere.databinding.ActivityShowBookmarkBinding
 import com.example.meethere.databinding.ActivityShowBookmarkResultBinding
 import com.example.meethere.objects.AddressObject
 import com.example.meethere.objects.ResultObject
@@ -29,7 +28,9 @@ import kotlinx.android.synthetic.main.activity_show_result.textView2
 import org.json.JSONObject
 
 class ShowBookmarkResultActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityShowBookmarkResultBinding
+
     private lateinit var resultAdapter: ResultAdapter
     private var addressObjects = arrayListOf<AddressObject>()
 

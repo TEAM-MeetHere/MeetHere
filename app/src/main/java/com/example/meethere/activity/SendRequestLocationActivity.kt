@@ -15,13 +15,13 @@ import android.telephony.SmsMessage
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.example.meethere.R
 import com.example.meethere.databinding.ActivitySendRequestLocationBinding
 import com.example.meethere.sharedpreferences.App
 
 class SendRequestLocationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySendRequestLocationBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySendRequestLocationBinding.inflate(layoutInflater)
