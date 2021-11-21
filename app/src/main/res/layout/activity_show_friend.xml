@@ -91,6 +91,12 @@
     </LinearLayout>
 
 
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="29dp"
+        android:text="TextView" />
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"

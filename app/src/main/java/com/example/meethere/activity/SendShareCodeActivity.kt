@@ -53,7 +53,7 @@ class SendShareCodeActivity : AppCompatActivity() {
             val shareCode = binding.etShareCode.text.toString()
 
             if (shareCode != "") {
-                val sender = "최규림"
+                val sender = name
                 val message = "$sender 님의 공유코드 입니다. 공유코드 : $shareCode"
                 val sms = SmsManager.getDefault()
                 sms.sendTextMessage(tempPhone, null, message, null, null)

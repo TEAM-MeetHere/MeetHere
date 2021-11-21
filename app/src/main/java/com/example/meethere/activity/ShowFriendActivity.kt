@@ -9,11 +9,12 @@ import android.widget.Toast
 import com.example.meethere.databinding.ActivityShowFriendBinding
 import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.utils.Constants
+import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
 import org.json.JSONObject
 
 class ShowFriendActivity : AppCompatActivity() {
-    private lateinit var binding:ActivityShowFriendBinding
+    private lateinit var binding: ActivityShowFriendBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,79 @@ class ShowFriendActivity : AppCompatActivity() {
         binding.tvShowFriendEmail.text = email
         binding.tvShowFriendName.text = name
         binding.tvShowFriendPhone.text = phone
+
+        RetrofitManager.instance.findFriendService(
+            email = email!!,
+            name = name!!,
+            phone = phone!!,
+            completion = { responseState, responseBody ->
+                when (responseState) {
+
+                    //API 호출 성공시
+                    RESPONSE_STATE.OKAY -> {
+                        Log.d(TAG, "API 호출 성공 : $responseBody")
+
+                        //JSON parsing
+                        //{}->JSONObject, []->JSONArray
+                        val jsonObjects = JSONObject(responseBody)
+                        val statusCode = jsonObjects.getInt("statusCode")
+
+                        if (statusCode == 200) {
+                            val message = jsonObjects.getString("message")
+                            Log.d(TAG, "message = $message")
+
+                            val memberId = jsonObjects.getLong("data")
+
+                            RetrofitManager.instance.findUserInfoService(
+                                memberId = memberId,
+                                completion = { responseState1, responseBody1 ->
+                                    when (responseState1) {
+
+                                        //API 호출 성공시
+                                        RESPONSE_STATE.OKAY -> {
+                                            Log.d(TAG, "API 호출 성공 : $responseBody1")
+
+                                            //JSON parsing
+                                            //{}->JSONObject, []->JSONArray
+                                            val jsonObject1 = JSONObject(responseBody1)
+                                            val statusCode1 = jsonObject1.getInt("statusCode")
+
+                                            if (statusCode1 == 200) {
+                                                val message1 = jsonObject1.getString("message")
+                                                Log.d(TAG, "message1 = $message1")
+                                                Toast.makeText(this, message1, Toast.LENGTH_LONG)
+                                                    .show()
+
+                                                val data = jsonObject1.getJSONObject("data")
+                                                val ao = data.getJSONObject("addressObject")
+                                                val road_address_name = ao.getString("roadAddressName")
+
+                                                binding.tvAddress.text = road_address_name
+                                            }
+                                        }
+                                        //API 호출 실패시
+                                        RESPONSE_STATE.FAIL -> {
+                                            Log.d(TAG, "API 호출 실패 : $responseBody1")
+                                        }
+                                    }
+                                }
+
+                            )
+                        } else {
+                            val errorMessage = jsonObjects.getString("message")
+                            Log.d(TAG, "error message = $errorMessage")
+                            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    //API 호출 실패시
+                    RESPONSE_STATE.FAIL -> {
+                        Log.d(TAG, "API 호출 실패 : $responseBody")
+                    }
+                }
+            }
+
+        )
+
 
         binding.friendBtnDelete.setOnClickListener {
             val friendId = friend_id!!.toLong()
