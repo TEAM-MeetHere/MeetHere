@@ -141,7 +141,7 @@ class ShowFriendActivity : AppCompatActivity() {
             )
         }
         binding.friendBtnPosition.setOnClickListener {
-            val intent = Intent(this, SendRequestLocationActivity::class.java)
+            val intent = Intent(this, SendMyLocationActivity::class.java)
 
             intent.putExtra("email", email)
             intent.putExtra("name", name)
@@ -149,7 +149,7 @@ class ShowFriendActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.friendBtnRequest.setOnClickListener {
-            val intent = Intent(this, SendMyLocationActivity::class.java)
+            val intent = Intent(this, SendRequestLocationActivity::class.java)
 
             intent.putExtra("email", email)
             intent.putExtra("name", name)

@@ -23,8 +23,11 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.loginId.setText("log8450@gmail.com")
-        binding.loginPw.setText("qwe123!")
+        if (App.prefs.email != "") {
+            val intent = Intent(this, MainNewActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         //회원가입 클릭
         binding.join.setOnClickListener {
@@ -110,6 +113,9 @@ class LoginActivity : AppCompatActivity() {
                                 Log.d(TAG, "memberID = $memberId")
                                 Log.d(TAG, "email = $email")
                                 Log.d(TAG, "username = $username")
+
+                                //가장 최근에 로그인한 이메일로 로그인 페이지 이메일 저장
+                                binding.loginId.setText(ID)
 
                                 val intent = Intent(this, MainNewActivity::class.java)
                                 startActivity(intent)
