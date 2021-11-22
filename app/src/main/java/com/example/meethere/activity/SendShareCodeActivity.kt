@@ -42,6 +42,7 @@ class SendShareCodeActivity : AppCompatActivity() {
 
         val name = intent.getStringExtra("name")
         val phone = intent.getStringExtra("phone")
+        val app_link = "https://wemeethere.page.link/bjYi"
 
         val tempPhone = phone!!.replace("-", "")
 
@@ -53,8 +54,8 @@ class SendShareCodeActivity : AppCompatActivity() {
             val shareCode = binding.etShareCode.text.toString()
 
             if (shareCode != "") {
-                val sender = "최규림"
-                val message = "$sender 님의 공유코드 입니다. 공유코드 : $shareCode"
+                val sender = name
+                val message = "$sender 님의 공유코드 입니다. 공유코드 : $shareCode $app_link"
                 val sms = SmsManager.getDefault()
                 sms.sendTextMessage(tempPhone, null, message, null, null)
                 Toast.makeText(this, "공유코드 메시지 전송 완료", Toast.LENGTH_LONG).show()
