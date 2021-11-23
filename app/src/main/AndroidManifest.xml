@@ -27,6 +27,14 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".activity.Algorithm2Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Algorithm1Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="true" />
+        <activity
             android:name=".activity.ShowFriendActivity"
             android:exported="true"
             android:label="친구 상세"

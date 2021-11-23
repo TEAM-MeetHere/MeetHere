@@ -44,8 +44,11 @@ class SetLocationActivity : AppCompatActivity() {
             if (flag == 2) {
                 /*val intent = Intent(applicationContext, SelectDestination_2_6Activity::class.java)*/
 
+                /*val intent =
+                    Intent(applicationContext, SelectDestinationActivity::class.java)*/
+
                 val intent =
-                    Intent(applicationContext, SelectDestinationActivity::class.java)
+                    Intent(applicationContext, Algorithm1Activity::class.java)
                 // 인텐트
 
                 val fragment1: SetLocation1Keyword =
