@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mapDestination">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+            android:id="@+id/SelectDestinationTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -40,12 +40,12 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="시간순정렬" />
+                android:text="이동시간 기준" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="거리순정렬" />
+                android:text="직선거리 기준" />
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -56,7 +56,7 @@
             app:layout_constraintBottom_toTopOf="@+id/btn_nextPage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/SelectDestinationTabLayout" />
 
         <Button
             android:id="@+id/btn_prevPage"
