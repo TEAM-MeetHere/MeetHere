@@ -13,6 +13,7 @@ import com.example.meethere.objects.ResultSearchKeyword
 import com.example.meethere.objects.SearchResultObject
 import com.example.meethere.adapter.SearchResultAdapter
 import com.example.meethere.databinding.ActivitySelectDestinationBinding
+import com.example.meethere.utils.Constants.TAG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,6 +51,19 @@ class SelectDestinationActivity : AppCompatActivity() {
         // SetLocation에서 넘겨준 입력받은 모든 주소 데이터를 가져옴
         val addressObjects: Array<AddressObject> =
             intent.getSerializableExtra("addressData") as Array<AddressObject>
+
+        val isTrue = intent.getBooleanExtra("isTrue", false)
+        Log.d("알고리즘 적용 여부", isTrue.toString())
+
+        var algorithm_lat: Double = 0.0
+        var algorithm_lon: Double = 0.0
+        if (isTrue) {
+            algorithm_lat = intent.getDoubleExtra("lat", 0.0)
+            algorithm_lon = intent.getDoubleExtra("lon", 0.0)
+            Log.d("알고리즘 lat ", algorithm_lat.toString())
+            Log.d("알고리즘 lon ", algorithm_lon.toString())
+        }
+
         val lats = DoubleArray(addressObjects.size)
         val lons = DoubleArray(addressObjects.size)
 
@@ -79,7 +93,11 @@ class SelectDestinationActivity : AppCompatActivity() {
 
         // 중심점을 기준으로 Integer(5000) (임시값)의 키워드를 검색
         val keyword = intent.getStringExtra("keywordData").toString()
-        searchKeyword(keyword, pageNumber, averageLat.toString(), averageLon.toString(), Integer(5000))
+        searchKeyword(keyword,
+            pageNumber,
+            averageLat.toString(),
+            averageLon.toString(),
+            Integer(5000))
 
         Log.d("임영택 SelectDestination : averagelat", averageLat.toString())
         Log.d("임영택 SelectDestination : avergaelon", averageLon.toString())
@@ -87,26 +105,35 @@ class SelectDestinationActivity : AppCompatActivity() {
         binding.btnPrevPage.setOnClickListener {
             pageNumber--
             binding.tvPageNumber.text = pageNumber.toString()
-            searchKeyword(keyword, pageNumber, averageLat.toString(), averageLon.toString(), Integer(5000))
+            searchKeyword(keyword,
+                pageNumber,
+                averageLat.toString(),
+                averageLon.toString(),
+                Integer(5000))
         }
 
         // 다음 페이지 버튼
         binding.btnNextPage.setOnClickListener {
             pageNumber++
             binding.tvPageNumber.text = pageNumber.toString()
-            searchKeyword(keyword, pageNumber, averageLat.toString(), averageLon.toString(), Integer(5000))
+            searchKeyword(keyword,
+                pageNumber,
+                averageLat.toString(),
+                averageLon.toString(),
+                Integer(5000))
         }
 
         searchResultAdapter.setItemClickListener(object : SearchResultAdapter.OnItemClickListener {
-            override fun onClick(addressObject: AddressObject, position:Int) {
-                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].lat, listItems[position].lon)
+            override fun onClick(addressObject: AddressObject, position: Int) {
+                val mapPoint =
+                    MapPoint.mapPointWithGeoCoord(listItems[position].lat, listItems[position].lon)
                 binding.mapDestination.setMapCenterPointAndZoomLevel(mapPoint, 2, true)
             }
         })
 
         // 최종 목적지를 터치하면 해당 데이터와 입력받은 주소 데이터들을 ShowResult로 넘겨줌
         searchResultAdapter.setItemClickListener2(object : SearchResultAdapter.OnItemClickListener {
-            override fun onClick(addressObject: AddressObject, position:Int) {
+            override fun onClick(addressObject: AddressObject, position: Int) {
                 // addressData -> 시작 지점 정보
                 val intent = Intent(applicationContext, ShowResultActivity::class.java)
                 intent.putExtra("addressData", addressObjects)
@@ -117,7 +144,13 @@ class SelectDestinationActivity : AppCompatActivity() {
     }
 
     // 키워드 검색 함수
-    private fun searchKeyword(keyword: String, page:Int, lat: String, lon: String, radius: Integer) {
+    private fun searchKeyword(
+        keyword: String,
+        page: Int,
+        lat: String,
+        lon: String,
+        radius: Integer,
+    ) {
         val retrofit = Retrofit.Builder()   // Retrofit 구성
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -136,7 +169,7 @@ class SelectDestinationActivity : AppCompatActivity() {
         call.enqueue(object : Callback<ResultSearchKeyword> {
             override fun onResponse(
                 call: Call<ResultSearchKeyword>,
-                response: Response<ResultSearchKeyword>
+                response: Response<ResultSearchKeyword>,
             ) {
                 // 통신 성공 (검색 결과는 response.body()에 담겨있음)
                 addItemsAndMarkers(response.body())
