@@ -7,13 +7,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meethere.objects.AddressObject
 import com.example.meethere.objects.ResultSearchKeyword
 import com.example.meethere.objects.SearchResultObject
 import com.example.meethere.adapter.SearchResultAdapter
 import com.example.meethere.databinding.ActivitySelectDestinationBinding
-import com.example.meethere.utils.Constants.TAG
+import com.google.android.material.tabs.TabLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,8 +31,13 @@ class SelectDestinationActivity : AppCompatActivity() {
     private val searchResultAdapter = SearchResultAdapter(listItems)    // 리사이클러 뷰 어댑터
     private var pageNumber = 1      // 검색 페이지 번호
 
+    var usingLat: Double = 0.0
+    var usingLon: Double = 0.0
+    var algorithmLat: Double = 0.0
+    var algorithmLon: Double = 0.0
     var averageLat: Double = 0.0
     var averageLon: Double = 0.0
+    lateinit var keyword:String
 
     companion object {
         const val BASE_URL = "https://dapi.kakao.com/"
@@ -44,6 +50,47 @@ class SelectDestinationActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.SelectDestinationTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when(tab?.position) {
+                    0 -> {
+                        //Tab1 : Time
+                        usingLat = algorithmLat
+                        usingLon = algorithmLon
+
+                        pageNumber = 1
+                        binding.tvPageNumber.text = pageNumber.toString()
+                        searchKeyword(keyword,
+                            pageNumber,
+                            usingLat.toString(),
+                            usingLon.toString(),
+                            Integer(5000))
+                    }
+                    1 -> {
+                        //Tab2 : Distance
+                        usingLat = averageLat
+                        usingLon = averageLon
+
+                        pageNumber = 1
+                        binding.tvPageNumber.text = pageNumber.toString()
+                        searchKeyword(keyword,
+                            pageNumber,
+                            usingLat.toString(),
+                            usingLon.toString(),
+                            Integer(5000))
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+        })
+
         binding.recyclerViewSearch.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewSearch.adapter = searchResultAdapter
@@ -51,18 +98,6 @@ class SelectDestinationActivity : AppCompatActivity() {
         // SetLocation에서 넘겨준 입력받은 모든 주소 데이터를 가져옴
         val addressObjects: Array<AddressObject> =
             intent.getSerializableExtra("addressData") as Array<AddressObject>
-
-        val isTrue = intent.getBooleanExtra("isTrue", false)
-        Log.d("알고리즘 적용 여부", isTrue.toString())
-
-        var algorithm_lat: Double = 0.0
-        var algorithm_lon: Double = 0.0
-        if (isTrue) {
-            algorithm_lat = intent.getDoubleExtra("lat", 0.0)
-            algorithm_lon = intent.getDoubleExtra("lon", 0.0)
-            Log.d("알고리즘 lat ", algorithm_lat.toString())
-            Log.d("알고리즘 lon ", algorithm_lon.toString())
-        }
 
         val lats = DoubleArray(addressObjects.size)
         val lons = DoubleArray(addressObjects.size)
@@ -77,8 +112,24 @@ class SelectDestinationActivity : AppCompatActivity() {
         averageLat = getMean(lats)
         averageLon = getMean(lons)
 
+        val isTrue = intent.getBooleanExtra("isTrue", false)
+        Log.d("알고리즘 적용 여부", isTrue.toString())
+
+        if (isTrue) {
+            algorithmLat = intent.getDoubleExtra("lat", 0.0)
+            algorithmLon = intent.getDoubleExtra("lon", 0.0)
+            Log.d("알고리즘 lat ", algorithmLat.toString())
+            Log.d("알고리즘 lon ", algorithmLon.toString())
+        } else {
+            algorithmLat = averageLat
+            algorithmLon = averageLon
+        }
+
+        usingLat = algorithmLat
+        usingLon = algorithmLon
+
         // 지도의 중심점을 평균 지점으로 설정, 확대 레벨 설정 (값이 작을수록 더 확대됨)
-        val mapPoint = MapPoint.mapPointWithGeoCoord(averageLat, averageLon)
+        val mapPoint = MapPoint.mapPointWithGeoCoord(usingLat, usingLon)
         binding.mapDestination.setMapCenterPoint(mapPoint, true)
         binding.mapDestination.setZoomLevel(2, true)
 
@@ -89,26 +140,22 @@ class SelectDestinationActivity : AppCompatActivity() {
         marker.markerType = MapPOIItem.MarkerType.YellowPin
         marker.selectedMarkerType = MapPOIItem.MarkerType.RedPin
         binding.mapDestination.addPOIItem(marker)
-        //
 
         // 중심점을 기준으로 Integer(5000) (임시값)의 키워드를 검색
-        val keyword = intent.getStringExtra("keywordData").toString()
+        keyword = intent.getStringExtra("keywordData").toString()
         searchKeyword(keyword,
             pageNumber,
-            averageLat.toString(),
-            averageLon.toString(),
+            usingLat.toString(),
+            usingLon.toString(),
             Integer(5000))
-
-        Log.d("임영택 SelectDestination : averagelat", averageLat.toString())
-        Log.d("임영택 SelectDestination : avergaelon", averageLon.toString())
 
         binding.btnPrevPage.setOnClickListener {
             pageNumber--
             binding.tvPageNumber.text = pageNumber.toString()
             searchKeyword(keyword,
                 pageNumber,
-                averageLat.toString(),
-                averageLon.toString(),
+                usingLat.toString(),
+                usingLon.toString(),
                 Integer(5000))
         }
 
@@ -118,8 +165,8 @@ class SelectDestinationActivity : AppCompatActivity() {
             binding.tvPageNumber.text = pageNumber.toString()
             searchKeyword(keyword,
                 pageNumber,
-                averageLat.toString(),
-                averageLon.toString(),
+                usingLat.toString(),
+                usingLon.toString(),
                 Integer(5000))
         }
 
