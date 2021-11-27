@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop = "100dp"
+    android:layout_marginLeft = "20dp"
+    android:layout_marginRight="20dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <TextView
+            android:id="@+id/total_time_except_button"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1시간 30분"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/total_walk_time_except_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="도보 19분 * "/>
+
+            <TextView
+                android:id="@+id/total_fee_except_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3150원"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:background ="#00ff00"
+        android:layout_width="match_parent"
+        android:layout_height="3px"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_except_button"
+        android:layout_marginTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
