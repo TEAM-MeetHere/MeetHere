@@ -180,13 +180,6 @@ class Algorithm2Activity : AppCompatActivity() {
                 }
                 Log.d("테스트 : 최종 역 이름 ", station_name)
             }
-/*
-
-            //디버그 코드
-            answer.add("102")
-            answer.add("103")
-            // 삭제바람
-*/
 
             if (answer.size != 0) {
                 odsayService =
