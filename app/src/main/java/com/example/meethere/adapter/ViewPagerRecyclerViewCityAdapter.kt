@@ -229,21 +229,43 @@ class ViewPagerRecyclerViewCityAdapter(var dataSet: List<ItemComponent>, var ind
         for(i in 0 until insertRVstackedBarChart.size){
             var text = TextView(context)
             var text_layout : TableRow.LayoutParams
-            if(insertRVstackedBarChart[i].second < 10 && insertRVstackedBarChart[i].second > 0) {
-                Log.d("0에서 10의 시간","ㅇ")
-                text_layout = TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 10f)
+            if(insertRVstackedBarChart.size >= 8){
+                if (insertRVstackedBarChart[i].second < 10 && insertRVstackedBarChart[i].second > 0) {
+                    Log.d("0에서 10의 시간", "ㅇ")
+                    text_layout =
+                        TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 10f)
+                } else if (insertRVstackedBarChart[i].second >= 30) {
+                    Log.d("0에서 10의 시간", "ㅇ")
+                    text_layout =
+                        TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 30f)
+                } else if (insertRVstackedBarChart[i].second >= 10) {
+                    Log.d("10에서 100이하의 시간", "ㅇ")
+                    text_layout = TableRow.LayoutParams(0,
+                        TableLayout.LayoutParams.WRAP_CONTENT,
+                        insertRVstackedBarChart[i].second.toFloat())
+                } else {
+                    Log.d("시간이 0", "0")
+                    continue
+                }
             }
-            else if(insertRVstackedBarChart[i].second >=70){
-                Log.d("0에서 10의 시간","ㅇ")
-                text_layout = TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 50f)
-            }
-            else if(insertRVstackedBarChart[i].second >= 10){
-                Log.d("10에서 100이하의 시간", "ㅇ")
-                text_layout = TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, insertRVstackedBarChart[i].second.toFloat())
-            }
-            else{
-                Log.d("시간이 0", "0")
-                continue
+            else {
+                if (insertRVstackedBarChart[i].second < 10 && insertRVstackedBarChart[i].second > 0) {
+                    Log.d("0에서 10의 시간", "ㅇ")
+                    text_layout =
+                        TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 10f)
+                } else if (insertRVstackedBarChart[i].second >= 50) {
+                    Log.d("0에서 10의 시간", "ㅇ")
+                    text_layout =
+                        TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 50f)
+                } else if (insertRVstackedBarChart[i].second >= 10) {
+                    Log.d("10에서 100이하의 시간", "ㅇ")
+                    text_layout = TableRow.LayoutParams(0,
+                        TableLayout.LayoutParams.WRAP_CONTENT,
+                        insertRVstackedBarChart[i].second.toFloat())
+                } else {
+                    Log.d("시간이 0", "0")
+                    continue
+                }
             }
             text.layoutParams = text_layout
             text.textAlignment = View.TEXT_ALIGNMENT_CENTER

@@ -75,6 +75,19 @@ class ViewPagerRecyclerViewAdapter (var dataSet: List<ItemComponent>, var wholeD
         holder.rvItemWalkAndFee.setText("도보 " + rvSingleItem.walkTime + "분")
 
 
+        for(i in 0 until insertRVitemApproxRoute.size step 6){
+            Log.d("for문안의 문자열", insertRVitemApproxRoute[i])
+            if(insertRVitemApproxRoute[i].length > 10){
+                Log.d("해당 길이를 초과하는 문자열 ", insertRVitemApproxRoute[i])
+                val startIndex:Int = insertRVitemApproxRoute[i].indexOf('(')
+                if(startIndex != -1){
+                    //찾았다는 얘기이므로 split하기
+                    Log.d("(을 찾았습니다","ㅇ")
+                    insertRVitemApproxRoute[i] = insertRVitemApproxRoute[i].substring(0 until startIndex)
+                }
+            }
+        }
+
 
 // 요기서부터 루트 출력하는 구간.
         if(insertRVitemApproxRoute.size == 6) holder.rvItemApproxRoute.setText("<"+insertRVitemApproxRoute[0]+ ">  " + insertRVitemApproxRoute[1] + "  " + "탑승  >  " + insertRVitemApproxRoute[4] + "하차\n")
@@ -134,12 +147,43 @@ class ViewPagerRecyclerViewAdapter (var dataSet: List<ItemComponent>, var wholeD
         for(i in 0 until insertRVstackedBarChart.size){
             var text = TextView(context)
             var text_layout : TableRow.LayoutParams
-            if(insertRVstackedBarChart[i].second < 10 && insertRVstackedBarChart[i].second > 0) {
-                text_layout = TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 10f)
+            if(insertRVstackedBarChart.size >= 8){
+                if (insertRVstackedBarChart[i].second < 10 && insertRVstackedBarChart[i].second > 0) {
+                    Log.d("0에서 10의 시간", "ㅇ")
+                    text_layout =
+                        TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 10f)
+                } else if (insertRVstackedBarChart[i].second >= 30) {
+                    Log.d("0에서 10의 시간", "ㅇ")
+                    text_layout =
+                        TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 30f)
+                } else if (insertRVstackedBarChart[i].second >= 10) {
+                    Log.d("10에서 100이하의 시간", "ㅇ")
+                    text_layout = TableRow.LayoutParams(0,
+                        TableLayout.LayoutParams.WRAP_CONTENT,
+                        insertRVstackedBarChart[i].second.toFloat())
+                } else {
+                    Log.d("시간이 0", "0")
+                    continue
+                }
             }
-
             else {
-                text_layout = TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, insertRVstackedBarChart[i].second.toFloat())
+                if (insertRVstackedBarChart[i].second < 10 && insertRVstackedBarChart[i].second > 0) {
+                    Log.d("0에서 10의 시간", "ㅇ")
+                    text_layout =
+                        TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 10f)
+                } else if (insertRVstackedBarChart[i].second >= 50) {
+                    Log.d("0에서 10의 시간", "ㅇ")
+                    text_layout =
+                        TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 50f)
+                } else if (insertRVstackedBarChart[i].second >= 10) {
+                    Log.d("10에서 100이하의 시간", "ㅇ")
+                    text_layout = TableRow.LayoutParams(0,
+                        TableLayout.LayoutParams.WRAP_CONTENT,
+                        insertRVstackedBarChart[i].second.toFloat())
+                } else {
+                    Log.d("시간이 0", "0")
+                    continue
+                }
             }
             text.layoutParams = text_layout
             text.textAlignment = View.TEXT_ALIGNMENT_CENTER

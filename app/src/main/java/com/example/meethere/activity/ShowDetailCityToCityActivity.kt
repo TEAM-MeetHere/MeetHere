@@ -130,7 +130,15 @@ class ShowDetailCityToCityActivity : AppCompatActivity() {
                                         sectionTime = currentRouteObject.getInt("sectionTime")
                                         distance = currentRouteObject.getInt("distance")
                                         startName = nextRouteObject.getString("startName")
-                                        startExitnoORendExitno = nextRouteObject.getString("startExitNo")
+                                        endName = routeCityTOCity[city_to_city_index].endSTN
+                                        if(nextRouteObject.optString("startExitNo") == ""){
+                                            Log.d("도보->지하철인데 ","빠른 입구가 없는 경우")
+                                            startExitnoORendExitno = "-1"
+                                        }
+                                        else{
+                                            startExitnoORendExitno =
+                                                nextRouteObject.getString("startExitNo")
+                                        }
                                     }
                                 } // i가 0일 때
 
@@ -156,14 +164,22 @@ class ShowDetailCityToCityActivity : AppCompatActivity() {
                                                         prevRouteObject.getString("endName")
                                                     startName =
                                                         nextRouteObject.getString("startName")
-                                                    startExitnoORendExitno =
-                                                        nextRouteObject.getString("startExitNo")
+                                                    if(nextRouteObject.optString("startExitNo") == ""){
+                                                        Log.d("도보->지하철인데 ","빠른 입구가 없는 경우")
+                                                        startExitnoORendExitno = "-1"
+                                                    }
+                                                    else{
+                                                        startExitnoORendExitno =
+                                                            nextRouteObject.getString("startExitNo")
+                                                    }
                                                     distance =
                                                         currentRouteObject.getInt("distance")
                                                 }else{
                                                     layoutType = 7
                                                     sectionTime =
                                                         currentRouteObject.getInt("sectionTime")
+                                                    startName =
+                                                        nextRouteObject.getString("startName")
                                                     endName =
                                                         prevRouteObject.getString("endName")
                                                     distance =
@@ -177,10 +193,18 @@ class ShowDetailCityToCityActivity : AppCompatActivity() {
                                                 layoutType = 5
                                                 sectionTime =
                                                     currentRouteObject.getInt("sectionTime")
+                                                startName =
+                                                    nextRouteObject.getString("startName")
                                                 endName =
                                                     prevRouteObject.getString("endName")
-                                                startExitnoORendExitno =
-                                                    prevRouteObject.getString("endExitNo")
+                                                if(prevRouteObject.optString("endExitNo") == ""){
+                                                    Log.d("도보->지하철인데 ","빠른 입구가 없는 경우")
+                                                    startExitnoORendExitno = "-1"
+                                                }
+                                                else{
+                                                    startExitnoORendExitno =
+                                                        prevRouteObject.getString("endExitNo")
+                                                }
                                                 distance =
                                                     currentRouteObject.getInt("distance")
                                             } else {
@@ -360,8 +384,14 @@ class ShowDetailCityToCityActivity : AppCompatActivity() {
                                         sectionTime =
                                             currentRouteObject.getInt("sectionTime")
                                         endName = prevRouteObject.getString("endName")
-                                        startExitnoORendExitno =
-                                            prevRouteObject.getString("endExitNo")
+                                        if(prevRouteObject.optString("endExitNo") == ""){
+                                            Log.d("도보->지하철인데 ","빠른 입구가 없는 경우")
+                                            startExitnoORendExitno = "-1"
+                                        }
+                                        else{
+                                            startExitnoORendExitno =
+                                                prevRouteObject.getString("endExitNo")
+                                        }
                                         distance = currentRouteObject.getInt("distance")
                                     } else {
                                         // 이전 경로가 버스일 경우
@@ -443,7 +473,9 @@ class ShowDetailCityToCityActivity : AppCompatActivity() {
                                 val adapter = DetailRouteAdapter(this_person_whole_detail_route, this_person_whole_route, minimum_result_index)
                                 recycler_view.adapter = adapter
                             }
+                            Log.d("before city index", city_to_city_index.toString())
                             city_to_city_index++
+                            Log.d("after city index", city_to_city_index.toString())
                         }
                     }catch(e: JSONException){
 
@@ -598,7 +630,14 @@ class ShowDetailCityToCityActivity : AppCompatActivity() {
                                         sectionTime = currentRouteObject.getInt("sectionTime")
                                         distance = currentRouteObject.getInt("distance")
                                         startName = nextRouteObject.getString("startName")
-                                        startExitnoORendExitno = nextRouteObject.getString("startExitNo")
+                                        if(nextRouteObject.optString("startExitNo") == ""){
+                                            Log.d("도보->지하철인데 ","빠른 입구가 없는 경우")
+                                            startExitnoORendExitno = "-1"
+                                        }
+                                        else{
+                                            startExitnoORendExitno =
+                                                nextRouteObject.getString("startExitNo")
+                                        }
                                     }
                                 } // i가 0일 때
 
@@ -624,12 +663,20 @@ class ShowDetailCityToCityActivity : AppCompatActivity() {
                                                         prevRouteObject.getString("endName")
                                                     startName =
                                                         nextRouteObject.getString("startName")
-                                                    startExitnoORendExitno =
-                                                        nextRouteObject.getString("startExitNo")
+                                                    if(nextRouteObject.optString("startExitNo") == ""){
+                                                        Log.d("도보->지하철인데 ","빠른 입구가 없는 경우")
+                                                        startExitnoORendExitno = "-1"
+                                                    }
+                                                    else{
+                                                        startExitnoORendExitno =
+                                                            nextRouteObject.getString("startExitNo")
+                                                    }
                                                     distance =
                                                         currentRouteObject.getInt("distance")
                                                 }else{
                                                     layoutType = 7
+                                                    startName =
+                                                        nextRouteObject.getString("startName")
                                                     sectionTime =
                                                         currentRouteObject.getInt("sectionTime")
                                                     endName =
@@ -645,10 +692,18 @@ class ShowDetailCityToCityActivity : AppCompatActivity() {
                                                 layoutType = 5
                                                 sectionTime =
                                                     currentRouteObject.getInt("sectionTime")
+                                                startName =
+                                                    currentRouteObject.getString("startName")
                                                 endName =
                                                     prevRouteObject.getString("endName")
-                                                startExitnoORendExitno =
-                                                    prevRouteObject.getString("endExitNo")
+                                                if(prevRouteObject.optString("endExitNo") == ""){
+                                                    Log.d("도보->지하철인데 ","빠른 입구가 없는 경우")
+                                                    startExitnoORendExitno = "-1"
+                                                }
+                                                else{
+                                                    startExitnoORendExitno =
+                                                        prevRouteObject.getString("endExitNo")
+                                                }
                                                 distance =
                                                     currentRouteObject.getInt("distance")
                                             } else {
@@ -829,8 +884,14 @@ class ShowDetailCityToCityActivity : AppCompatActivity() {
                                             currentRouteObject.getInt("sectionTime")
                                         startName = routeCityTOCity[city_to_city_index].startSTN
                                         endName = prevRouteObject.getString("endName")
-                                        startExitnoORendExitno =
-                                            prevRouteObject.getString("endExitNo")
+                                        if(prevRouteObject.optString("endExitNo") == ""){
+                                            Log.d("도보->지하철인데 ","빠른 입구가 없는 경우")
+                                            startExitnoORendExitno = "-1"
+                                        }
+                                        else{
+                                            startExitnoORendExitno =
+                                                prevRouteObject.getString("endExitNo")
+                                        }
                                         distance = currentRouteObject.getInt("distance")
                                     } else {
                                         // 이전 경로가 버스일 경우
