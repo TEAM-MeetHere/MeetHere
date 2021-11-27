@@ -27,6 +27,8 @@ class RegisterActivity : AppCompatActivity() {
 
     lateinit var addressObject: AddressObject
 
+    var flag: Boolean = false
+
     var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -50,6 +52,11 @@ class RegisterActivity : AppCompatActivity() {
 
         //다음 단계 버튼 클릭 시
         binding.nextBUTTON.setOnClickListener {
+            if(flag) {
+                return@setOnClickListener
+            }
+            flag = true
+
             var EMAIL: String = binding.registerEmail.text.toString()
             var PW: String = binding.registerPw.text.toString()
             var RE_PW: String = binding.registerRewritePw.text.toString()
@@ -66,16 +73,18 @@ class RegisterActivity : AppCompatActivity() {
                     ADDRESS,
                     PHONE
                 )
-            ) return@setOnClickListener
-
+            ) {
+                flag = false
+                return@setOnClickListener
+            }
             var myRegister =
                 Register(
                     EMAIL, PW, RE_PW, NAME, PHONE, "WWG",
                     com.example.meethere.retrofit.request.AddressObject(addressObject.place_name,
-                    addressObject.road_address_name,
-                    addressObject.address_name,
-                    addressObject.lat,
-                    addressObject.lon)
+                        addressObject.road_address_name,
+                        addressObject.address_name,
+                        addressObject.lat,
+                        addressObject.lon)
                 )
 
             //회원가입 API 호출
@@ -138,7 +147,7 @@ class RegisterActivity : AppCompatActivity() {
         RE_PW: String,
         NAME: String,
         ADDRESS: String,
-        PHONE: String
+        PHONE: String,
     ): Boolean {
         //이메일 미입력 시
         if (EMAIL == "") {

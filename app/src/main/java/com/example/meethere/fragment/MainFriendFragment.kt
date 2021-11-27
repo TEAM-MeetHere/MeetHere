@@ -34,8 +34,11 @@ class MainFriendFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private val listItems = arrayListOf<FriendObject>()
-    private val friendListAdapter = FriendListAdapter(listItems)
+    private val friendObjects = arrayListOf<FriendObject>()
+
+    private lateinit var binding: FragmentMainFriendBinding
+
+    private val friendListAdapter = FriendListAdapter(friendObjects)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +52,7 @@ class MainFriendFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val binding = FragmentMainFriendBinding.inflate(inflater, container, false)
+        binding = FragmentMainFriendBinding.inflate(inflater, container, false)
 
         binding.rvFriendList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -71,6 +74,15 @@ class MainFriendFragment : Fragment() {
             }
         })
 
+        refresh()
+
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+    fun refresh() {
+        friendObjects.clear()
+        
         RetrofitManager.instance.friendListService(
             memberId = App.prefs.memberId!!,
             completion = { responseState, responseBody ->
@@ -101,7 +113,7 @@ class MainFriendFragment : Fragment() {
                                 val phone = iObject.getString("phone")
 
                                 val friend = FriendObject(friendId, name, email, phone)
-                                listItems.add(friend)
+                                friendObjects.add(friend)
                             }
                             friendListAdapter.notifyDataSetChanged()
 
@@ -119,8 +131,6 @@ class MainFriendFragment : Fragment() {
                 }
             }
         )
-        // Inflate the layout for this fragment
-        return binding.root
     }
 
     companion object {
