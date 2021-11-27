@@ -196,6 +196,8 @@
             android:theme="@style/DarkActionBarStyle" />
         <activity
             android:name=".activity.ShowDetailActivity"/>
+        <activity
+            android:name=".activity.ShowDetailCityToCityActivity"/>
 <!--            android:label="상세보기"-->
 <!--            android:parentActivityName=".activity.ShowResultActivity"-->
 <!--            android:screenOrientation="portrait"-->
@@ -203,7 +205,11 @@
         <activity
             android:name=".activity.OtherRouteActivity"/>
         <activity
+            android:name=".activity.OtherRouteCityToCityActivity"/>
+        <activity
             android:name=".activity.OtherRouteToShowDetail"/>
+        <activity
+            android:name=".activity.OtherRouteToShowDetailCityToCity"/>
         <activity
             android:name=".activity.ShowDetailMapActivity"
             android:label="지도보기"

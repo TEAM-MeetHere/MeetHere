@@ -5,4 +5,4 @@ import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 @Parcelize
-class ItemComponent(val resultIndex : Int, val pathType : Int, val totalTime : Int, val walkTime : Int, val totalFee : Int, val routesInfo : MutableList<String>, val totalTimeTable : MutableList<Pair<Int, Int>>) : Parcelable
+class ItemComponent(val resultIndex : Int, var pathType : Int, var totalTime : Int, var walkTime : Int, val totalFee : Int, val routesInfo : MutableList<String>, val totalTimeTable : MutableList<Pair<Int, Int>>) : Parcelable

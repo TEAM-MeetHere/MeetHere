@@ -66,6 +66,21 @@ class DetailRouteAdapter (var dataSet: List<List<RouteItemComponent>>, var whole
                 ViewHolder_9(view)
             }
 
+            RouteItemComponent.using_bus_from_city_to_city ->{
+                view = LayoutInflater.from(parent.context).inflate(R.layout.activity_trip_city_to_city_using_bus, parent, false)
+                ViewHolder_10(view)
+            }
+
+            RouteItemComponent.using_train_from_city_to_city ->{
+                view = LayoutInflater.from(parent.context).inflate(R.layout.activity_trip_city_to_city_using_train, parent, false)
+                ViewHolder_11(view)
+            }
+
+            RouteItemComponent.using_air_from_city_to_city ->{
+                view = LayoutInflater.from(parent.context).inflate(R.layout.activity_trip_city_to_city_using_air, parent, false)
+                ViewHolder_12(view)
+            }
+
             else -> throw RuntimeException("알 수 없는 뷰 타입 에러")
         }
     }
@@ -129,29 +144,70 @@ class DetailRouteAdapter (var dataSet: List<List<RouteItemComponent>>, var whole
             }
 
             5->{
-                (holder as ViewHolder_5).txtTime.setText(""+obj.sectionTime+"분")
-                (holder as ViewHolder_5).txtStation.setText(""+obj.endName+" 하차")
-                (holder as ViewHolder_5).txtMeter.setText(""+obj.startExitnoORendExitno+"번 출구에서 "+obj.distance+"m")
+                if(obj.resultIndex == -1){
+                    (holder as ViewHolder_5).txtTime.setText("" + obj.sectionTime + "분")
+                    (holder as ViewHolder_5).txtStation.setText("" + obj.endName + " 하차")
+                    (holder as ViewHolder_5).txtMeter.setText("" + obj.startExitnoORendExitno + "번 출구에서 " + obj.startName+"까지 도보" +obj.distance + "m")
+                }
+                else {
+                    (holder as ViewHolder_5).txtTime.setText("" + obj.sectionTime + "분")
+                    (holder as ViewHolder_5).txtStation.setText("" + obj.endName + " 하차")
+                    (holder as ViewHolder_5).txtMeter.setText("" + obj.startExitnoORendExitno + "번 출구에서 " + obj.distance + "m")
+                }
             }
 
             6->{
-                (holder as ViewHolder_6).txtTime.setText(""+obj.sectionTime+"분")
-                if(obj.startExitnoORendExitno=="NoData") {
-                    (holder as ViewHolder_6).txtMeter.setText("도보 " + obj.distance + "m")
+                if(obj.resultIndex == -1){
+                    // result index가 -1이라는건 진짜 출발지에서 시외 수단 까지 가기 위한 첫걸음
+                    (holder as ViewHolder_6).txtTime.setText("" + obj.sectionTime + "분") // 시간은 필요없음.
+                    (holder as ViewHolder_6).txtMeter.setText(""+obj.startName+"까지 도보 "+obj.distance+"m")
                 }
-                else{
-                    (holder as ViewHolder_6).txtMeter.setText(obj.startName+"역의 "+obj.startExitnoORendExitno+"번 출구까지 "+obj.distance+"m")
+                else if(obj.resultIndex == -2){
+                     // result index가 -2라는건 출발지에서 출발 시외까지 한걸음에 바로 쌉 가능임
+                    (holder as ViewHolder_6).txtTime.setText("")
+                    (holder as ViewHolder_6).txtMeter.setText(""+obj.endName+"까지 도보 이용")
+                }
+                else {
+                    (holder as ViewHolder_6).txtTime.setText("" + obj.sectionTime + "분")
+                    if (obj.startExitnoORendExitno == "NoData") {
+                        (holder as ViewHolder_6).txtMeter.setText("도보 " + obj.distance + "m")
+                    } else {
+                        (holder as ViewHolder_6).txtMeter.setText(obj.startName + "역의 " + obj.startExitnoORendExitno + "번 출구까지 " + obj.distance + "m")
+                    }
                 }
             }
 
             7 ->{
-                (holder as ViewHolder_7).txtTime.setText(""+obj.sectionTime+"분")
-                (holder as ViewHolder_7).txtStation.setText(""+obj.endName+" 하차")
-                if(obj.startExitnoORendExitno=="NoData") {
-                    (holder as ViewHolder_7).txtMeter.setText("도보 " + obj.distance + "m")
+                if(obj.resultIndex == -1){
+                    (holder as ViewHolder_7).txtTime.setText("" + obj.sectionTime + "분")
+                    (holder as ViewHolder_7).txtStation.setText("" +obj.endName+"에 도착해서")
+                    if (obj.startExitnoORendExitno == "NoData") {
+                        if(obj.startName == "NoData"){
+                            // 목적지케이스
+                            (holder as ViewHolder_7).txtMeter.setText("목적지까지 도보 " + obj.distance + "m")
+                        }
+                        else {
+                            (holder as ViewHolder_7).txtMeter.setText("" + obj.startName + " 정류장까지 도보 " + obj.distance + "m")
+                        }
+                    } else {
+                        (holder as ViewHolder_7).txtMeter.setText(obj.startName + "역의 " + obj.startExitnoORendExitno + "번 출구까지 " + obj.distance + "m")
+                    }
+
                 }
-                else{
-                    (holder as ViewHolder_7).txtMeter.setText(obj.startName+"역의 "+obj.startExitnoORendExitno+"번 출구까지 "+obj.distance+"m")
+                else if(obj.resultIndex == -2){
+                    // result index가 -1이라는건 시외경로, 거기에 layout Type이 7번이면 목적 시외에서 목적지까지 도보 이용
+                    (holder as ViewHolder_7).txtTime.setText("")
+                    (holder as ViewHolder_7).txtStation.setText(""+obj.endName+"에서")
+                    (holder as ViewHolder_7).txtMeter.setText("목적지까지 도보 이용")
+                }
+                else {
+                    (holder as ViewHolder_7).txtTime.setText("" + obj.sectionTime + "분")
+                    (holder as ViewHolder_7).txtStation.setText("" + obj.endName + " 하차")
+                    if (obj.startExitnoORendExitno == "NoData") {
+                        (holder as ViewHolder_7).txtMeter.setText("도보 " + obj.distance + "m")
+                    } else {
+                        (holder as ViewHolder_7).txtMeter.setText(obj.startName + "역의 " + obj.startExitnoORendExitno + "번 출구까지 " + obj.distance + "m")
+                    }
                 }
             }
 
@@ -160,6 +216,27 @@ class DetailRouteAdapter (var dataSet: List<List<RouteItemComponent>>, var whole
             }
 
             9 -> {}
+
+            10 -> {
+                (holder as ViewHolder_10).txtTime.setText(""+obj.sectionTime + "분")
+                (holder as ViewHolder_10).txtStartStation.setText(""+obj.startName + " 출발")
+                (holder as ViewHolder_10).txtEndStation.setText(""+obj.endName+" 도착")
+            }
+
+            11 ->{
+                (holder as ViewHolder_11).txtStartStation.setText(""+obj.startName+ "출발")
+                (holder as ViewHolder_11).txtEndStation.setText(""+obj.endName+ "도착")
+
+                for(i in 0 until obj.passStopList.size){
+                    (holder as ViewHolder_11).txtTrainList.append(""+obj.passStopList[i].first+"  |  "+obj.passStopList[i].second+"분 소요\n")
+                }
+            }
+
+            12 -> {
+                (holder as ViewHolder_12).txtTime.setText(""+obj.sectionTime+"분")
+                (holder as ViewHolder_12).txtStartStation.setText(""+obj.startName+" 출발")
+                (holder as ViewHolder_12).txtEndStation.setText(""+obj.endName+" 도착")
+            }
         }
     }
 
@@ -222,5 +299,26 @@ class DetailRouteAdapter (var dataSet: List<List<RouteItemComponent>>, var whole
     }
     inner class ViewHolder_9(itemView: View) : RecyclerView.ViewHolder(itemView){
 
+    }
+
+    inner class ViewHolder_10(itemView : View) : RecyclerView.ViewHolder(itemView){
+        //버스
+        val txtTime: TextView = itemView.findViewById(R.id.city_to_city_using_bus_time)
+        val txtStartStation: TextView = itemView.findViewById(R.id.city_to_city_using_bus_start_station)
+        val txtEndStation: TextView = itemView.findViewById(R.id.city_to_city_using_bus_end_station)
+    }
+
+    inner class ViewHolder_11(itemView : View) : RecyclerView.ViewHolder(itemView){
+        //열차
+        val txtTrainList: TextView = itemView.findViewById(R.id.city_to_city_using_train_name)
+        val txtStartStation: TextView = itemView.findViewById(R.id.city_to_city_using_train_start_station)
+        val txtEndStation: TextView = itemView.findViewById(R.id.city_to_city_using_train_end_station)
+    }
+
+    inner class ViewHolder_12(itemView : View) : RecyclerView.ViewHolder(itemView){
+        //항공
+        val txtTime: TextView = itemView.findViewById(R.id.city_to_city_using_air_time)
+        val txtStartStation: TextView = itemView.findViewById(R.id.city_to_city_using_air_start_station)
+        val txtEndStation: TextView = itemView.findViewById(R.id.city_to_city_using_air_end_station)
     }
 }

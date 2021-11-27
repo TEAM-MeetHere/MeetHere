@@ -41,7 +41,7 @@ class ShowBookmarkActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         resultAdapter = ResultAdapter(mutableListOf(), mutableListOf(), mutableListOf(),
-            mutableListOf())
+            mutableListOf(),mutableListOf(),mutableListOf())
 
         recyclerViewResult.adapter = resultAdapter
         recyclerViewResult.layoutManager = LinearLayoutManager(this)

@@ -23,5 +23,8 @@ class RouteItemComponent (
         const val using_footwalk_from_bus_station_to_destination = 7  // trip_bus_station_to_destination
         const val using_footwalk_in_same_bus_station = 8    // trip_bus_station_to_bus_station_transfer_in_same_station
         const val destination = 9
+        const val using_bus_from_city_to_city = 10  // 고속 버스 or 시외버스 탑승
+        const val using_train_from_city_to_city = 11 // 열차 탑승(모든 종류의 열차(무궁화호 , 새마을호 itx, 등등 다 포함 한 레이아웃에 들어감)
+        const val using_air_from_city_to_city = 12  // 비행기 탑승.
     }
 }
