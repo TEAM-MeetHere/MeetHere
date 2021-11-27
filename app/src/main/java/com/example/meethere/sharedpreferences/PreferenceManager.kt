@@ -8,6 +8,7 @@ class PreferenceManager(context: Context) {
     val PREF_KEY_TOKEN = "token"
     val PREF_MEMBERID = "memberId"
     val PREF_EMAIL = "email"
+    val PREF_PW = "pw"
     val PREF_NAME = "name"
     val PREF_PHONE = "phone"
     val PREF_PLACE_NAME = "place_name"
@@ -31,6 +32,11 @@ class PreferenceManager(context: Context) {
     var email: String?
         get() = prefs.getString(PREF_EMAIL, "")
         set(value) = prefs.edit().putString(PREF_EMAIL, value).apply()
+
+    var pw: String?
+        get() = prefs.getString(PREF_PW, "")
+        set(value) = prefs.edit().putString(PREF_PW, value).apply()
+
 
     var username: String?
         get() = prefs.getString(PREF_NAME, "")

@@ -23,12 +23,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (App.prefs.email != "") {
-            val intent = Intent(this, MainNewActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
         //회원가입 클릭
         binding.join.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -57,84 +51,76 @@ class LoginActivity : AppCompatActivity() {
             var myLogin = Login(ID, PW)
 
             //로그인 API 호출
-            RetrofitManager.instance.loginService(
-                login = myLogin,
-                completion = { responseState, responseBody ->
-                    when (responseState) {
-
-                        //API 호출 성공시
-                        RESPONSE_STATE.OKAY -> {
-                            Log.d(TAG, "API 호출 성공 : $responseBody")
-
-                            //JSON parsing
-                            //{}->JSONObject, []->JSONArray
-                            val jsonObject = JSONObject(responseBody)
-                            val statusCode = jsonObject.getInt("statusCode")
-
-                            if (statusCode == 200) {
-                                val token = jsonObject.getString("token")
-                                App.prefs.token = token
-
-                                val email = jsonObject.getString("email")
-                                App.prefs.email = email
-
-                                val username = jsonObject.getString("username")
-                                App.prefs.username = username
-
-                                val memberId = jsonObject.getLong("memberId")
-                                App.prefs.memberId = memberId
-
-                                val phone = jsonObject.getString("phone")
-                                App.prefs.phone = phone
-
-                                val addressObject = jsonObject.getJSONObject("addressObject")
-
-                                val place_name = addressObject.getString("placeName")
-                                App.prefs.place_name = place_name
-
-                                val road_address_name = addressObject.getString("roadAddressName")
-                                App.prefs.road_address_name = road_address_name
-
-                                val address_name = addressObject.getString("addressName")
-                                App.prefs.address_name = address_name
-
-                                val lat = addressObject.getString("lat")
-                                App.prefs.lat = lat
-
-                                val lon = addressObject.getString("lon")
-                                App.prefs.lon = lon
-
-                                Log.d("임영택 Login lat ",addressObject.getString("lat"))
-                                Log.d("임영택 Login lon ",addressObject.getString("lon"))
-                                Log.d("임영택 Login lat pref ",lat)
-                                Log.d("임영택 Login lon pref ",lon)
-
-                                Log.d(TAG, "token = $token")
-                                Log.d(TAG, "memberID = $memberId")
-                                Log.d(TAG, "email = $email")
-                                Log.d(TAG, "username = $username")
-
-                                //가장 최근에 로그인한 이메일로 로그인 페이지 이메일 저장
-                                binding.loginId.setText(ID)
-
-                                val intent = Intent(this, MainNewActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                val errorMessage = jsonObject.getString("message")
-                                Log.d(TAG, "error message = $errorMessage")
-                                Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT)
-                                    .show()
-
-                            }
-                        }
-                        //API 호출 실패시
-                        RESPONSE_STATE.FAIL -> {
-                            Log.d(TAG, "API 호출 실패 : $responseBody")
-                        }
-                    }
-                })
+            LOGIN_API(myLogin)
         }
 
+    }
+
+    private fun LOGIN_API(myLogin: Login) {
+        RetrofitManager.instance.loginService(
+            login = myLogin,
+            completion = { responseState, responseBody ->
+                when (responseState) {
+
+                    //API 호출 성공시
+                    RESPONSE_STATE.OKAY -> {
+                        Log.d(TAG, "API 호출 성공 : $responseBody")
+
+                        //JSON parsing
+                        //{}->JSONObject, []->JSONArray
+                        val jsonObject = JSONObject(responseBody)
+                        val statusCode = jsonObject.getInt("statusCode")
+
+                        if (statusCode == 200) {
+                            val token = jsonObject.getString("token")
+                            App.prefs.token = token
+
+                            val email = jsonObject.getString("email")
+                            App.prefs.email = email
+
+                            App.prefs.pw = myLogin.password
+
+                            val username = jsonObject.getString("username")
+                            App.prefs.username = username
+
+                            val memberId = jsonObject.getLong("memberId")
+                            App.prefs.memberId = memberId
+
+                            val phone = jsonObject.getString("phone")
+                            App.prefs.phone = phone
+
+                            val addressObject = jsonObject.getJSONObject("addressObject")
+
+                            val place_name = addressObject.getString("placeName")
+                            App.prefs.place_name = place_name
+
+                            val road_address_name = addressObject.getString("roadAddressName")
+                            App.prefs.road_address_name = road_address_name
+
+                            val address_name = addressObject.getString("addressName")
+                            App.prefs.address_name = address_name
+
+                            val lat = addressObject.getString("lat")
+                            App.prefs.lat = lat
+
+                            val lon = addressObject.getString("lon")
+                            App.prefs.lon = lon
+
+                            val intent = Intent(this, MainNewActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            val errorMessage = jsonObject.getString("message")
+                            Log.d(TAG, "error message = $errorMessage")
+                            Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                    //API 호출 실패시
+                    RESPONSE_STATE.FAIL -> {
+                        Log.d(TAG, "API 호출 실패 : $responseBody")
+                    }
+                }
+            })
     }
 }
