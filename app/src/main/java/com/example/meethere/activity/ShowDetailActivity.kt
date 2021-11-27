@@ -30,16 +30,16 @@ class ShowDetailActivity : AppCompatActivity() {
         var min_index = intent.getIntExtra("resultToDetailMinIndex", 0)
 
 
-        Log.d("상세 정보 확인", wholeDetailRouteList!![0].toString())
-        Log.d("상세 정보 확인", wholeDetailRouteList[1].toString())
-        Log.d("상세 정보 확인", wholeDetailRouteList[2].toString())
-        Log.d("상세 정보 확인", wholeDetailRouteList[3].toString())
-
-        Log.d("최소값가지는 인덱스", min_index.toString())
-
-        Log.d("최소 시간", wholeRouteList[min_index].totalTime.toString())
-        Log.d("최소 거리", wholeRouteList[min_index].walkTime.toString())
-        Log.d("최소 시간", wholeRouteList[min_index].totalFee.toString())
+//        Log.d("상세 정보 확인", wholeDetailRouteList!![0].toString())
+//        Log.d("상세 정보 확인", wholeDetailRouteList[1].toString())
+//        Log.d("상세 정보 확인", wholeDetailRouteList[2].toString())
+//        Log.d("상세 정보 확인", wholeDetailRouteList[3].toString())
+//
+//        Log.d("최소값가지는 인덱스", min_index.toString())
+//
+//        Log.d("최소 시간", wholeRouteList[min_index].totalTime.toString())
+//        Log.d("최소 거리", wholeRouteList[min_index].walkTime.toString())
+//        Log.d("최소 시간", wholeRouteList[min_index].totalFee.toString())
 
         if(wholeRouteList!![min_index].totalTime > 60){
             total_time.setText(""+(wholeRouteList!![min_index].totalTime / 60)+"시간 "+(wholeRouteList!![min_index].totalTime % 60)+"분")

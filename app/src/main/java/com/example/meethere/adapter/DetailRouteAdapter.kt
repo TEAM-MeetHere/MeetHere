@@ -92,7 +92,13 @@ class DetailRouteAdapter (var dataSet: List<List<RouteItemComponent>>, var whole
                 (holder as ViewHolder_1).txtTime.setText(""+obj.sectionTime+"분")
                 (holder as ViewHolder_1).txtStation.setText(""+obj.busNoORname+" "+obj.startName+" 승차")
                 (holder as ViewHolder_1).txtDirection.setText(""+obj.passStopList[1].first+"방면 ("+obj.way+"행)")
-                (holder as ViewHolder_1).txtQuitTransferDoor.setText("빠른 환승 "+obj.door)
+
+                if(obj.door == "null"){
+                    (holder as ViewHolder_1).txtQuitTransferDoor.setText("")
+                }
+                else {
+                    (holder as ViewHolder_1).txtQuitTransferDoor.setText("빠른 환승 " + obj.door)
+                }
                 (holder as ViewHolder_1).txtStationCount.setText(""+obj.stationCount+"개 역 이동")
 
                 if(obj.passStopList.size == 2){
@@ -147,12 +153,23 @@ class DetailRouteAdapter (var dataSet: List<List<RouteItemComponent>>, var whole
                 if(obj.resultIndex == -1){
                     (holder as ViewHolder_5).txtTime.setText("" + obj.sectionTime + "분")
                     (holder as ViewHolder_5).txtStation.setText("" + obj.endName + " 하차")
-                    (holder as ViewHolder_5).txtMeter.setText("" + obj.startExitnoORendExitno + "번 출구에서 " + obj.startName+"까지 도보" +obj.distance + "m")
+                    if(obj.startExitnoORendExitno == "-1"){
+                        // odsay api에서 해당 정보 못받아옴.
+                        (holder as ViewHolder_5).txtMeter.setText("다음 지점인 " + obj.startName+"까지 도보" +obj.distance + "m")
+                    }
+                    else {
+                        (holder as ViewHolder_5).txtMeter.setText("" + obj.startExitnoORendExitno + "번 출구에서 " + obj.startName + "까지 도보" + obj.distance + "m")
+                    }
                 }
                 else {
                     (holder as ViewHolder_5).txtTime.setText("" + obj.sectionTime + "분")
                     (holder as ViewHolder_5).txtStation.setText("" + obj.endName + " 하차")
-                    (holder as ViewHolder_5).txtMeter.setText("" + obj.startExitnoORendExitno + "번 출구에서 " + obj.distance + "m")
+                    if(obj.startExitnoORendExitno == "-1"){
+                        (holder as ViewHolder_5).txtMeter.setText("" + obj.endName + "에서 " + obj.distance + "m")
+                    }
+                    else {
+                        (holder as ViewHolder_5).txtMeter.setText("" + obj.startExitnoORendExitno + "번 출구에서 " + obj.distance + "m")
+                    }
                 }
             }
 
@@ -182,6 +199,7 @@ class DetailRouteAdapter (var dataSet: List<List<RouteItemComponent>>, var whole
                     (holder as ViewHolder_7).txtTime.setText("" + obj.sectionTime + "분")
                     (holder as ViewHolder_7).txtStation.setText("" +obj.endName+"에 도착해서")
                     if (obj.startExitnoORendExitno == "NoData") {
+                        Log.d("view holder7에서의 startName -> ", obj.startName)
                         if(obj.startName == "NoData"){
                             // 목적지케이스
                             (holder as ViewHolder_7).txtMeter.setText("목적지까지 도보 " + obj.distance + "m")
@@ -190,7 +208,12 @@ class DetailRouteAdapter (var dataSet: List<List<RouteItemComponent>>, var whole
                             (holder as ViewHolder_7).txtMeter.setText("" + obj.startName + " 정류장까지 도보 " + obj.distance + "m")
                         }
                     } else {
-                        (holder as ViewHolder_7).txtMeter.setText(obj.startName + "역의 " + obj.startExitnoORendExitno + "번 출구까지 " + obj.distance + "m")
+                        if(obj.startExitnoORendExitno == "-1"){
+                            (holder as ViewHolder_7).txtMeter.setText(obj.startName + "역까지 " + obj.distance + "m")
+                        }
+                        else {
+                            (holder as ViewHolder_7).txtMeter.setText(obj.startName + "역의 " + obj.startExitnoORendExitno + "번 출구까지 " + obj.distance + "m")
+                        }
                     }
 
                 }
@@ -206,6 +229,9 @@ class DetailRouteAdapter (var dataSet: List<List<RouteItemComponent>>, var whole
                     if (obj.startExitnoORendExitno == "NoData") {
                         (holder as ViewHolder_7).txtMeter.setText("도보 " + obj.distance + "m")
                     } else {
+                        if(obj.startExitnoORendExitno == "-1"){
+                            (holder as ViewHolder_7).txtMeter.setText(obj.startName + "역까지 " + obj.distance + "m")
+                        }
                         (holder as ViewHolder_7).txtMeter.setText(obj.startName + "역의 " + obj.startExitnoORendExitno + "번 출구까지 " + obj.distance + "m")
                     }
                 }
