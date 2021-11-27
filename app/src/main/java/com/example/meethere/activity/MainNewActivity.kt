@@ -107,6 +107,7 @@ class MainNewActivity : AppCompatActivity() {
             Log.d("테스트", "널2")
         }
         else {
+            FriendFragment.refresh()
         }
         if (promiseFragment == null) {
             Log.d("테스트", "널3")
