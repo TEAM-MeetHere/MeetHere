@@ -5,23 +5,17 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.OtherRouteActivity">
-
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background = "@color/purple_700"/>-->
+    tools:context=".activity.OtherRouteCityToCityActivity">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/transport_tab"
         android:layout_marginTop ="90dp"
+        android:id="@+id/tab_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewpager2_layout"
+        android:id="@+id/viewpager2_city"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
