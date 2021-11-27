@@ -15,13 +15,13 @@ import android.telephony.SmsMessage
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.example.meethere.R
 import com.example.meethere.databinding.ActivitySendRequestLocationBinding
 import com.example.meethere.sharedpreferences.App
 
 class SendRequestLocationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySendRequestLocationBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySendRequestLocationBinding.inflate(layoutInflater)
@@ -42,6 +42,7 @@ class SendRequestLocationActivity : AppCompatActivity() {
 
         val name = intent.getStringExtra("name")
         val phone = intent.getStringExtra("phone")
+        val app_link = "https://wemeethere.page.link/bjYi"
 
         val tempPhone = phone!!.replace("-", "")
 
@@ -49,7 +50,7 @@ class SendRequestLocationActivity : AppCompatActivity() {
         binding.tvPhone.setText(phone)
 
         val sender = App.prefs.username
-        binding.etRequestMessage.setText("$sender 님의 현재 위치 요청 메시지 입니다.")
+        binding.etRequestMessage.setText("$sender 님의 현재 위치 요청 메시지 입니다. $app_link")
 
         binding.btSend.setOnClickListener {
 

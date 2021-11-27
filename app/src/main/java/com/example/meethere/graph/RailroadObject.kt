@@ -1,8 +1,10 @@
 package com.example.meethere.graph
 
-data class RailroadObject(
-    val railroad_time: Int,     // 철도 소요시간
-    val railroad_line: String,   // 철도 호선
-    val railroad_start: StationObject,   // 출발
-    val railroad_end: StationObject     // 도착
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+
+data class RailroadObject @JsonCreator constructor(
+    @JsonProperty("railroad_time") var railroad_time: Int,     // 철도 소요시간
+    @JsonProperty("railroad_line") val railroad_line: String,   // 철도 호선
+    @JsonProperty("railroad_endID") val railroad_endID: String,     // 도착 ID
 )

@@ -40,6 +40,8 @@ android {
     }
 }
 
+
+
 dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
     implementation 'androidx.core:core-ktx:1.6.0'
@@ -74,4 +76,10 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.8.1"
     implementation files('libs/ODsayAndroidSDK')
     implementation files('libs/ODsayAndroidSDK.aar')
+
+    //calendar
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+
+    //json
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+"
 }

@@ -15,11 +15,11 @@ import org.json.JSONObject
 class AuthIDActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthIdBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthIdBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         //인증 버튼 클릭
         binding.authIDRegister.setOnClickListener {
@@ -67,9 +67,6 @@ class AuthIDActivity : AppCompatActivity() {
                     }
                 }
             )
-
-
         }
-
     }
 }

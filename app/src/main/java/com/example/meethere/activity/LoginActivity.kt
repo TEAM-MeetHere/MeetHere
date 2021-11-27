@@ -1,9 +1,7 @@
 package com.example.meethere.activity
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,18 +13,21 @@ import com.example.meethere.utils.Constants.TAG
 import com.example.meethere.utils.RESPONSE_STATE
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
-import java.security.MessageDigest
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.loginId.setText("log8450@gmail.com")
-        binding.loginPw.setText("qwe123!")
+        if (App.prefs.email != "") {
+            val intent = Intent(this, MainNewActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         //회원가입 클릭
         binding.join.setOnClickListener {
@@ -112,6 +113,9 @@ class LoginActivity : AppCompatActivity() {
                                 Log.d(TAG, "memberID = $memberId")
                                 Log.d(TAG, "email = $email")
                                 Log.d(TAG, "username = $username")
+
+                                //가장 최근에 로그인한 이메일로 로그인 페이지 이메일 저장
+                                binding.loginId.setText(ID)
 
                                 val intent = Intent(this, MainNewActivity::class.java)
                                 startActivity(intent)

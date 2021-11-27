@@ -22,6 +22,7 @@ import org.json.JSONObject
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityRegisterBinding
 
     lateinit var addressObject: AddressObject

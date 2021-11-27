@@ -3,6 +3,7 @@ package com.example.meethere.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -13,7 +14,6 @@ import com.example.meethere.fragment.SetLocation2InputList
 import com.example.meethere.fragment.SetLocation3InputAddress
 import kotlinx.android.synthetic.main.activity_set_location.*
 import kotlinx.android.synthetic.main.fragment_set_location1_keyword.*
-
 
 class SetLocationActivity : AppCompatActivity() {
     private var flag: Int = 1
@@ -43,8 +43,12 @@ class SetLocationActivity : AppCompatActivity() {
         btnNext.setOnClickListener {
             if (flag == 2) {
                 /*val intent = Intent(applicationContext, SelectDestination_2_6Activity::class.java)*/
+
+                /*val intent =
+                    Intent(applicationContext, SelectDestinationActivity::class.java)*/
+
                 val intent =
-                    Intent(applicationContext, SelectDestinationActivity::class.java)
+                    Intent(applicationContext, Algorithm1Activity::class.java)
                 // 인텐트
 
                 val fragment1: SetLocation1Keyword =
@@ -53,17 +57,22 @@ class SetLocationActivity : AppCompatActivity() {
                     supportFragmentManager.findFragmentByTag("TAG2") as SetLocation2InputList
 
                 if (fragment2.getSize() == 0) {
-                    var t1 = Toast.makeText(this, "인원 추가하기 버튼으로 인원을 추가해주세요", Toast.LENGTH_SHORT)
+                    var t1 = Toast.makeText(this, "인원 추가하기 버튼으로 인원을 추가해주세요.", Toast.LENGTH_SHORT)
+                    t1.show()
+                    return@setOnClickListener
+                }
+
+                if (fragment2.getSize() == 1) {
+                    var t1 = Toast.makeText(this, "2인 이상부터 최적장소 검색이 가능합니다.", Toast.LENGTH_SHORT)
                     t1.show()
                     return@setOnClickListener
                 }
 
 
                 // 먼저 키워드값을 넘겨줌 (공란일경우 카페)
-                if(fragment1.etKeyword.text.toString() == "") {
-                    intent.putExtra("keywordData","카페")
-                }
-                else {
+                if (fragment1.etKeyword.text.toString() == "") {
+                    intent.putExtra("keywordData", "카페")
+                } else {
                     intent.putExtra("keywordData", fragment1.etKeyword.text.toString())
                 }
                 // 입력받은 주소들의 데이터를 통째로 SelectDestination으로 넘겨줌
@@ -105,7 +114,7 @@ class SetLocationActivity : AppCompatActivity() {
                 replaceFragment(f3)
             }
             else -> {
-                val intent = Intent(applicationContext, MainActivity::class.java)
+                val intent = Intent(applicationContext, MainNewActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -141,6 +150,14 @@ class SetLocationActivity : AppCompatActivity() {
     override fun onBackPressed() {
         flag--
         changeFragment(flag)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val fragment1: SetLocation1Keyword =
+            supportFragmentManager.findFragmentByTag("TAG1") as SetLocation1Keyword
+        Log.d("테스트", fragment1.toString())
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

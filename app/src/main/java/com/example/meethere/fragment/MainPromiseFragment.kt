@@ -1,13 +1,29 @@
 package com.example.meethere.fragment
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.style.ForegroundColorSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.meethere.R
+import com.example.meethere.activity.ShowBookmarkActivity
+import com.example.meethere.activity.ShowBookmarkResultActivity
 import com.example.meethere.databinding.FragmentMainPromiseBinding
-import com.google.android.material.tabs.TabLayout
+import com.example.meethere.objects.BookmarkObject
+import com.example.meethere.retrofit.RetrofitManager
+import com.example.meethere.sharedpreferences.App
+import com.example.meethere.utils.Constants
+import com.example.meethere.utils.RESPONSE_STATE
+import com.prolificinteractive.materialcalendarview.*
+import org.json.JSONObject
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,8 +40,11 @@ class MainPromiseFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private val t1: Fragment = MainPromiseListFragment()
-    private var t2: Fragment = MainPromiseCalendarFragment()
+    val bookmarkObjects = arrayListOf<BookmarkObject>()
+
+    private lateinit var binding: FragmentMainPromiseBinding
+
+    private val promises: ArrayList<CalendarDay> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,52 +58,175 @@ class MainPromiseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val binding = FragmentMainPromiseBinding.inflate(inflater, container, false)
-        childFragmentManager.beginTransaction().add(binding.FrameLayoutPromise.id, t1, "TAG1")
-        childFragmentManager.beginTransaction().add(binding.FrameLayoutPromise.id, t2, "TAG2")
+        binding = FragmentMainPromiseBinding.inflate(inflater, container, false)
 
-        fun replaceView(fragment: Fragment) {
-            childFragmentManager.beginTransaction().apply {
-                if (fragment.isAdded) {
-                    show(fragment)
-                } else {
-                    add(binding.FrameLayoutPromise.id, fragment)
-                }
+        refresh()
 
-                childFragmentManager.fragments.forEach {
-                    if (it != fragment && it.isAdded) {
-                        hide(it)
-                    }
-                }
-            }.commit()
-        }
-
-        replaceView(t1)
-
-        binding.tabLayoutPromise.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0-> {
-                        replaceView(t1)
-                    }
-                    1-> {
-                        replaceView(t2)
-                    }
-                }
+        binding.materialCalendar.setOnDateChangedListener(object : OnDateSelectedListener {
+            override fun onDateSelected(
+                widget: MaterialCalendarView,
+                date: CalendarDay,
+                selected: Boolean,
+            ) {
+                val intent = Intent(requireContext(), ShowBookmarkActivity::class.java)
+                intent.putExtra("bookmarkData", bookmarkObjects)
+                val fixedDate: CalendarDay = CalendarDay.from(date.year, date.month + 1, date.day)
+                val dateString = fixedDate.toString().substringAfter('{').substringBefore('}')
+                intent.putExtra("date", dateString)
+                startActivity(intent)
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
-
         })
+
+        binding.buttonList.setOnClickListener {
+            val intent = Intent(requireContext(), ShowBookmarkActivity::class.java)
+            intent.putExtra("bookmarkData", bookmarkObjects)
+            startActivity(intent)
+        }
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    fun refresh() {
+        Log.d("리프레시", "호출")
+        bookmarkObjects.clear()
+        promises.clear()
+
+        binding.materialCalendar.removeDecorators()
+        binding.materialCalendar.clearSelection()
+        binding.materialCalendar.invalidateDecorators()
+        
+        val sundayDecorator = SundayDecorator()
+        val saturdayDecorator = SaturdayDecorator()
+        val todayDecorator = TodayDecorator(requireContext())
+
+        binding.materialCalendar.addDecorator(sundayDecorator)
+        binding.materialCalendar.addDecorator(saturdayDecorator)
+        binding.materialCalendar.addDecorator(todayDecorator)
+
+        RetrofitManager.instance.bookmarkListService(
+            memberId = App.prefs.memberId,
+            completion = { responseState, responseBody ->
+                when (responseState) {
+
+                    //API 호출 성공시
+                    RESPONSE_STATE.OKAY -> {
+                        Log.d(Constants.TAG, "API 호출 성공 : $responseBody")
+
+                        //JSON parsing
+                        //{}->JSONObject, []->JSONArray
+                        val jsonObject = JSONObject(responseBody)
+                        val statusCode = jsonObject.getInt("statusCode")
+
+                        if (statusCode < 400) {
+                            val dataArray = jsonObject.getJSONArray("data")
+
+                            for (i in 0..dataArray.length() - 1) {
+
+                                val iObject = dataArray.getJSONObject(i)
+                                val id = iObject.getLong("id")
+                                val dateName = iObject.getString("dateName")
+//                              val username = iObject.getString("username")
+                                val date = iObject.getString("date")
+                                val placeName = iObject.getString("placeName")
+                                val roadAddressName = iObject.getString("roadAddressName")
+                                val addressName = iObject.getString("addressName")
+                                val lat = iObject.getString("lat")
+                                val lon = iObject.getString("lon")
+                                val dateData = date.split("-")
+
+                                bookmarkObjects.add(
+                                    BookmarkObject(
+                                        id,
+                                        dateName,
+                                        date,
+                                        placeName,
+                                        roadAddressName,
+                                        addressName,
+                                        lat,
+                                        lon
+                                    )
+                                )
+
+                                promises.add(CalendarDay.from(
+                                    dateData[0].toInt(),
+                                    dateData[1].toInt() - 1,
+                                    dateData[2].toInt()
+                                ))
+
+                            }
+
+                            for (proDay in promises) {
+                                binding.materialCalendar.addDecorators(PromiseDecorator(
+                                    requireActivity(),
+                                    proDay))
+                            }
+                            Log.d("리프레시", "$promises")
+                        } else {
+                            val errorMessage = jsonObject.getString("message")
+                            Log.d(Constants.TAG, "error message = $errorMessage")
+                            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+
+                    RESPONSE_STATE.FAIL -> {
+                        Log.d(Constants.TAG, "API 호출 실패 : $responseBody")
+                    }
+                }
+            }
+        )
+    }
+
+    class TodayDecorator(context: Context) : DayViewDecorator {
+        private var date = CalendarDay.today()
+        val drawable = context.resources.getDrawable(R.drawable.calendar_today)
+        override fun shouldDecorate(day: CalendarDay?): Boolean {
+            val flag = (day == date)
+            return day?.equals(date)!!
+        }
+
+        override fun decorate(view: DayViewFacade?) {
+            view?.setBackgroundDrawable(drawable)
+        }
+    }
+
+    class SundayDecorator : DayViewDecorator {
+        private val calendar = Calendar.getInstance()
+        override fun shouldDecorate(day: CalendarDay?): Boolean {
+            day?.copyTo(calendar)
+            val weekDay = calendar.get(Calendar.DAY_OF_WEEK)
+            return weekDay == Calendar.SUNDAY
+        }
+
+        override fun decorate(view: DayViewFacade?) {
+            view?.addSpan(object : ForegroundColorSpan(Color.RED) {})
+        }
+    }
+
+    class SaturdayDecorator : DayViewDecorator {
+        private val calendar = Calendar.getInstance()
+        override fun shouldDecorate(day: CalendarDay?): Boolean {
+            day?.copyTo(calendar)
+            val weekDay = calendar.get(Calendar.DAY_OF_WEEK)
+            return weekDay == Calendar.SATURDAY
+        }
+
+        override fun decorate(view: DayViewFacade?) {
+            view?.addSpan(object : ForegroundColorSpan(Color.BLUE) {})
+        }
+    }
+
+    class PromiseDecorator(context: Context, currentDay_: CalendarDay) : DayViewDecorator {
+        val drawable = context.resources.getDrawable(R.drawable.calendar_promise)
+        var currentDay = currentDay_
+        override fun shouldDecorate(day: CalendarDay?): Boolean {
+            return day?.equals(currentDay)!!
+        }
+
+        override fun decorate(view: DayViewFacade?) {
+            view?.setBackgroundDrawable(drawable)
+        }
     }
 
     companion object {
@@ -96,7 +238,7 @@ class MainPromiseFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment MainPromiseFragment.
          */
-        // TODO: Rename and change types and number of parameters
+// TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MainPromiseFragment().apply {
