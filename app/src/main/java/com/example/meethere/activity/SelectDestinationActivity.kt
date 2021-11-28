@@ -37,7 +37,7 @@ class SelectDestinationActivity : AppCompatActivity() {
     var algorithmLon: Double = 0.0
     var averageLat: Double = 0.0
     var averageLon: Double = 0.0
-    lateinit var keyword:String
+    lateinit var keyword: String
 
     companion object {
         const val BASE_URL = "https://dapi.kakao.com/"
@@ -50,9 +50,16 @@ class SelectDestinationActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.SelectDestinationTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        // SetLocation에서 넘겨준 입력받은 모든 주소 데이터를 가져옴
+        val addressObjects: Array<AddressObject> =
+            intent.getSerializableExtra("addressData") as Array<AddressObject>
+
+        keyword = intent.getStringExtra("keywordData").toString()
+
+        binding.SelectDestinationTabLayout.addOnTabSelectedListener(object :
+            TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when(tab?.position) {
+                when (tab?.position) {
                     0 -> {
                         //Tab1 : Time
                         usingLat = algorithmLat
@@ -95,10 +102,6 @@ class SelectDestinationActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewSearch.adapter = searchResultAdapter
 
-        // SetLocation에서 넘겨준 입력받은 모든 주소 데이터를 가져옴
-        val addressObjects: Array<AddressObject> =
-            intent.getSerializableExtra("addressData") as Array<AddressObject>
-
         val lats = DoubleArray(addressObjects.size)
         val lons = DoubleArray(addressObjects.size)
 
@@ -123,6 +126,8 @@ class SelectDestinationActivity : AppCompatActivity() {
         } else {
             algorithmLat = averageLat
             algorithmLon = averageLon
+            Toast.makeText(this, "시작 지점으로부터 수도권 전철역이 존재하지 않아 직선거리 기준으로 안내합니다.", Toast.LENGTH_LONG).show()
+            binding.SelectDestinationTabLayout.removeTabAt(0)
         }
 
         usingLat = algorithmLat
@@ -142,7 +147,6 @@ class SelectDestinationActivity : AppCompatActivity() {
         binding.mapDestination.addPOIItem(marker)
 
         // 중심점을 기준으로 Integer(5000) (임시값)의 키워드를 검색
-        keyword = intent.getStringExtra("keywordData").toString()
         searchKeyword(keyword,
             pageNumber,
             usingLat.toString(),

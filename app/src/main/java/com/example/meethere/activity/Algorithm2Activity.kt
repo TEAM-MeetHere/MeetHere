@@ -84,7 +84,7 @@ class Algorithm2Activity : AppCompatActivity() {
                 while (!start_station_queue.isEmpty()) {
 
                     val start = start_station_queue.poll()!! //새로운 출발역
-
+/*                    Log.d("테스트 : 출발역", start)*/
                     val jArray = jObject.getJSONObject(start) //출발역에 대한 JSONObject
 
                     val station_name = jArray.getString("station_name") //출발역 이름
@@ -155,8 +155,15 @@ class Algorithm2Activity : AppCompatActivity() {
                 }
             }
 
+            // 시간 증가
             if (answer.isEmpty()) {
-                max_time += 10
+                if (max_time < 30) {
+                    max_time += 10
+                } else if (max_time < 60) {
+                    max_time += 5
+                } else {
+                    max_time += 2
+                }
             }
 
             Log.d("테스트 : max time ", max_time.toString())
@@ -170,6 +177,7 @@ class Algorithm2Activity : AppCompatActivity() {
                 val target = id_list[i]
             }
 
+            // 각 역에 대한 환승 여부 체크
             for (i in 0 until answer.size) {
                 val target = answer[i]
                 val station_name = jObject.getJSONObject(target).getString("station_name")
@@ -181,24 +189,24 @@ class Algorithm2Activity : AppCompatActivity() {
                 Log.d("테스트 : 최종 역 이름 ", station_name)
             }
 
+            // 최종 역이 존재한다면
             if (answer.size != 0) {
                 odsayService =
                     ODsayService.init(this, "hQVkqz/l8aEPCdgn6JlDWk793L3D/rl5Cyko3JqKhcw")
 
-                // 시간을 몽땅 긁어올 리스트
+                val addressObjectsSize = addressObjects.size
+
+                // 시간 데이터를 가져올 리스트
                 var TimeList = mutableListOf<Int>()
 
-
-                val answersize = answer.size
-                val addressObjectsSize = addressObjects.size
+                binding.progressBarAlgorithm2.max = answer.size * addressObjectsSize
 
                 var onResultCallbackListener: OnResultCallbackListener =
                     object : OnResultCallbackListener {
-                        // 호출성공시 onSuccess -> 이 안에서 뭘 하냐
-                        // 호출을 성공했을 때 fragment에 data를 뿌려주고 싶은데....................
-                        // API호출 결과 데이터 리턴.
                         override fun onSuccess(ODsayData: ODsayData, api: API) {
                             nextActivityFlag += 1
+                            binding.progressBarAlgorithm2.progress = nextActivityFlag
+
                             Log.d("테스트 : API호출 성공", "성공")
 
                             var min_time: Int = 999999999
@@ -216,29 +224,31 @@ class Algorithm2Activity : AppCompatActivity() {
                             TimeList.add(min_time)
 
                             // 마지막 연산
-                            if ((answersize * addressObjectsSize) == nextActivityFlag) {
+                            if ((answer.size * addressObjectsSize) == nextActivityFlag) {
 
                                 // 각 시간들을 비교할 배열
-                                var TimeArray = Array(answersize) { 0 }
-                                for (i in 0 until answersize) {
+                                var TimeArray = Array(answer.size) { 0 }
+                                for (i in 0 until answer.size) {
                                     for (j in 0 until addressObjectsSize) {
                                         TimeArray[i] += TimeList[i * addressObjectsSize + j]
                                     }
                                 }
 
                                 // 시간들의 리스트를 단순이 배열로 변경한 것 뿐
-                                var TimeListAr:Array<Int> = TimeList.toTypedArray()
+                                var TimeListAr: Array<Int> = TimeList.toTypedArray()
 
                                 var minPosition = 0
-                                for (i in 0 until answersize) {
+                                for (i in 0 until answer.size) {
 
                                     // 같거나 작으면 편차계산
                                     if (TimeArray[i] <= TimeArray[minPosition]) {
-                                        Log.d("테스트 : tempArray1 : ",(minPosition * addressObjectsSize).toString() + " ~ " + (minPosition * addressObjectsSize + addressObjectsSize).toString())
+                                        Log.d("테스트 : tempArray1 : ",
+                                            (minPosition * addressObjectsSize).toString() + " ~ " + (minPosition * addressObjectsSize + addressObjectsSize).toString())
                                         var tempArray =
                                             TimeListAr.copyOfRange(minPosition * addressObjectsSize,
                                                 minPosition * addressObjectsSize + addressObjectsSize)
-                                        Log.d("테스트 : tempArray2 : ",(i * addressObjectsSize).toString() + " ~ " + (i * addressObjectsSize + addressObjectsSize).toString())
+                                        Log.d("테스트 : tempArray2 : ",
+                                            (i * addressObjectsSize).toString() + " ~ " + (i * addressObjectsSize + addressObjectsSize).toString())
                                         var tempArray2 =
                                             TimeListAr.copyOfRange(i * addressObjectsSize,
                                                 i * addressObjectsSize + addressObjectsSize)
@@ -288,15 +298,23 @@ class Algorithm2Activity : AppCompatActivity() {
                         }
                     }
 
-
                 Log.d("테스트 : ", answer.size.toString() + " / " + addressObjects.size.toString())
+
+                if (answer.size > 5) {
+                    // 최종 역이 5개 이상이면 환승역만 고려
+                    if(transfer_list.size != 0) {
+                        answer.clear()
+                        answer = transfer_list
+                    }
+                }
+
+                // 역에 대한 각 계산 실시
                 for (i in 0 until answer.size) {
                     val jArray = jObject.getJSONObject(answer[i]) //출발역에 대한 JSONObject
                     val station_lat = jArray.getString("station_lat")
                     val station_lon = jArray.getString("station_lon")
 
                     for (j in addressObjects.indices) {
-
                         Log.d("테스트 : ", answer[i] + "역에서" + addressObjects[j].user_name + "까지의 계산")
                         odsayService!!.requestSearchPubTransPath(
                             addressObjects[j].lon.toString(),
