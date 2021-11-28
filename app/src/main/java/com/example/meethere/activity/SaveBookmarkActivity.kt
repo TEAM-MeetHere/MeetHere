@@ -79,9 +79,8 @@ class SaveBookmarkActivity : AppCompatActivity() {
         //저장 버튼 클릭시
         binding.saveBtn.setOnClickListener {
             dateName = binding.etBookmarkName.text.toString()
-
             //약속 장소 입력되는 경우에만 진행
-            if (dateName != "") {
+            if (dateName != "" && myDate != "") {
                 Toast.makeText(this, "즐겨찾기 저장이 완료되었습니다.", Toast.LENGTH_SHORT).show()
 
                 //로그 출력
@@ -149,7 +148,7 @@ class SaveBookmarkActivity : AppCompatActivity() {
                 finish()
             } else {
                 Log.d(TAG, "약속 장소가 입력되지 않았습니다.")
-                Toast.makeText(this, "약속 장소가 입력되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "약속 이름 또는 약속 날짜가\n입력되지 않았습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }

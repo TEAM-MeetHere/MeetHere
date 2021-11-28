@@ -60,6 +60,7 @@ class Algorithm1Activity : AppCompatActivity() {
 
                     //주변역이 존재하지 않아 아무것도 받아오지 못한 경우
                     if (station.length() == 0) {
+                        binding.progressBarAlgorithm1.progress = 100
                         isExistStation = false
                         Log.d("In SearchStationActivity", "주변에 역이 존재하지 않습니다.")
                         val intent =
@@ -147,6 +148,5 @@ class Algorithm1Activity : AppCompatActivity() {
                 "1500"
             )
         }
-
     }
 }
