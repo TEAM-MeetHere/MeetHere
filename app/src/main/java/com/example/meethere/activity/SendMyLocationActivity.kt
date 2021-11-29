@@ -87,14 +87,14 @@ class SendMyLocationActivity : AppCompatActivity() {
         binding.tvPhone.setText(phone)
 
         val sender = App.prefs.username
-        val address = "$myLat,$myLon"
-        val address_name = "http://maps.google.com/maps?f=q&q=$address"
 
-        binding.etResponseMessage.setText("$sender 님의 위치입니다. $address_name")
+        binding.etResponseMessage.setText("$sender 님의 위치입니다. ")
 
         binding.btSend.setOnClickListener {
 
-            val message = binding.etResponseMessage.text.toString()
+            val address = "$myLat,$myLon"
+            val address_name = "http://maps.google.com/maps?f=q&q=$address"
+            val message = binding.etResponseMessage.text.toString() + address_name
 
             if (message != "") {
                 val sms = SmsManager.getDefault()
@@ -118,7 +118,7 @@ class SendMyLocationActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 111 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//            receiveMsg()
+            receiveMsg()
         }
     }
 

@@ -98,6 +98,10 @@ class SplashActivity : AppCompatActivity() {
                             Log.d(Constants.TAG, "error message = $errorMessage")
                             Toast.makeText(this@SplashActivity, errorMessage, Toast.LENGTH_SHORT)
                                 .show()
+
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         }
                     }
                     //API 호출 실패시

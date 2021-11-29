@@ -74,6 +74,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="40dp"
+        android:singleLine="true"
         android:background="@drawable/border"
         android:gravity="center|center_vertical"
         android:hint="클립보드에 복사된 공유코드를\n붙여넣어주세요"
