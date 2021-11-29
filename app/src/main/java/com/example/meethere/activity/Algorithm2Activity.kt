@@ -158,14 +158,13 @@ class Algorithm2Activity : AppCompatActivity() {
 
             // 시간 증가
             if (answer.isEmpty()) {
-                /*if (max_time < 30) {
+                if (max_time < 30) {
                     max_time += 10
                 } else if (max_time < 60) {
                     max_time += 5
                 } else {
                     max_time += 2
-                }*/
-                max_time += 10
+                }
             }
 
             Log.d("테스트 : max time ", max_time.toString())
@@ -358,12 +357,12 @@ class Algorithm2Activity : AppCompatActivity() {
             sum += num
         }
 
-        val mean = sum / 10
+        val mean = sum / numArray.size
 
         for (num in numArray) {
             standardDeviation += Math.pow(num - mean, 2.0)
         }
 
-        return Math.sqrt(standardDeviation / 10)
+        return Math.sqrt(standardDeviation / numArray.size)
     }
 }
