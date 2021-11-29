@@ -37,7 +37,7 @@ class SendRequestLocationActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS), 111
             )
         } else {
-//            receiveMsg()
+            receiveMsg()
         }
 
         val name = intent.getStringExtra("name")

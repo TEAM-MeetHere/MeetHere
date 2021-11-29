@@ -24,7 +24,12 @@ class ShowFriendActivity : AppCompatActivity() {
         val email = intent.getStringExtra("email")
         val name = intent.getStringExtra("name")
         val phone = intent.getStringExtra("phone")
-        val friend_id = intent.getStringExtra("friend_id")
+        val friend_id = intent.getLongExtra("friend_id", 0L)
+
+        Log.d("email", email.toString())
+        Log.d("name", name.toString())
+        Log.d("phone", phone.toString())
+        Log.d("friend_id", friend_id.toString())
 
         binding.tvShowFriendEmail.text = email
         binding.tvShowFriendName.text = name

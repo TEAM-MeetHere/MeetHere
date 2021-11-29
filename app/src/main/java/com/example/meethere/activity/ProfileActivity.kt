@@ -3,10 +3,15 @@ package com.example.meethere.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import com.example.meethere.databinding.ActivityProfileBinding
+import com.example.meethere.retrofit.RetrofitManager
 import com.example.meethere.sharedpreferences.App
+import com.example.meethere.utils.Constants.TAG
+import com.example.meethere.utils.RESPONSE_STATE
+import org.json.JSONObject
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -31,6 +36,51 @@ class ProfileActivity : AppCompatActivity() {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+        }
+
+        binding.profileUnregister.setOnClickListener {
+            RetrofitManager.instance.deleteMemberService(
+                memberId = App.prefs.memberId!!.toLong(),
+                completion = { responseState, responseBody ->
+                    when (responseState) {
+
+                        //API 호출 성공시
+                        RESPONSE_STATE.OKAY -> {
+                            Log.d(TAG, "API 호출 성공 : $responseBody")
+
+                            //JSON parsing
+                            //{}->JSONObject, []->JSONArray
+                            val jsonObject = JSONObject(responseBody)
+                            val statusCode = jsonObject.getInt("statusCode")
+
+                            if (statusCode == 200) {
+                                val message = jsonObject.getString("message")
+                                Log.d(TAG, "message = $message")
+                                Toast.makeText(this@ProfileActivity, message, Toast.LENGTH_LONG).show()
+
+                                App.prefs.username = null
+                                App.prefs.email = null
+                                App.prefs.token = null
+
+                                val intent = Intent(this, LoginActivity::class.java)
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                val errorMessage = jsonObject.getString("message")
+                                Log.d(TAG, "error message = $errorMessage")
+                                Toast.makeText(this@ProfileActivity, errorMessage, Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        //API 호출 실패시
+                        RESPONSE_STATE.FAIL -> {
+                            Log.d(TAG, "API 호출 실패 : $responseBody")
+                        }
+
+                    }
+                }
+            )
         }
     }
 

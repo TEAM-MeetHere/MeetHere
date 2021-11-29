@@ -12,10 +12,12 @@ import android.os.Bundle
 import android.provider.Telephony
 import android.telephony.SmsManager
 import android.telephony.SmsMessage
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.meethere.databinding.ActivitySendShareCodeBinding
+import com.example.meethere.sharedpreferences.App
 
 class SendShareCodeActivity : AppCompatActivity() {
 
@@ -42,7 +44,6 @@ class SendShareCodeActivity : AppCompatActivity() {
 
         val name = intent.getStringExtra("name")
         val phone = intent.getStringExtra("phone")
-        val app_link = "https://wemeethere.page.link/bjYi"
 
         val tempPhone = phone!!.replace("-", "")
 
@@ -54,11 +55,13 @@ class SendShareCodeActivity : AppCompatActivity() {
             val shareCode = binding.etShareCode.text.toString()
 
             if (shareCode != "") {
-                val sender = name
-                val message = "$sender 님의 공유코드 입니다. 공유코드 : $shareCode $app_link"
+                val sender = App.prefs.username
+                val message = "$sender 님의 위치공유코드 : $shareCode https://wemeethere.page.link/bjYi"
                 val sms = SmsManager.getDefault()
                 sms.sendTextMessage(tempPhone, null, message, null, null)
                 Toast.makeText(this, "공유코드 메시지 전송 완료", Toast.LENGTH_LONG).show()
+
+                Log.d("메시지 내용", message)
 
                 finish()
             } else {
