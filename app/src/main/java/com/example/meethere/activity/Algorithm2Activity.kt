@@ -5,6 +5,7 @@ import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.meethere.R
 import com.example.meethere.databinding.ActivityAlgorithm2Binding
 import com.example.meethere.objects.AddressObject
@@ -84,12 +85,12 @@ class Algorithm2Activity : AppCompatActivity() {
                 while (!start_station_queue.isEmpty()) {
 
                     val start = start_station_queue.poll()!! //새로운 출발역
-/*                    Log.d("테스트 : 출발역", start)*/
+
                     val jArray = jObject.getJSONObject(start) //출발역에 대한 JSONObject
 
                     val station_name = jArray.getString("station_name") //출발역 이름
                     val station_transfer = jArray.getBoolean("station_transfer") //환승역 존재 여부
-
+                    Log.d("테스트 : 출발역", station_name)
                     val station_railroad = jArray.getJSONArray("station_railroad")
 
                     //다음역(prev, next)에 대한 for 문 (prev, next) -> next_station 통합함
@@ -199,12 +200,11 @@ class Algorithm2Activity : AppCompatActivity() {
                 // 시간 데이터를 가져올 리스트
                 var TimeList = mutableListOf<Int>()
 
-                binding.progressBarAlgorithm2.max = answer.size * addressObjectsSize
-
                 var onResultCallbackListener: OnResultCallbackListener =
                     object : OnResultCallbackListener {
                         override fun onSuccess(ODsayData: ODsayData, api: API) {
                             nextActivityFlag += 1
+                            // 프로그레스 바 증가
                             binding.progressBarAlgorithm2.progress = nextActivityFlag
 
                             Log.d("테스트 : API호출 성공", "성공")
@@ -212,28 +212,40 @@ class Algorithm2Activity : AppCompatActivity() {
                             var min_time: Int = 999999999
                             var result = ODsayData.json.getJSONObject("result")
                             Log.d("테스트 : jsonObject : ", "$result")
-                            var resultBest = result.getJSONArray("path")
+                            try {
 
-                            for (i in 0 until resultBest.length()) {
-                                var resultBestOBJ = resultBest.getJSONObject(i)
-                                var resultBestOBJINFO = resultBestOBJ.getJSONObject("info")
-                                if (resultBestOBJINFO.getInt("totalTime") < min_time)
-                                    min_time = resultBestOBJINFO.getInt("totalTime")
+                                var resultBest = result.getJSONArray("path")
+
+                                for (i in 0 until resultBest.length()) {
+                                    var resultBestOBJ = resultBest.getJSONObject(i)
+                                    var resultBestOBJINFO = resultBestOBJ.getJSONObject("info")
+                                    if (resultBestOBJINFO.getInt("totalTime") < min_time)
+                                        min_time = resultBestOBJINFO.getInt("totalTime")
+                                }
+
+                                TimeList.add(min_time)
+                            } catch (e: JSONException) {
+                                Toast.makeText(this@Algorithm2Activity, "경로를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+                                finish()
+                                e.printStackTrace()
                             }
 
-                            TimeList.add(min_time)
-
                             // 마지막 연산
-                            if ((answer.size * addressObjectsSize) == nextActivityFlag) {
+                            Log.d("테스트 : answersize", answer.size.toString())
+                            Log.d("테스트 : 어드레스오브젝트리스트", addressObjectsSize.toString())
+                            Log.d("테스트 : 넥스트액티비티플래그", nextActivityFlag.toString())
 
+                            if ((answer.size * addressObjectsSize) == nextActivityFlag) {
+                                Log.d("테스트 : Time리스트", TimeList.toString())
                                 // 각 시간들을 비교할 배열
-                                var TimeArray = Array(answer.size) { 0 }
+                                var TimeArray = Array<Int>(answer.size) { 0 }
                                 for (i in 0 until answer.size) {
                                     for (j in 0 until addressObjectsSize) {
                                         TimeArray[i] += TimeList[i * addressObjectsSize + j]
+                                         Log.d("테스트 : TimeArray", TimeArray.contentDeepToString())
                                     }
                                 }
-
+                                Log.d("테스트 : TimeArray", TimeArray.contentDeepToString())
                                 // 시간들의 리스트를 단순이 배열로 변경한 것 뿐
                                 var TimeListAr: Array<Int> = TimeList.toTypedArray()
 
@@ -302,11 +314,16 @@ class Algorithm2Activity : AppCompatActivity() {
 
                 if (answer.size > 5) {
                     // 최종 역이 5개 이상이면 환승역만 고려
-                    if(transfer_list.size != 0) {
+                    Log.d("테스트 : 최종역 개수 5개 이상",
+                        answer.size.toString() + " / " + addressObjects.size.toString())
+                    if (transfer_list.size != 0) {
                         answer.clear()
                         answer = transfer_list
                     }
                 }
+
+                // 프로그레스 바 최대값 설정
+                binding.progressBarAlgorithm2.max = answer.size * addressObjectsSize
 
                 // 역에 대한 각 계산 실시
                 for (i in 0 until answer.size) {
@@ -340,12 +357,12 @@ class Algorithm2Activity : AppCompatActivity() {
             sum += num
         }
 
-        val mean = sum / 10
+        val mean = sum / numArray.size
 
         for (num in numArray) {
             standardDeviation += Math.pow(num - mean, 2.0)
         }
 
-        return Math.sqrt(standardDeviation / 10)
+        return Math.sqrt(standardDeviation / numArray.size)
     }
 }
