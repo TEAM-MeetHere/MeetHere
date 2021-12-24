@@ -31,7 +31,7 @@
         android:layout_weight="1"
         android:background="@drawable/border"
         android:gravity="left|center_vertical"
-        android:hint="인증번호가 메일로 전송되었습니다"
+        android:hint="인증번호가 메일로 전송되었습니다."
         android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
         android:singleLine="true"
@@ -43,10 +43,20 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:text=" 1. 메일이 수신되지 않은 경우, 스팸메일함을 확인해보세요.\n\n 2. Daum 계정을 이용하신 경우, 메일이 늦게 도착할 수 있습니다."
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/authID_register"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="18dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
@@ -56,4 +66,5 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
+
 </LinearLayout>

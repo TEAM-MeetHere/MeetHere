@@ -60,7 +60,7 @@
         android:layout_weight="1"
         android:background="@drawable/border"
         android:gravity="left|center_vertical"
-        android:hint=" 영문자, 숫자의 조합으로 6~45자"
+        android:hint=" 영문자, 숫자, 특수문자의 조합 6~45자"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
         android:singleLine="true"
