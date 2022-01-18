@@ -4,7 +4,6 @@
     <color name="colorPrimaryDark">#062342</color>
     <color name="colorAccent">#6BB2FF</color>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
@@ -20,13 +19,5 @@
     <color name="green">#14B411</color>
     <color name="green2">#18E815</color>
 
-    <color name="softBlack">#7E7E7E</color>
-
-    <color name="jinBlack">#242424</color>
-    <color name="hite">#FFFFFF</color>
-
-
-    <color name="blue">#8FBCDB</color>
-    <color name="blue2">#AED1E9</color>
 
 </resources>

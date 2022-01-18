@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">여기서만나</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="odsay_key">hQVkqz/l8aEPCdgn6JlDWk793L3D/rl5Cyko3JqKhcw</string>
-    <string name="title_activity_show_detail_map29">ShowDetailMap_2_9</string>
 </resources>
