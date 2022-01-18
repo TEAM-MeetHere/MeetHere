@@ -24,14 +24,14 @@
         android:gravity="center"
         android:hint="코드 입력" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/input_code_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="60dp"
-        android:background="#F8E4CC"
+        android:background="@drawable/button_color_drawable4"
         android:text="확인"
         android:textColor="@color/black" />
 

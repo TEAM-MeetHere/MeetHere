@@ -60,7 +60,7 @@
         android:layout_weight="1"
         android:background="@drawable/border"
         android:gravity="left|center_vertical"
-        android:hint="- 를 제외하고 입력"
+        android:hint="ex) 010-1234-1234"
         android:inputType="text|phone"
         android:paddingLeft="10dp"
         android:singleLine="true"

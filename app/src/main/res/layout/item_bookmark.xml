@@ -42,7 +42,7 @@
             app:layout_constraintStart_toStartOf="@+id/tv_promise_place_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_promise_place_name" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

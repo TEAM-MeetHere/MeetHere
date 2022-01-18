@@ -2,9 +2,11 @@ package com.choitaek.meethere.activity
 
 import KakaoAPI
 import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,6 +50,7 @@ class SearchAddressActivity : AppCompatActivity() {
             override fun onClick(addressObject: AddressObject, position: Int) {
                 val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].lat, listItems[position].lon)
                 binding.mapView.setMapCenterPointAndZoomLevel(mapPoint, 2, true)
+                hideKeyboard()
             }
         })
 
@@ -174,5 +177,11 @@ class SearchAddressActivity : AppCompatActivity() {
             // 검색 결과 없음
             makeText(this, "검색 결과가 없습니다", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        currentFocus?.clearFocus()
     }
 }
