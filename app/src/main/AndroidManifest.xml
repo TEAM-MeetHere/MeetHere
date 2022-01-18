@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.meethere">
+    package="com.choitaek.meethere">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".sharedpreferences.App"
+        android:name="com.choitaek.meethere.sharedpreferences.App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -27,114 +27,114 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".activity.Algorithm2Activity"
+            android:name="com.choitaek.meethere.activity.Algorithm2Activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true" />
         <activity
-            android:name=".activity.Algorithm1Activity"
+            android:name="com.choitaek.meethere.activity.Algorithm1Activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true" />
         <activity
-            android:name=".activity.ShowFriendActivity"
+            android:name="com.choitaek.meethere.activity.ShowFriendActivity"
             android:exported="true"
             android:label="친구 상세"
-            android:parentActivityName=".activity.MainNewActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.MainNewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.ShowBookmarkActivity"
+            android:name="com.choitaek.meethere.activity.ShowBookmarkActivity"
             android:exported="true"
             android:label="약속 목록"
-            android:parentActivityName=".activity.MainNewActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.MainNewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.ProfileActivity"
+            android:name="com.choitaek.meethere.activity.ProfileActivity"
             android:exported="true"
             android:label="내 프로필"
-            android:parentActivityName=".activity.MainNewActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.MainNewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.MainNewActivity"
+            android:name="com.choitaek.meethere.activity.MainNewActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarStyle" />
         <activity
-            android:name=".activity.FriendListActivity"
+            android:name="com.choitaek.meethere.activity.FriendListActivity"
             android:exported="true"
             android:label="친구 목록"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.SendMyLocationActivity"
+            android:name="com.choitaek.meethere.activity.SendMyLocationActivity"
             android:exported="true"
             android:label="현재 위치 전송하기"
-            android:parentActivityName=".activity.ShowFriendActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.ShowFriendActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.SendShareCodeActivity"
+            android:name="com.choitaek.meethere.activity.SendShareCodeActivity"
             android:exported="true"
             android:label="공유 코드 전송하기"
-            android:parentActivityName=".activity.ShowFriendActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.ShowFriendActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.SendRequestLocationActivity"
+            android:name="com.choitaek.meethere.activity.SendRequestLocationActivity"
             android:exported="true"
             android:label="위치 요청 전송하기"
-            android:parentActivityName=".activity.ShowFriendActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.ShowFriendActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.AddFriendActivity"
+            android:name="com.choitaek.meethere.activity.AddFriendActivity"
             android:exported="true"
             android:label="친구 추가"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.EditBookmarkActivity"
+            android:name="com.choitaek.meethere.activity.EditBookmarkActivity"
             android:exported="true"
             android:label="약속 수정"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.ShowBookmarkResultActivity"
+            android:name="com.choitaek.meethere.activity.ShowBookmarkResultActivity"
             android:exported="true"
             android:label="약속 상세"
-            android:parentActivityName=".activity.MainNewActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.MainNewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.SaveBookmarkActivity"
+            android:name="com.choitaek.meethere.activity.SaveBookmarkActivity"
             android:exported="true"
             android:label="약속 저장"
-            android:parentActivityName=".activity.ShowResultActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.ShowResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.SearchAddressActivity"
+            android:name="com.choitaek.meethere.activity.SearchAddressActivity"
             android:exported="true"
             android:label="주소 검색"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarStyle" />
         <activity
-            android:name=".activity.SelectDestinationActivity"
+            android:name="com.choitaek.meethere.activity.SelectDestinationActivity"
             android:exported="true"
             android:label="목적지 선택"
-            android:parentActivityName=".activity.SetLocationActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.SetLocationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.SetLocationActivity"
+            android:name="com.choitaek.meethere.activity.SetLocationActivity"
             android:exported="true"
             android:label="장소 검색하기"
-            android:parentActivityName=".activity.MainNewActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.MainNewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="com.choitaek.meethere.activity.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Splash">
@@ -145,65 +145,65 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.choitaek.meethere.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ID" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name="com.choitaek.meethere.activity.RegisterActivity"
             android:label="회원가입"
-            android:parentActivityName=".activity.LoginActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.FindIDActivity"
+            android:name="com.choitaek.meethere.activity.FindIDActivity"
             android:label="아이디 찾기"
-            android:parentActivityName=".activity.LoginActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.FindPWActivity"
+            android:name="com.choitaek.meethere.activity.FindPWActivity"
             android:label="비밀번호 찾기"
-            android:parentActivityName=".activity.LoginActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.AuthIDActivity"
+            android:name="com.choitaek.meethere.activity.AuthIDActivity"
             android:label="이메일 인증"
-            android:parentActivityName=".activity.RegisterActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.EditActivity"
+            android:name="com.choitaek.meethere.activity.EditActivity"
             android:label="정보 수정"
-            android:parentActivityName=".activity.ProfileActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.ProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.ShowResultActivity"
+            android:name="com.choitaek.meethere.activity.ShowResultActivity"
             android:label="검색결과"
-            android:parentActivityName=".activity.SelectDestinationActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.SelectDestinationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
         <activity
-            android:name=".activity.ShowDetailActivity"/>
+            android:name="com.choitaek.meethere.activity.ShowDetailActivity"/>
         <activity
-            android:name=".activity.ShowDetailCityToCityActivity"/>
+            android:name="com.choitaek.meethere.activity.ShowDetailCityToCityActivity"/>
 <!--            android:label="상세보기"-->
 <!--            android:parentActivityName=".activity.ShowResultActivity"-->
 <!--            android:screenOrientation="portrait"-->
 <!--            android:theme="@style/DarkActionBarStyle" />-->
         <activity
-            android:name=".activity.OtherRouteActivity"/>
+            android:name="com.choitaek.meethere.activity.OtherRouteActivity"/>
         <activity
-            android:name=".activity.OtherRouteCityToCityActivity"/>
+            android:name="com.choitaek.meethere.activity.OtherRouteCityToCityActivity"/>
         <activity
-            android:name=".activity.OtherRouteToShowDetail"/>
+            android:name="com.choitaek.meethere.activity.OtherRouteToShowDetail"/>
         <activity
-            android:name=".activity.OtherRouteToShowDetailCityToCity"/>
+            android:name="com.choitaek.meethere.activity.OtherRouteToShowDetailCityToCity"/>
         <activity
-            android:name=".activity.ShowDetailMapActivity"
+            android:name="com.choitaek.meethere.activity.ShowDetailMapActivity"
             android:label="지도보기"
-            android:parentActivityName=".activity.ShowDetailActivity"
+            android:parentActivityName="com.choitaek.meethere.activity.ShowDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DarkActionBarStyle" />
 

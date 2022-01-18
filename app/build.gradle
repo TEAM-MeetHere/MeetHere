@@ -8,7 +8,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.meethere"
+        applicationId "com.choitaek.meethere"
         minSdk 26
         targetSdk 31
         versionCode 1
@@ -81,4 +81,6 @@ dependencies {
 
     //json
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+"
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
 }
